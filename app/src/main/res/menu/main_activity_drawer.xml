@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group android:id="@+id/personal_message"
+        android:checkableBehavior="single" >
+        <item
+            android:id="@+id/nav_personal_info"
+            android:icon="@drawable/main_author"
+            android:title="个人信息" />
         <item
             android:id="@+id/nav_buying"
             android:icon="@drawable/main_buying"
@@ -28,25 +33,20 @@
             android:title="消息" />
     </group>
 
-    <item android:title="其它">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/main_share"
-                android:title="推荐给朋友" />
-            <item
-                android:id="@+id/nav_setting"
-                android:icon="@drawable/main_setting"
-                android:title="设置" />
-            <item
-                android:id="@+id/nav_author"
-                android:icon="@drawable/main_author"
-                android:title="关于作者" />
-            <item
-                android:id="@+id/nav_exit"
-                android:icon="@drawable/main_exit"
-                android:title="退出" />
-        </menu>
-    </item>
+    <group android:id="@+id/other"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/main_share"
+            android:title="推荐给朋友" />
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/main_setting"
+            android:title="设置" />
+        <item
+            android:id="@+id/nav_exit"
+            android:icon="@drawable/main_exit"
+            android:title="退出" />
+    </group>
 
 </menu>
