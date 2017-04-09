@@ -27,10 +27,13 @@ dependencies {
     compile ('com.github.ozodrukh:CircularReveal:1.3.1@aar') {
         transitive = true;
     }
+    compile 'com.miguelcatalan:materialsearchview:1.4.0'
+    compile 'com.ashokvarma.android:bottom-navigation-bar:1.4.1'
     //------------------组件-----------------------------------
     compile 'com.github.shem8:material-login:2.1.1'
     //------------------组件-----------------------------------
-    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.miguelcatalan:materialsearchview:1.0.1'
+    compile 'com.android.support:appcompat-v7:24.2.0'
     compile 'com.android.support:design:24.2.0'
     testCompile 'junit:junit:4.12'
 }
