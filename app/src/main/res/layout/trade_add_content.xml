@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:elevation="4dp"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#e6e6e6"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp">
+
+            <AutoCompleteTextView
+                android:id="@+id/trade_add_title_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="标题"
+                android:inputType="text"
+                android:maxLength="30"
+                android:textSize="20sp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#e6e6e6"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp">
+
+            <AutoCompleteTextView
+                android:id="@+id/trade_add_price_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="价格(元)"
+                android:inputType="number"
+                android:maxLength="8"
+                android:maxLines="1" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#e6e6e6"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp">
+
+            <AutoCompleteTextView
+                android:id="@+id/trade_add_desp_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="描述"
+                android:inputType="textMultiLine"
+                android:maxLength="128"
+                android:maxLines="4"
+                android:minLines="2" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/trade_add_tag_select"
+            style="@style/MaterialLoginTheme.SelectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:gravity="center"
+            android:text="设置分类"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp" />
+    </LinearLayout>
+</LinearLayout>
