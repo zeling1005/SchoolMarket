@@ -7,6 +7,6 @@ import com.peter.schoolmarket.data.pojo.User;
  */
 
 public interface OnLoginListener {
-    void loginSuccess(User user);
+    void loginSuccess(String message);
     void loginFailed();
 }

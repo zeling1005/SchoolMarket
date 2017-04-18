@@ -5,6 +5,8 @@ import com.peter.schoolmarket.data.pojo.Msg;
 import com.peter.schoolmarket.data.pojo.User;
 
 import java.util.List;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -26,7 +28,8 @@ public interface UserReq {
      */
     @POST(RetrofitConf.login)
     @FormUrlEncoded
-    Observable<Result<User>> login(
+    Observable<ResponseBody> login(
+    //Observable<Result<User>> login(
             @Field("username") String username,
             @Field("password") String password);
 
