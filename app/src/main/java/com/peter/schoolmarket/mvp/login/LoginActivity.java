@@ -5,16 +5,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 
 import com.peter.schoolmarket.R;
+import com.peter.schoolmarket.mvp.base.BaseActivity;
 
 /**
  * Created by PetterChen on 2017/4/6.
  */
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //setContentView(R.layout.login_activity);
+    public void initViews(Bundle savedInstanceState) {
+        setContentView(R.layout.login_activity);
     }
 }
