@@ -5,6 +5,6 @@ package com.peter.schoolmarket.mvp.login;
  */
 
 public interface IUserModel {
-    public void login(String userName, String password, OnLoginListener loginListener);
-    public void register(String userName, String password, OnRegisterListener registerListener);
+    void login(String userName, String password, OnLoginListener loginListener);
+    void register(String userName, String password, OnRegisterListener registerListener);
 }

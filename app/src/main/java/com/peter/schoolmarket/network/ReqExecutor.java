@@ -32,7 +32,9 @@ public class ReqExecutor {
     public static ReqExecutor INSTANCE() {
         return ReqExecutorBuilder.instance;
     }
+
     private Retrofit getRetrofit(Converter.Factory factory){
+
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
 
         if (BuildConfig.DEBUG) {//打印http日志

@@ -22,7 +22,7 @@ public class SplashActivity extends BaseActivity {
     private SimpleDraweeView view;
 
     @Override
-    public void initViews(Bundle savedInstanceState) {
+    protected void initViews(Bundle savedInstanceState) {
         //设置窗体全屏
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -52,15 +52,5 @@ public class SplashActivity extends BaseActivity {
                 finish();
             }
         }, 2500);
-
-        //跳转到主界面
-        /*new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        }, 2500);*/
     }
 }

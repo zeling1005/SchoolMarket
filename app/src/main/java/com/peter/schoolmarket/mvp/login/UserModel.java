@@ -11,74 +11,82 @@ import java.io.IOException;
 
 import okhttp3.ResponseBody;
 import rx.Subscriber;
+import rx.android.MainThreadSubscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
  * Created by PetterChen on 2017/4/11.
+ * model中的业务类，两个业务是login和register
  */
 
 public class UserModel implements IUserModel {
+
+    //登录业务
     @Override
     public void login(final String userName, final String password, final OnLoginListener loginListener) {
+
         final Result<User> result=new Result<User>().result(NetReturn.SERVER_ERROR);
+
         ReqExecutor
                 .INSTANCE()
                 .userReq()
                 .login(userName, password)
                 .subscribeOn(Schedulers.io())//在工作线程请求网络
                 .observeOn(AndroidSchedulers.mainThread())//在主线程处理结果
-                //.subscribe(new Subscriber<Result<User>>() {
-                .subscribe(new Subscriber<ResponseBody>() {
+                .subscribe(new Subscriber<Result<User>>() {
+
+                    //此方法在onNext()方法后执行
                     @Override
                     public void onCompleted() {
-
+                        loginListener.loginResult(result);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        loginListener.loginFailed();
+                        loginListener.loginResult(result);
                     }
 
-                    @Override
-                    public void onNext(ResponseBody responseBody) {
-                        loginListener.loginSuccess(responseBody.toString());
-                    }
-
-                    /*@Override
-                    public void onError(Throwable e) {
-                        loginListener.loginFailed();
-                    }
-
+                    //相当与onClick()
                     @Override
                     public void onNext(Result<User> resultData) {
                         result.setCode(resultData.getCode());
                         result.setMsg(resultData.getMsg());
                         result.setData(resultData.getData());
-                    }*/
+                    }
                 });
     }
 
+    //注册业务
     @Override
     public void register(final String userName, final String password, final OnRegisterListener registerListener) {
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
 
-                if ("admin".equals(userName) && "admin".equals(password)) {
-                    User user = new User();
-                    user.setUsername(userName);
-                    user.setPassword(password);
-                    registerListener.registerSuccess(user);
-                } else {
-                    registerListener.registerFailed();
-                }
-            }
-        }.start();
+        final Result<String> result = new Result<String>().result(NetReturn.SERVER_ERROR);
+
+        ReqExecutor
+                .INSTANCE()
+                .userReq()
+                .register(userName, password)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Result<String>>() {
+                    @Override
+                    public void onCompleted() {
+                        registerListener.registerResult(result);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        registerListener.registerResult(result);
+                    }
+
+                    @Override
+                    public void onNext(Result<String> stringResult) {
+                        result.setCode(stringResult.getCode());
+                        result.setMsg(stringResult.getMsg());
+                        result.setData(stringResult.getData());
+                    }
+                });
+
     }
 }

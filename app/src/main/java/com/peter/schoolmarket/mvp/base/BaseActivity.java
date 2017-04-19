@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 
 public abstract class BaseActivity extends AppCompatActivity {
     protected String TAG = "BaseActivity";
-    public abstract void initViews(Bundle savedInstanceState);
+    protected abstract void initViews(Bundle savedInstanceState);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

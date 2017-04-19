@@ -28,17 +28,7 @@ public interface UserReq {
      */
     @POST(RetrofitConf.login)
     @FormUrlEncoded
-    Observable<ResponseBody> login(
-    //Observable<Result<User>> login(
-            @Field("username") String username,
-            @Field("password") String password);
-
-    /**
-     * 获取token
-     */
-    @POST(RetrofitConf.auth)
-    @FormUrlEncoded
-    Call<String> auth(
+    Observable<Result<User>> login(
             @Field("username") String username,
             @Field("password") String password);
 
@@ -50,6 +40,17 @@ public interface UserReq {
     Observable<Result<String>> register(
             @Field("username")  String username,
             @Field("password")  String password);
+
+    /*---------------------------我是分割线---------------------------------*/
+
+    /**
+     * 获取token
+     */
+    @POST(RetrofitConf.auth)
+    @FormUrlEncoded
+    Call<String> auth(
+            @Field("username") String username,
+            @Field("password") String password);
 
 
     /**
