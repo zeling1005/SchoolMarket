@@ -21,7 +21,7 @@
         app:theme="@style/MaterialLoginTheme.TextAppearanceLogin">
 
         <AutoCompleteTextView
-            android:id="@+id/register_next_phone_autocomplete"
+            android:id="@+id/register_next_phone_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="手机号"

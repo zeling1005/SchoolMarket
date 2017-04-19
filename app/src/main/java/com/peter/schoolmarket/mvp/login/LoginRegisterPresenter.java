@@ -50,12 +50,12 @@ public class LoginRegisterPresenter implements ILoginRegisterPresenter, OnLoginL
         switch (result.getCode()) {
             case 100:
                 //SharedPreferencesStorage.instance.saveUser(context,result.getData());
-                loginRegisterView.LoginSuccess();
+                loginRegisterView.loginSuccess();
                 break;
             case 99:
             case 201:
             case 202:
-                loginRegisterView.LoginFailed();
+                loginRegisterView.loginFailed();
                 break;
             default:
                 break;
@@ -70,12 +70,12 @@ public class LoginRegisterPresenter implements ILoginRegisterPresenter, OnLoginL
 
         switch (result.getCode()) {
             case 100:
-                loginRegisterView.RegisterSuccess();
+                loginRegisterView.registerSuccess();
                 break;
             case 99:
             case 203:
             case 204:
-                loginRegisterView.RegisterFailed();
+                loginRegisterView.registerFailed();
                 break;
             default:
                 break;

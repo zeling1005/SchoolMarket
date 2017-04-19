@@ -41,6 +41,15 @@ public interface UserReq {
             @Field("username")  String username,
             @Field("password")  String password);
 
+    /**
+     * 注册下一步，设置学校和手机号
+     */
+    @PUT(RetrofitConf.register_next)
+    @FormUrlEncoded
+    Observable<Result<User>> registerNext(
+            @Path("userId")  String user_id,
+            @Field("phone")  String phone);
+
     /*---------------------------我是分割线---------------------------------*/
 
     /**
@@ -51,17 +60,6 @@ public interface UserReq {
     Call<String> auth(
             @Field("username") String username,
             @Field("password") String password);
-
-
-    /**
-     * 注册下一步，设置学校和手机号
-     */
-    @PUT(RetrofitConf.register_next)
-    @FormUrlEncoded
-    Observable<Result<User>> registerNext(
-            @Path("userId")  String user_id,
-            @Field("phone")  String phone,
-            @Field("school")  String school);
 
     /**
      * 获取用户发起的志愿队列表

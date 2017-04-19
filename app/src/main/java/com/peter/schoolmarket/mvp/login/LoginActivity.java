@@ -2,6 +2,7 @@ package com.peter.schoolmarket.mvp.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
@@ -129,14 +130,14 @@ public class LoginActivity extends BaseActivity implements ILoginRegisterView {
     }
 
     @Override
-    public void LoginSuccess() {
+    public void loginSuccess() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }
 
     @Override
-    public void LoginFailed() {
+    public void loginFailed() {
         new SuperToast(LoginActivity.this)
                 .setText("登录失败")
                 .setDuration(Style.DURATION_LONG)
@@ -146,7 +147,7 @@ public class LoginActivity extends BaseActivity implements ILoginRegisterView {
     }
 
     @Override
-    public void RegisterSuccess() {
+    public void registerSuccess() {
         final String userId = "null";
         Intent intent=new Intent(LoginActivity.this, RegisterNextActivity.class);
         intent.putExtra("userId",userId);
@@ -155,7 +156,7 @@ public class LoginActivity extends BaseActivity implements ILoginRegisterView {
     }
 
     @Override
-    public void RegisterFailed() {
+    public void registerFailed() {
         new SuperToast(LoginActivity.this)
                 .setText("注册失败")
                 .setDuration(Style.DURATION_LONG)

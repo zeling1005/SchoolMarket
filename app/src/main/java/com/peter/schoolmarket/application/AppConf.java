@@ -10,7 +10,7 @@ public interface AppConf {
 
     boolean enabled_ssl=true;//是否使用https协议(包括Fresco加载的图片)
 
-    String BASE_URL="http://192.168.43.214:8080/";//服务器的xmarket-server地址及端口
+    String BASE_URL="http://219.216.72.219:8080/";//服务器的xmarket-server地址及端口
 
     long Message_Interval=30L;//轮询获取消息的时间间隔.(秒)
 

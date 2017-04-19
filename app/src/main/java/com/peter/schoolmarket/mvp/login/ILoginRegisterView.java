@@ -14,10 +14,10 @@ public interface ILoginRegisterView {
     void showRegisterLoading();//注册进度框
     void hideRegisterLoading();//隐藏进度框
     //结果
-    void LoginSuccess();//登录成功
-    void LoginFailed();//登录失败
-    void RegisterSuccess();//注册成功
-    void RegisterFailed();//注册失败
+    void loginSuccess();//登录成功
+    void loginFailed();//登录失败
+    void registerSuccess();//注册成功
+    void registerFailed();//注册失败
     //重新登录或注册时候需要
     void clearPassword();//清空密码
 
