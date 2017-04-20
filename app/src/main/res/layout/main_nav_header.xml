@@ -12,35 +12,38 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <!--ImageView
-        android:id="@+id/head_portrait"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:layout_gravity="center"
-        android:src="@drawable/main_boy" /-->
     <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/head_portrait"
+        android:id="@+id/header_portrait"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_gravity="center"
         fresco:placeholderImage="@drawable/main_person"
         android:layout_margin="16dp"/>
-    <!--fresco:roundedCornerRadius="56dp"
-    fresco:roundBottomLeft="true"
-    fresco:roundBottomRight="true"
-    fresco:placeholderImage="@drawable/main_person"
-    android:layout_margin="16dp"-->
 
-
-    <TextView
-        android:id="@+id/user_name"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="用户名"
-        android:textSize="16sp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:layout_height="48dp"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/header_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:gravity="center_vertical"
+            android:text="用户名"
+            android:textSize="12sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <TextView
+            android:id="@+id/header_phone"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:gravity="center_vertical"
+            android:text="手机号码"
+            android:textSize="12sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+    </LinearLayout>
 
 </LinearLayout>
