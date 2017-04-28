@@ -1,6 +1,8 @@
 package com.peter.schoolmarket.mvp.main;
 
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +19,7 @@ import com.peter.schoolmarket.data.pojo.User;
 import com.peter.schoolmarket.data.storage.LoginInfoExecutor;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * Created by PetterChen on 2017/4/20.
@@ -136,4 +139,72 @@ public class MainPresenter implements IMainPresenter {
             }
         });
     }
+
+    /*public void showFragment(int position) {
+        FragmentTransaction ft = fm.beginTransaction();
+        hideAllFragment(ft);
+        switch (position) {
+            case 0 : if (schoolFragment != null) {
+                ft.show(schoolFragment);
+            } else {
+                schoolFragment = new SchoolFragment();
+                ft.add(R.id.frame_layout, schoolFragment);
+            }
+                break;
+            case 1 : if (tradeTagFragment != null) {
+                ft.show(tradeTagFragment);
+            } else {
+                tradeTagFragment = new TradeTagFragment();
+                ft.add(R.id.frame_layout, tradeTagFragment);
+            }
+                break;
+            case 2 : if (teamFragment != null) {
+                ft.show(teamFragment);
+            } else {
+                teamFragment = new TeamFragment();
+                ft.add(R.id.frame_layout, teamFragment);
+            }
+                break;
+            case 3 : if (messageFragment != null) {
+                ft.show(messageFragment);
+            } else {
+                messageFragment = new MessageFragment();
+                ft.add(R.id.frame_layout, messageFragment);
+            }
+                break;
+        }
+        ft.commit();
+    }
+
+    public void hideAllFragment(FragmentTransaction ft) {
+        if (schoolFragment != null) {
+            ft.hide(schoolFragment);
+        }
+        if (tradeTagFragment != null) {
+            ft.hide(tradeTagFragment);
+        }
+        if (teamFragment != null) {
+            ft.hide(teamFragment);
+        }
+        if (messageFragment != null) {
+            ft.hide(messageFragment);
+        }
+    }
+
+    private void executeLogout(){
+        UserIntermediate.instance.logOut(context);
+
+        final RealmResults<RealmTrade> results = realmDefault.where(RealmTrade.class).findAll();//清除school存储
+        realmDefault.executeTransaction((Realm realm) -> results.deleteAllFromRealm());
+
+        final RealmResults<Team> teamResults = realmDefault.where(Team.class).findAll();//清除志愿队存储
+        realmDefault.executeTransaction((Realm realm) -> teamResults.deleteAllFromRealm());
+
+        final RealmResults<Message> msgResults = realmDefault.where(Message.class).findAll();//清除消息存储
+        realmDefault.executeTransaction((Realm realm) -> msgResults.deleteAllFromRealm());
+
+        Intent loginIntent=new Intent(context, LoginRegisterActivity.class);
+        context.startActivity(loginIntent);
+        context.finish();
+    }*/
 }
