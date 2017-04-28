@@ -4,16 +4,20 @@ import com.google.gson.annotations.Expose;
 
 import java.util.List;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by PetterChen on 2017/4/28.
  */
 
-public class Trade {
+public class Trade extends RealmObject {
+    @PrimaryKey
     private String id;//商品ID
     private String title;//商品名字
     private User author;//商品所属者
     private long price;//商品价格
-    private String type;//商品类别
+    private String tagName;//商品类别
     private String imgUrls;//商品图片
     //private long createTime;//商品创建时间
     private int status;//商品状态。0:在售，1:售出
@@ -27,7 +31,7 @@ public class Trade {
                 ", title='" + title + '\'' +
                 ", author=" + author +
                 ", price=" + price +
-                ", type='" + type + '\'' +
+                ", tagName='" + tagName + '\'' +
                 ", imgUrls='" + imgUrls + '\'' +
                 ", status=" + status +
                 ", releaseCheck=" + releaseCheck +
@@ -50,8 +54,8 @@ public class Trade {
         this.price = price;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setTagName(String type) {
+        this.tagName = type;
     }
 
     public void setImgUrls(String imgUrls) {
@@ -82,8 +86,8 @@ public class Trade {
         return price;
     }
 
-    public String getType() {
-        return type;
+    public String getTagName() {
+        return tagName;
     }
 
     public int getStatus() {
