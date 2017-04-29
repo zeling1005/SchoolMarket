@@ -24,7 +24,7 @@ public enum ResultInterceptor {
         }
     }
 
-    public boolean resultHandler(final Result<?> result,int...jump){
+    public boolean resultHandler(final Result<?> result,int...jump){//jump是个数不定的数组
 
         if (result==null){
             return false;

@@ -43,8 +43,7 @@ public class FindPresenter implements IFindPresenter, IGainListener {
         if (data.size()>0){
             initList(data);
         }else {
-            Toast.makeText(context, "no goods", Toast.LENGTH_LONG);
-            //String schoolName= UserIntermediate.instance.getUser(context).getSchool();
+            //这里可以添加一个加载窗口
             model.tradesDataReq(this, 0, realm);
         }
     }
@@ -71,44 +70,46 @@ public class FindPresenter implements IFindPresenter, IGainListener {
             @Override
             public void onItemClick(View view, int position) {
                 Trade item=trades.get(position);
+
                 //跳转到商品详情页面
                 Toast.makeText(context, "jump", Toast.LENGTH_LONG);
                 /*Intent intent=new Intent(context,TradeDetailActivity.class);
                 intent.putExtra("tradeId",item.getId());
                 intent.putExtra("userId",item.getAuthorId());
                 context.startActivity(intent);*/
+
             }
         });
     }
 
     @Override
-    public void onReqComplete(Result<List<Trade>> result, Realm realmDefault) {
+    public void onReqComplete(Result<List<Trade>> result, Realm realm) {
         view.hideRefresh();
-        if (!ResultInterceptor.instance.resultDataHandler(result)){
+        if (!ResultInterceptor.instance.resultDataHandler(result)){//判断是否Result数据为空
             return;
         }
         final List<Trade> tradeList=new ArrayList<>();
-        for (Trade trade:result.getData()){
-            //添加trade的realm
+        for (Trade trade:result.getData()){//(Trade trade : List<Trade>)
+            //realm添加trade
             Trade newTrade=new Trade();
             newTrade.setId(trade.getId());
             newTrade.setTitle(trade.getTitle());
+            newTrade.setAuthor(trade.getAuthor());
             newTrade.setPrice(trade.getPrice());
-            /*newTrade.setImg(AppConf.BASE_URL+trade.getImgUrls().get(0));
-            newTrade.setAuthorId(trade.getAuthor().getId());
-            newTrade.setAuthorImg(AppConf.BASE_URL+trade.getAuthor().getAvatarUrl());
-            newTrade.setAuthorName(trade.getAuthor().getUsername());*/
+            newTrade.setTagName(trade.getTagName());
+            newTrade.setImgUrls(trade.getImgUrls());
+            newTrade.setStatus(trade.getStatus());
             tradeList.add(newTrade);
         }
         initList(tradeList);
-        final RealmResults<Trade> results = realmDefault.where(Trade.class).findAll();
-        realmDefault.executeTransaction(new Realm.Transaction() {
+        final RealmResults<Trade> results = realm.where(Trade.class).findAll();
+        realm.executeTransaction(new Realm.Transaction() {//清空数据
             @Override
             public void execute(Realm realm) {
                 results.deleteAllFromRealm();
             }
         });
-        realmDefault.executeTransactionAsync(new Realm.Transaction() {
+        realm.executeTransactionAsync(new Realm.Transaction() {//重新加载数据
             @Override
             public void execute(Realm realm) {
                 realm.copyToRealm(tradeList);

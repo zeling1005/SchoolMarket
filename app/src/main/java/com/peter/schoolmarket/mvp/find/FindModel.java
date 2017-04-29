@@ -21,10 +21,11 @@ public class FindModel implements IFindModel {
 
     @Override
     public void tradesDataReq(final IGainListener listener, final int page, final Realm realm) {
-        if (AppConf.useMock){
+        //添加一个测试代码，测试代码是否正确
+        /*if (AppConf.useMock){
             listener.onReqComplete(new Result<List<Trade>>().result(NetReturn.SERVER_ERROR),realm);
             return;
-        }
+        }*/
         final Result<List<Trade>> result = new Result<List<Trade>>().result(NetReturn.SERVER_ERROR);
         ReqExecutor
                 .INSTANCE()
