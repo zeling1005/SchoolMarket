@@ -7,7 +7,7 @@ import com.peter.schoolmarket.data.dto.Result;
  */
 
 public enum ResultInterceptor {
-    instance;
+    instance, ResultInterceptor;
 
     public boolean resultHandler(final Result<?> result){
         if (result==null){

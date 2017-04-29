@@ -62,7 +62,7 @@ public class FindPresenter implements IFindPresenter, IGainListener {
                 holder.setFrescoImg(R.id.deal_img, Uri.parse(item.getImgUrls()));
                 holder.setFrescoImg(R.id.author_img,Uri.parse(item.getAuthor().getAvatarUrl()));
                 holder.setText(R.id.author_name,item.getAuthor().getUsername());
-                holder.setText(R.id.deal_price,"￥ "+item.getPrice());
+                holder.setText(R.id.deal_price,"￥ "+item.getNowPrice());
             }
         };
         view.loadDataSuccess(adapter);
@@ -71,8 +71,8 @@ public class FindPresenter implements IFindPresenter, IGainListener {
             public void onItemClick(View view, int position) {
                 Trade item=trades.get(position);
 
-                //跳转到商品详情页面
-                Toast.makeText(context, "jump", Toast.LENGTH_LONG);
+                //跳转到分类商品详情页面
+                Toast.makeText(context, "jump", Toast.LENGTH_LONG).show();
                 /*Intent intent=new Intent(context,TradeDetailActivity.class);
                 intent.putExtra("tradeId",item.getId());
                 intent.putExtra("userId",item.getAuthorId());
@@ -95,7 +95,7 @@ public class FindPresenter implements IFindPresenter, IGainListener {
             newTrade.setId(trade.getId());
             newTrade.setTitle(trade.getTitle());
             newTrade.setAuthor(trade.getAuthor());
-            newTrade.setPrice(trade.getPrice());
+            newTrade.setNowPrice(trade.getNowPrice());
             newTrade.setTagName(trade.getTagName());
             newTrade.setImgUrls(trade.getImgUrls());
             newTrade.setStatus(trade.getStatus());

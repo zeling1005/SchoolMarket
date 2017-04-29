@@ -29,7 +29,17 @@ public interface TradeReq {
      * 根据学校名称获取本校在售商品列表
      */
     @GET(RetrofitConf.get_school_trades)
-    Observable<Result<List<Trade>>> getSchoolTrades(
+    Observable<Result<List<Trade>>> getFindTrades(
+            @Query("page") int page,
+            @Query("size") int size
+    );
+
+    /**
+     * 根据分类获取在售商品列表
+     */
+    @GET(RetrofitConf.get_tag_trades)
+    Observable<Result<List<Trade>>> getTrades(
+            @Path("tagName")  String tagName,
             @Query("page") int page,
             @Query("size") int size
     );
@@ -85,14 +95,4 @@ public interface TradeReq {
     Observable<Result<String>> addTrade(
             @Part("trade") RequestBody trade,
             @Part List<MultipartBody.Part> parts);*/
-
-    /**
-     * 根据分类获取在售商品列表
-     */
-    /*@GET(ApiConf.get_tag_trades)
-    Observable<Result<List<Trade>>> getTrades(
-            @Path("tagName")  String tagName,
-            @Query("page") int page,
-            @Query("size") int size
-    );*/
 }

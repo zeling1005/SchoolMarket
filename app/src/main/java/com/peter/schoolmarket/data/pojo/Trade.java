@@ -16,7 +16,8 @@ public class Trade extends RealmObject {
     private String id;//商品ID
     private String title;//商品名字
     private User author;//商品所属者
-    private long price;//商品价格
+    private long originalPrice;//商品原价格
+    private long nowPrice;//二手商品价格
     private String tagName;//商品类别
     private String imgUrls;//商品图片
     //private long createTime;//商品创建时间
@@ -30,7 +31,7 @@ public class Trade extends RealmObject {
                 "id='" + id + '\'' +
                 ", title='" + title + '\'' +
                 ", author=" + author +
-                ", price=" + price +
+                ", originalPrice=" + originalPrice +
                 ", tagName='" + tagName + '\'' +
                 ", imgUrls='" + imgUrls + '\'' +
                 ", status=" + status +
@@ -50,8 +51,12 @@ public class Trade extends RealmObject {
         this.author = author;
     }
 
-    public void setPrice(long price) {
-        this.price = price;
+    public void setOriginalPrice(long originalPrice) {
+        this.originalPrice = originalPrice;
+    }
+
+    public void setNowPrice(long nowPrice) {
+        this.nowPrice = nowPrice;
     }
 
     public void setTagName(String type) {
@@ -82,8 +87,12 @@ public class Trade extends RealmObject {
         return title;
     }
 
-    public long getPrice() {
-        return price;
+    public long getOriginalPrice() {
+        return originalPrice;
+    }
+
+    public long getNowPrice() {
+        return nowPrice;
     }
 
     public String getTagName() {

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/trade_tag_detail_img"
+            android:layout_width="140dp"
+            android:layout_height="140dp" />
+
+        <ImageView
+            android:id="@+id/trade_tag_detail_img_bg"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:alpha="0.6"
+            android:background="@drawable/sort_pic_selector" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|start">
+
+            <TextView
+                android:id="@+id/trade_tag_detail_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="name"
+                android:textColor="#424242"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/trade_tag_detail_now_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="now price"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/trade_tag_detail_original_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="original"
+                android:textColor="#424242"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center|end">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:alpha="0.6"
+                android:src="@drawable/trade_tag_detail_next"/>
+
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>
