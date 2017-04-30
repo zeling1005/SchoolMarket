@@ -9,6 +9,7 @@ import com.peter.schoolmarket.R;
 import com.peter.schoolmarket.adapter.recycler.RecyclerCommonAdapter;
 import com.peter.schoolmarket.adapter.recycler.RecyclerViewHolder;
 import com.peter.schoolmarket.data.pojo.TradeTag;
+import com.peter.schoolmarket.util.TradeTagUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,13 +38,7 @@ public class TredeSortPresenter implements ITradeSortPresenter {
     }
 
     private void initData() {
-        tagList = new ArrayList<>();
-        for (int i = 0; i < TAG_NUM; i++) {
-            TradeTag newTradeTag = new TradeTag();
-            newTradeTag.setRId(R.drawable.sort_book);
-            newTradeTag.setName("学习资料");
-            tagList.add(newTradeTag);
-        }
+        tagList = TradeTagUtils.getTradeTag();
     }
 
     public void initList(final List<TradeTag> tags) {

@@ -22,7 +22,7 @@ public class Trade extends RealmObject implements Serializable {
     private String tagName;//商品类别
     private String imgUrls;//商品图片
     private String describe;//描述
-    //private long createTime;//商品创建时间
+    private long createTime;//商品创建时间
     private int status;//商品状态。0:在售，1:售出
     @Expose
     private boolean releaseCheck;//为了在发布时方便检查数据完整性，不存储在数据库中
@@ -43,6 +43,10 @@ public class Trade extends RealmObject implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setCreateTime(long createTime) {
+        this.createTime = createTime;
     }
 
     public void setTitle(String title) {
@@ -87,6 +91,10 @@ public class Trade extends RealmObject implements Serializable {
 
     public User getAuthor() {
         return author;
+    }
+
+    public long getCreateTime() {
+        return createTime;
     }
 
     public String getTitle() {

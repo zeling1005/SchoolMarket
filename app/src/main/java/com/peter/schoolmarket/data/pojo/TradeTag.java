@@ -1,5 +1,10 @@
 package com.peter.schoolmarket.data.pojo;
 
+import com.peter.schoolmarket.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 

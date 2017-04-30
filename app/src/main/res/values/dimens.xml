@@ -18,4 +18,7 @@
     <dimen name="font_size_xlarge">22sp</dimen>
 
 
+    <dimen name="actionBarSize">56dp</dimen>
+
+
 </resources>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -42,7 +43,7 @@
             android:layout_marginRight="24dp">
 
             <AutoCompleteTextView
-                android:id="@+id/trade_add_price_content"
+                android:id="@+id/trade_add_now_price_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="价格(元)"
@@ -59,7 +60,24 @@
             android:layout_marginRight="24dp">
 
             <AutoCompleteTextView
-                android:id="@+id/trade_add_desp_content"
+                android:id="@+id/trade_add_original_price_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="原价(元)"
+                android:inputType="number"
+                android:maxLength="8"
+                android:maxLines="1" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#e6e6e6"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp">
+
+            <AutoCompleteTextView
+                android:id="@+id/trade_add_describe_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="描述"
@@ -80,4 +98,19 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp" />
     </LinearLayout>
+
+    <View
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="10dp"
+        android:background="#aaaaaa"/>
+
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/trade_add_img"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        fresco:placeholderImage="@drawable/trade_add_img"
+        fresco:placeholderImageScaleType="fitCenter"/>
+
 </LinearLayout>

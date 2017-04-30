@@ -57,6 +57,15 @@ public interface TradeReq {
     );
 
     /**
+     * 发布商品
+     */
+    @Multipart
+    @POST(RetrofitConf.create_trade)
+    Observable<Result<String>> addTrade(
+            @Part("trade") RequestBody trade,
+            @Part MultipartBody.Part part);
+
+    /**
      * 获取分类列表请求(List<TradeTag>)
      *
      * kind设置为1
@@ -98,13 +107,4 @@ public interface TradeReq {
             @Query("page") int page,
             @Query("size") int size
     );*/
-
-    /**
-     * 发布商品
-     */
-    /*@Multipart
-    @POST(ApiConf.create_trade)
-    Observable<Result<String>> addTrade(
-            @Part("trade") RequestBody trade,
-            @Part List<MultipartBody.Part> parts);*/
 }
