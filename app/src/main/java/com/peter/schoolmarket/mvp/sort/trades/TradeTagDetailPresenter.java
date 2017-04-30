@@ -24,7 +24,7 @@ import java.util.List;
 
 public class TradeTagDetailPresenter implements ITradeTagDetailPresenter, ITradeTagDetailListener {
 
-    private AppCompatActivity context;;
+    private AppCompatActivity context;
     private ITradeTagDetailView view;
     private ITradeTagDetailModel model;
 

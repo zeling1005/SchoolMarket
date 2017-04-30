@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
+    android:layout_marginTop="55dp"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="170dp">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/trade_detail_img"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            fresco:placeholderImage="@drawable/icon_placeholder"
+            fresco:placeholderImageScaleType="fitCenter"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/trade_detail_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="trade name:phone"
+            android:textColor="#424242"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/trade_detail_now_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="now price:￥200"
+            android:textColor="#424242"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/trade_detail_original_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="original price:￥1000"
+            android:textColor="#424242"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="phone numbwe:"
+                android:textColor="#424242"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/trade_detail_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="18202429136"
+                android:textColor="#0277bd"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/trade_detail_describe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="describe:This phone has 80% new, very easy to use."
+            android:textColor="#424242"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/trade_detail_submit"
+            android:layout_width="match_parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="10dp"
+            android:text="我要购买"
+            android:layout_gravity="center_horizontal|bottom"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_xlarge"
+            android:background="#ff7878"/>
+    </LinearLayout>
+
+</LinearLayout>

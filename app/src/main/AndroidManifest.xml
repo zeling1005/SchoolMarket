@@ -36,6 +36,14 @@
         <activity android:name=".mvp.main.MainActivity">
         </activity>
 
+        <activity android:name=".mvp.sort.trades.TradeTagDetailActivity">
+
+        </activity>
+
+        <activity android:name=".mvp.login.register.next.RegisterNextActivity">
+
+        </activity>
+
     </application>
 
 </manifest>

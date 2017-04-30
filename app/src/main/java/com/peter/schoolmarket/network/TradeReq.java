@@ -7,6 +7,8 @@ import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -42,6 +44,16 @@ public interface TradeReq {
             @Path("tagName")  String tagName,
             @Query("page") int page,
             @Query("size") int size
+    );
+
+    //创建交易(发起购买商品请求)
+    @POST(RetrofitConf.create_deal)
+    @FormUrlEncoded
+    Observable<Result<String>> createDeal(
+            @Field("fromId") String fromId,
+            @Field("fromName") String fromName,
+            @Field("fromAvatar") String fromAvatar,
+            @Field("tradeId") String tradeId
     );
 
     /**

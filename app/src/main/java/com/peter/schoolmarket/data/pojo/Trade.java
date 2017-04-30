@@ -2,6 +2,7 @@ package com.peter.schoolmarket.data.pojo;
 
 import com.google.gson.annotations.Expose;
 
+import java.io.Serializable;
 import java.util.List;
 
 import io.realm.RealmObject;
@@ -11,7 +12,7 @@ import io.realm.annotations.PrimaryKey;
  * Created by PetterChen on 2017/4/28.
  */
 
-public class Trade extends RealmObject {
+public class Trade extends RealmObject implements Serializable {
     @PrimaryKey
     private String id;//商品ID
     private String title;//商品名字
@@ -20,6 +21,7 @@ public class Trade extends RealmObject {
     private long nowPrice;//二手商品价格
     private String tagName;//商品类别
     private String imgUrls;//商品图片
+    private String describe;//描述
     //private long createTime;//商品创建时间
     private int status;//商品状态。0:在售，1:售出
     @Expose
@@ -67,6 +69,10 @@ public class Trade extends RealmObject {
         this.imgUrls = imgUrls;
     }
 
+    public void setDescribe(String describe) {
+        this.describe = describe;
+    }
+
     public void setStatus(int status) {
         this.status = status;
     }
@@ -105,6 +111,10 @@ public class Trade extends RealmObject {
 
     public String getImgUrls() {
         return imgUrls;
+    }
+
+    public String getDescribe() {
+        return describe;
     }
 
     public boolean isReleaseCheck() {
