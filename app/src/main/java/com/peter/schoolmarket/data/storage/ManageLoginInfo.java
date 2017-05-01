@@ -68,6 +68,9 @@ public class ManageLoginInfo {
         user.setPassword(sp.getString("password",""));
         user.setPhone(sp.getString("phone",""));
         user.setAvatarUrl(sp.getString("avatarUrl",""));
+        if (user.getId().equals("")) {
+            return null;
+        }
         return user;
     }
 }

@@ -5,8 +5,8 @@
     android:id="@+id/login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:loginTitle="登录"
-    app:loginHint="用户名"
-    app:loginPasswordHint="密码"
+    app:loginTitle="@string/login"
+    app:loginHint="@string/login_username"
+    app:loginPasswordHint="@string/login_password"
     app:loginTextColor="@color/black"
     app:loginActionText="GO"/>

@@ -5,5 +5,5 @@ package com.peter.schoolmarket.mvp.login.register.next;
  */
 
 public interface IRegisterNextModel {
-    void addPhoneNumber(String phoneNumber, OnRegisterNextListener onRegisterNextListener);
+    void addPhoneNumber(String phoneNumber, String userId, OnRegisterNextListener onRegisterNextListener);
 }

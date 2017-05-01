@@ -36,15 +36,15 @@ import shem.com.materiallogin.MaterialLoginView;
 public class LoginActivity extends BaseActivity implements ILoginRegisterView {
 
     @Inject
-    ILoginRegisterPresenter iLoginRegisterPresenter;
+    private ILoginRegisterPresenter iLoginRegisterPresenter;
 
     @LoginProgress
     @Inject
-    MaterialDialog loginProgress;
+    private MaterialDialog loginProgress;
 
     @RegisterProgress
     @Inject
-    MaterialDialog registerProgress;
+    private MaterialDialog registerProgress;
 
 
     @Override
@@ -75,9 +75,12 @@ public class LoginActivity extends BaseActivity implements ILoginRegisterView {
                     loginUser.setErrorEnabled(true);
                     loginUser.setError("用户名不可以为空");
                 }else if (pass.isEmpty()){
+                    loginUser.setErrorEnabled(false);
                     loginPass.setErrorEnabled(true);
                     loginPass.setError("密码不可以为空");
                 }else{
+                    loginPass.setErrorEnabled(false);
+                    loginUser.setErrorEnabled(false);
                     iLoginRegisterPresenter.login(name, pass);
                 }
             }
@@ -94,15 +97,23 @@ public class LoginActivity extends BaseActivity implements ILoginRegisterView {
                     registerUser.setErrorEnabled(true);
                     registerUser.setError("用户名不可以为空");
                 }else if (pass.isEmpty()){
+                    registerUser.setErrorEnabled(false);
                     registerPass.setErrorEnabled(true);
                     registerPass.setError("密码不可以为空");
                 }else if (repeatPass.isEmpty()){
+                    registerUser.setErrorEnabled(false);
+                    registerPass.setErrorEnabled(false);
                     registerPassRep.setErrorEnabled(true);
-                    registerPassRep.setError("密码不可以为空");
+                    registerPassRep.setError("请再一次输入密码");
                 }else if (!pass.equals(repeatPass)){
+                    registerUser.setErrorEnabled(false);
+                    registerPass.setErrorEnabled(false);
                     registerPassRep.setErrorEnabled(true);
                     registerPassRep.setError("两次密码输入不一致");
                 }else{
+                    registerUser.setErrorEnabled(false);
+                    registerPass.setErrorEnabled(false);
+                    registerPassRep.setErrorEnabled(false);
                     iLoginRegisterPresenter.register(name,pass);
                 }
             }
@@ -137,9 +148,9 @@ public class LoginActivity extends BaseActivity implements ILoginRegisterView {
     }
 
     @Override
-    public void loginFailed() {
+    public void loginFailed(String msg) {
         new SuperToast(LoginActivity.this)
-                .setText("登录失败")
+                .setText(msg)
                 .setDuration(Style.DURATION_LONG)
                 .setColor(PaletteUtils.getTransparentColor(PaletteUtils.MATERIAL_RED))
                 .setAnimations(Style.ANIMATIONS_POP)
@@ -147,8 +158,7 @@ public class LoginActivity extends BaseActivity implements ILoginRegisterView {
     }
 
     @Override
-    public void registerSuccess() {
-        final String userId = "null";
+    public void registerSuccess(String userId) {
         Intent intent=new Intent(LoginActivity.this, RegisterNextActivity.class);
         intent.putExtra("userId",userId);
         startActivity(intent);
@@ -156,27 +166,13 @@ public class LoginActivity extends BaseActivity implements ILoginRegisterView {
     }
 
     @Override
-    public void registerFailed() {
+    public void registerFailed(String msg) {
         new SuperToast(LoginActivity.this)
-                .setText("注册失败")
+                .setText(msg)
                 .setDuration(Style.DURATION_LONG)
                 .setColor(PaletteUtils.getTransparentColor(PaletteUtils.MATERIAL_RED))
                 .setAnimations(Style.ANIMATIONS_POP)
                 .show();
     }
 
-    @Override
-    public void clearPassword() {
-
-    }
-
-    @Override
-    public String getUserName() {
-        return null;
-    }
-
-    @Override
-    public String getPassword() {
-        return null;
-    }
 }

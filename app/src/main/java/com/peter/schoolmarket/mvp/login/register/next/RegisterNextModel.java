@@ -15,7 +15,7 @@ import rx.schedulers.Schedulers;
 
 public class RegisterNextModel implements IRegisterNextModel {
     @Override
-    public void addPhoneNumber(String phoneNumber, final OnRegisterNextListener onRegisterNextListener) {
+    public void addPhoneNumber(String phoneNumber, final String userId, final OnRegisterNextListener onRegisterNextListener) {
 
         final Result<User> result=new Result<User>().result(NetReturn.SERVER_ERROR);
 
@@ -23,7 +23,7 @@ public class RegisterNextModel implements IRegisterNextModel {
         ReqExecutor
                 .INSTANCE()
                 .userReq()
-                .registerNext("userId", phoneNumber)
+                .registerNext(userId, phoneNumber)
                 .subscribeOn(Schedulers.io())//在工作线程请求网络
                 .observeOn(AndroidSchedulers.mainThread())//在主线程处理结果
                 .subscribe(new Subscriber<Result<User>>() {

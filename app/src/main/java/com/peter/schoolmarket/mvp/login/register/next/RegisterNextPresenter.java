@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.peter.schoolmarket.data.dto.Result;
 import com.peter.schoolmarket.data.pojo.User;
+import com.peter.schoolmarket.data.storage.LoginInfoExecutor;
 
 /**
  * Created by PetterChen on 2017/4/19.
@@ -26,24 +27,21 @@ public class RegisterNextPresenter implements IRegisterNextPresenter, OnRegister
     }
 
     @Override
-    public void addPhoneNum(String phoneNumber) {
+    public void addPhoneNum(String phoneNumber, String userId) {
         iRegisterNextView.showLoading();
-        iRegisterNextModel.addPhoneNumber(phoneNumber, this);
+        iRegisterNextModel.addPhoneNumber(phoneNumber, userId, this);
     }
 
     @Override
     public void registerNextResult(Result<User> result) {
         iRegisterNextView.hideLoading();
-        /*if (result==null){
-            return;
-        }*/
         switch (result.getCode()) {
-            case 100:
-                //SharedPreferencesStorage.instance.saveUser(context,result.getData());
-                iRegisterNextView.addSuccess();
-                break;
-            case 99:
+            case 99://网络异常或者系统错误
                 iRegisterNextView.addFailed();
+                break;
+            case 100://操作成功
+                LoginInfoExecutor.logIn(context, result.getData());
+                iRegisterNextView.addSuccess();
                 break;
             default:
                 break;

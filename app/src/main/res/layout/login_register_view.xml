@@ -5,9 +5,9 @@
     android:id="@+id/register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:registerTitle="加入我们"
-    app:registerHint="用户名"
-    app:registerPasswordHint="密码"
-    app:registerRepeatPasswordHint="重复密码"
+    app:registerTitle="@string/register_title"
+    app:registerHint="@string/register_username"
+    app:registerPasswordHint="@string/register_password"
+    app:registerRepeatPasswordHint="@string/register_rep_password"
     app:registerTextColor="@color/white"
-    app:registerActionText="下一步"/>
+    app:registerActionText="@string/register_action_next"/>

@@ -3,47 +3,88 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="50dp"
-    android:layout_marginRight="50dp"
-    android:layout_marginTop="200dp"
-    android:layout_marginBottom="200dp"
-    android:background="@color/colorPrimary"
+    android:layout_marginBottom="150dp"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp"
+    android:layout_marginTop="150dp"
+    android:background="@color/md_grey_500"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="20dp">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/register_next_phone"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        app:errorTextAppearance="@style/MaterialLoginTheme.TextAppearanceLoginError"
-        app:theme="@style/MaterialLoginTheme.TextAppearanceLogin">
+        android:orientation="horizontal">
 
-        <AutoCompleteTextView
-            android:id="@+id/register_next_phone_text"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/register_next_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="手机号"
-            android:inputType="phone"
-            android:maxLength="11"
+            android:layout_marginBottom="20dp"
+            app:errorTextAppearance="@style/MaterialLoginTheme.TextAppearanceLoginError"
+            app:theme="@style/MaterialLoginTheme.TextAppearanceLogin">
+
+            <AutoCompleteTextView
+                android:id="@+id/register_next_phone_text"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="@string/register_next_phone"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:textSize="20sp" />
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/register_next_security_code"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:errorTextAppearance="@style/MaterialLoginTheme.TextAppearanceLoginError"
+            app:theme="@style/MaterialLoginTheme.TextAppearanceLogin">
+
+            <AutoCompleteTextView
+                android:id="@+id/register_security_code_text"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="@string/register_next_code"
+                android:inputType="phone"
+                android:maxLength="6"
+                android:textSize="20sp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/register_next_get_code"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="@string/register_next_get_code"
             android:textSize="20sp" />
-    </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
 
     <FrameLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/login_back">
 
         <TextView
             android:id="@+id/register_next_sub"
             style="@style/MaterialLoginTheme.SelectableItemBackground"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:padding="10dp"
-            android:text="GO"
+            android:text="@string/register_next_sub"
             android:textColor="@color/material_login_register_color"
             android:textSize="20sp" />
     </FrameLayout>

@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.peter.schoolmarket.data.dto.Result;
 import com.peter.schoolmarket.data.pojo.User;
+import com.peter.schoolmarket.data.storage.LoginInfoExecutor;
+import com.peter.schoolmarket.network.NetReturn;
 
 /**
  * Created by PetterChen on 2017/4/19.
@@ -48,14 +50,14 @@ public class LoginRegisterPresenter implements ILoginRegisterPresenter, OnLoginL
         loginRegisterView.hideLoginLoading();
 
         switch (result.getCode()) {
-            case 100:
-                //SharedPreferencesStorage.instance.saveUser(context,result.getData());
+            case 100://操作成功
+                LoginInfoExecutor.logIn(context, result.getData());
                 loginRegisterView.loginSuccess();
                 break;
-            case 99:
-            case 201:
-            case 202:
-                loginRegisterView.loginFailed();
+            case 99://网络异常或者系统错误
+            case 201://用户名错误
+            case 202://密码错误
+                loginRegisterView.loginFailed(result.getMsg());
                 break;
             default:
                 break;
@@ -65,17 +67,14 @@ public class LoginRegisterPresenter implements ILoginRegisterPresenter, OnLoginL
     //注册结果：隐藏加载进度框，进行返回值判断是否注册成功
     @Override
     public void registerResult(Result<String> result) {
-
         loginRegisterView.hideRegisterLoading();
-
         switch (result.getCode()) {
-            case 100:
-                loginRegisterView.registerSuccess();
+            case 100://操作成功
+                loginRegisterView.registerSuccess(result.getData());
                 break;
-            case 99:
-            case 203:
-            case 204:
-                loginRegisterView.registerFailed();
+            case 99://网络异常或者系统错误
+            case 203://该用户名已经存在
+                loginRegisterView.registerFailed(result.getData());
                 break;
             default:
                 break;
