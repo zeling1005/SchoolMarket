@@ -4,33 +4,29 @@
     <group android:id="@+id/personal_message"
         android:checkableBehavior="single" >
         <item
-            android:id="@+id/nav_personal_info"
-            android:icon="@drawable/main_author"
-            android:title="个人信息" />
-        <item
             android:id="@+id/nav_buying"
             android:icon="@drawable/main_buying"
-            android:title="待确认" />
+            android:title="@string/nav_buying" />
         <item
             android:id="@+id/nav_bought"
             android:icon="@drawable/main_bought"
-            android:title="已买" />
+            android:title="@string/nav_bought" />
         <item
             android:id="@+id/nav_selling"
             android:icon="@drawable/main_selling"
-            android:title="正在卖" />
+            android:title="@string/nav_selling" />
         <item
             android:id="@+id/nav_sold"
             android:icon="@drawable/main_sold"
-            android:title="已卖" />
-        <item
+            android:title="@string/nav_sold" />
+        <!--<item
             android:id="@+id/nav_like"
             android:icon="@drawable/main_like"
-            android:title="收藏" />
-        <item
+            android:title="@string/nav_like" />-->
+        <!--<item
             android:id="@+id/nav_message"
             android:icon="@drawable/main_message"
-            android:title="消息" />
+            android:title="@string/nav_msg" />-->
     </group>
 
     <group android:id="@+id/other"
@@ -38,15 +34,19 @@
         <item
             android:id="@+id/nav_share"
             android:icon="@drawable/main_share"
-            android:title="推荐给朋友" />
+            android:title="@string/nav_share" />
         <item
             android:id="@+id/nav_setting"
             android:icon="@drawable/main_setting"
-            android:title="设置" />
+            android:title="@string/nav_setting" />
+        <!--<item
+            android:id="@+id/nav_personal_info"
+            android:icon="@drawable/main_author"
+            android:title="@string/nav_personal_info" />-->
         <item
             android:id="@+id/nav_exit"
             android:icon="@drawable/main_exit"
-            android:title="退出" />
+            android:title="@string/nav_exit" />
     </group>
 
 </menu>

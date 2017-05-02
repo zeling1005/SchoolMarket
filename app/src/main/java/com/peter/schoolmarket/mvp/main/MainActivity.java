@@ -26,24 +26,30 @@ import android.widget.Toast;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.peter.schoolmarket.R;
+import com.peter.schoolmarket.mvp.base.BaseActivity;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+import io.realm.Realm;
+
+public class MainActivity extends BaseActivity {
+    IMainPresenter presenter;
     DrawerLayout drawer;
     Toolbar toolbar;
-
     MaterialSearchView searchView;
+    private Realm realm;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initViews(Bundle savedInstanceState) {
         setContentView(R.layout.main_activity);
 
         //设置标题栏
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("cehua");
+        toolbar.setTitle(this.getResources().getString(R.string.main_title));
         setSupportActionBar(toolbar);
+
+        realm=Realm.getDefaultInstance();
+        presenter = new MainPresenter(this, realm);
 
         //设置侧滑栏
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -62,11 +68,12 @@ public class MainActivity extends AppCompatActivity {
                 // Handle navigation view item clicks here.
                 int id = item.getItemId();
                 //设置跳转事件
-                drawer.closeDrawer(GravityCompat.START);
+                presenter.sideJump(id);
                 return true;
             }
         });
-
+        View headerLayout= navigationView.inflateHeaderView(R.layout.main_nav_header);
+        presenter.initMain(searchView, headerLayout);
     }
 
     @Override
@@ -117,5 +124,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        realm.close();
     }
 }

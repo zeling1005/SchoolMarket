@@ -4,7 +4,7 @@
     android:id="@+id/message_item"
     android:layout_height="120dp"
     android:layout_width="match_parent"
-    android:background="#e6e6" >
+    android:background="@color/md_grey_300" >
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/message_user_img"

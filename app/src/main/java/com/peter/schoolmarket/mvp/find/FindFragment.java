@@ -25,9 +25,9 @@ import io.realm.Realm;
 public class FindFragment extends BaseFragment implements IFindView {
 
     @Inject
-    protected IFindPresenter presenter;
+    IFindPresenter presenter;
 
-    protected RecyclerView recyclerView;
+    RecyclerView recyclerView;
 
     SwipeRefreshLayout refreshLayout;
 

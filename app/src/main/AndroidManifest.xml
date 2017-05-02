@@ -24,8 +24,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".mvp.splash.SplashActivity">
+        android:theme="@style/AppTheme">
+        <!---->
+        <activity android:name=".mvp.splash.SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -51,15 +53,12 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
-
-
-
-        <activity android:name=".mvp.sort.trades.TradeTagDetailActivity">
-
+        <activity android:name=".mvp.login.register.next.RegisterNextActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
-        <activity android:name=".mvp.login.register.next.RegisterNextActivity">
-
+        <activity android:name=".mvp.test.TestActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
     </application>

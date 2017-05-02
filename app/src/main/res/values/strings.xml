@@ -26,6 +26,21 @@
     <string name="register_next_get_code">获取验证码</string>
     <string name="register_next_sub">GO</string>
 
+    <!--main drawer item-->
+    <string name="nav_personal_info">个人信息</string>
+    <string name="nav_buying">待确认</string>
+    <string name="nav_bought">已买</string>
+    <string name="nav_selling">正在卖</string>
+    <string name="nav_sold">已卖</string>
+    <string name="nav_like">收藏</string>
+    <string name="nav_msg">消息</string>
+    <string name="nav_share">推荐给朋友</string>
+    <string name="nav_setting">设置</string>
+    <string name="nav_exit">退出</string>
 
+    <!--main activity-->
+    <string name="main_title">发现</string>
+    <string name="main_header_username">用户名</string>
+    <string name="main_header_phone">手机号码</string>
 
 </resources>

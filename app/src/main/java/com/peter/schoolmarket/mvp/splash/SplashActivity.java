@@ -22,7 +22,7 @@ import com.peter.schoolmarket.mvp.main.MainActivity;
 
 public class SplashActivity extends BaseActivity {
 
-    private SimpleDraweeView view;
+    SimpleDraweeView view;
 
     @Override
     protected void initViews(Bundle savedInstanceState) {

@@ -36,15 +36,15 @@ import shem.com.materiallogin.MaterialLoginView;
 public class LoginActivity extends BaseActivity implements ILoginRegisterView {
 
     @Inject
-    private ILoginRegisterPresenter iLoginRegisterPresenter;
+    ILoginRegisterPresenter iLoginRegisterPresenter;
 
     @LoginProgress
     @Inject
-    private MaterialDialog loginProgress;
+    MaterialDialog loginProgress;
 
     @RegisterProgress
     @Inject
-    private MaterialDialog registerProgress;
+    MaterialDialog registerProgress;
 
 
     @Override

@@ -38,16 +38,16 @@ import javax.inject.Inject;
 public class RegisterNextActivity extends BaseActivity implements IRegisterNextView {
 
     @Inject
-    private IRegisterNextPresenter iRegisterNextPresenter;
+    IRegisterNextPresenter iRegisterNextPresenter;
 
     @Inject
-    private MaterialDialog registerNextProgress;
+    MaterialDialog registerNextProgress;
 
-    private TextInputLayout phoneLayout;
+    TextInputLayout phoneLayout;
     //EditText phoneText;
-    private TextView registerNextSub;
-    private TextView getCode;
-    private TextInputLayout code;
+    TextView registerNextSub;
+    TextView getCode;
+    TextInputLayout code;
     private String oldCode;
     private String userId;
     private String phone;

@@ -51,6 +51,38 @@ public class MainPresenter implements IMainPresenter {
     @Override
     public void sideJump(int id) {
         //根据点击按钮设置跳转
+        int type=-1;
+        switch (id){
+            case R.id.nav_buying:
+                type = ++type;
+                break;
+            case R.id.nav_bought:
+                type = ++type;
+                break;
+            case R.id.nav_selling:
+                type = ++type;
+                break;
+            case R.id.nav_sold:
+                type = ++type;
+                break;
+            case R.id.nav_share:
+                type = ++type;
+                break;
+            case R.id.nav_setting:
+                type = ++type;
+                break;
+            case R.id.nav_exit:
+                type = ++type;
+                break;
+            default:
+                break;
+        }
+        if (type<0){
+            return;
+        }
+        /*Intent tradeIntent=new Intent(context, UserTradeActivity.class);
+        tradeIntent.putExtra("type",type);
+        context.startActivity(tradeIntent);*/
     }
 
     public void initSearchView(MaterialSearchView searchView) {
