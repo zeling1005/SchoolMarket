@@ -2,8 +2,10 @@ package com.peter.schoolmarket.mvp.main;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,6 +19,9 @@ import com.peter.schoolmarket.R;
 import com.peter.schoolmarket.application.AppConf;
 import com.peter.schoolmarket.data.pojo.User;
 import com.peter.schoolmarket.data.storage.LoginInfoExecutor;
+import com.peter.schoolmarket.mvp.login.LoginActivity;
+import com.peter.schoolmarket.mvp.test.TestActivity;
+import com.peter.schoolmarket.mvp.test.TestFragment;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -31,6 +36,7 @@ public class MainPresenter implements IMainPresenter {
     private FragmentManager fm;
     TextView toolbarTitle;
     BottomNavigationBar bottomNavigationBar;
+    TestFragment testFragment;
     private Realm realmDefault;
 
     public MainPresenter(AppCompatActivity context,Realm realm) {
@@ -51,38 +57,38 @@ public class MainPresenter implements IMainPresenter {
     @Override
     public void sideJump(int id) {
         //根据点击按钮设置跳转
-        int type=-1;
+        String type = "";
         switch (id){
             case R.id.nav_buying:
-                type = ++type;
+                type = "待确认";
                 break;
             case R.id.nav_bought:
-                type = ++type;
+                type = "已买";
                 break;
             case R.id.nav_selling:
-                type = ++type;
+                type = "正在卖";
                 break;
             case R.id.nav_sold:
-                type = ++type;
+                type = "已卖";
                 break;
             case R.id.nav_share:
-                type = ++type;
+                type = "分享给朋友";
                 break;
             case R.id.nav_setting:
-                type = ++type;
+                type = "设置";
                 break;
             case R.id.nav_exit:
-                type = ++type;
+                logout();
                 break;
             default:
                 break;
         }
-        if (type<0){
+        if (type.equals("")){
             return;
         }
-        /*Intent tradeIntent=new Intent(context, UserTradeActivity.class);
-        tradeIntent.putExtra("type",type);
-        context.startActivity(tradeIntent);*/
+        Intent tradeIntent=new Intent(context, TestActivity.class);
+        tradeIntent.putExtra("textString",type);
+        context.startActivity(tradeIntent);
     }
 
     public void initSearchView(MaterialSearchView searchView) {
@@ -133,7 +139,7 @@ public class MainPresenter implements IMainPresenter {
         bottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC)//点击无水波纹，可以设置为Item添加Badge
                 .addItem(new BottomNavigationItem(R.drawable.main_bottom_find, "首页"))
                 .addItem(new BottomNavigationItem(R.drawable.main_bottom_trade, "闲货"))
-                .addItem(new BottomNavigationItem(R.drawable.main_bottom_wish, "求购"))
+                //.addItem(new BottomNavigationItem(R.drawable.main_bottom_wish, "求购"))
                 .addItem(new BottomNavigationItem(R.drawable.main_bottom_msg, "消息"))
                 .addItem(new BottomNavigationItem(R.drawable.main_bottom_more, "更多"))
                 .setActiveColor(R.color.black)
@@ -142,22 +148,28 @@ public class MainPresenter implements IMainPresenter {
                 .initialise();
 
         toolbarTitle.setText("首页");
-        //showFragment(0);
+        showFragment(0);
 
         bottomNavigationBar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener() {//这里也可以使用SimpleOnTabSelectedListener
             @Override
             public void onTabSelected(int position) {//未选中 -> 选中
                 switch (position) {
                     case 0:
-                        /*toolbarTitle.setText(R.string.MainActivity_title_school);
+                        toolbarTitle.setText("首页");
                         showFragment(0);
-                        此处设置点击后的事件，设置标题栏和fragment*/
+                        //此处设置点击后的事件，设置标题栏和fragment
                         break;
                     case 1:
+                        toolbarTitle.setText("闲货");
+                        showFragment(1);
                         break;
                     case 2:
+                        toolbarTitle.setText("消息");
+                        showFragment(2);
                         break;
                     case 3:
+                        toolbarTitle.setText("更多");
+                        showFragment(3);
                         break;
                 }
             }
@@ -172,71 +184,42 @@ public class MainPresenter implements IMainPresenter {
         });
     }
 
-    /*public void showFragment(int position) {
+    public void showFragment(int position) {
+        int type = -1;
         FragmentTransaction ft = fm.beginTransaction();
         hideAllFragment(ft);
         switch (position) {
-            case 0 : if (schoolFragment != null) {
-                ft.show(schoolFragment);
-            } else {
-                schoolFragment = new SchoolFragment();
-                ft.add(R.id.frame_layout, schoolFragment);
-            }
+            case 0 : type = 0;
                 break;
-            case 1 : if (tradeTagFragment != null) {
-                ft.show(tradeTagFragment);
-            } else {
-                tradeTagFragment = new TradeTagFragment();
-                ft.add(R.id.frame_layout, tradeTagFragment);
-            }
+            case 1 : type = 1;
                 break;
-            case 2 : if (teamFragment != null) {
-                ft.show(teamFragment);
-            } else {
-                teamFragment = new TeamFragment();
-                ft.add(R.id.frame_layout, teamFragment);
-            }
+            case 2 : type = 2;
                 break;
-            case 3 : if (messageFragment != null) {
-                ft.show(messageFragment);
-            } else {
-                messageFragment = new MessageFragment();
-                ft.add(R.id.frame_layout, messageFragment);
-            }
+            case 3 : type = 3;
                 break;
+        }
+        if (testFragment != null) {
+            ft.show(testFragment);
+        } else {
+            testFragment = new TestFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("textString", "" + type);
+            testFragment.setArguments(bundle);
+            ft.add(R.id.frame_layout, testFragment);
         }
         ft.commit();
     }
 
     public void hideAllFragment(FragmentTransaction ft) {
-        if (schoolFragment != null) {
-            ft.hide(schoolFragment);
-        }
-        if (tradeTagFragment != null) {
-            ft.hide(tradeTagFragment);
-        }
-        if (teamFragment != null) {
-            ft.hide(teamFragment);
-        }
-        if (messageFragment != null) {
-            ft.hide(messageFragment);
+        if (testFragment != null) {
+            ft.hide(testFragment);
         }
     }
 
-    private void executeLogout(){
-        UserIntermediate.instance.logOut(context);
-
-        final RealmResults<RealmTrade> results = realmDefault.where(RealmTrade.class).findAll();//清除school存储
-        realmDefault.executeTransaction((Realm realm) -> results.deleteAllFromRealm());
-
-        final RealmResults<Team> teamResults = realmDefault.where(Team.class).findAll();//清除志愿队存储
-        realmDefault.executeTransaction((Realm realm) -> teamResults.deleteAllFromRealm());
-
-        final RealmResults<Message> msgResults = realmDefault.where(Message.class).findAll();//清除消息存储
-        realmDefault.executeTransaction((Realm realm) -> msgResults.deleteAllFromRealm());
-
-        Intent loginIntent=new Intent(context, LoginRegisterActivity.class);
+    private void logout(){
+        LoginInfoExecutor.logOut(context);
+        Intent loginIntent=new Intent(context, LoginActivity.class);
         context.startActivity(loginIntent);
         context.finish();
-    }*/
+    }
 }

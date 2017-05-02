@@ -1,8 +1,10 @@
 package com.peter.schoolmarket.mvp.test;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,16 +23,22 @@ public class TestActivity extends BaseActivity {
     @Override
     protected void initViews(Bundle savedInstanceState) {
         setContentView(R.layout.test_activity);
+        //supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
 
         //设置标题栏
-        toolbar = (Toolbar) findViewById(R.id.test_toolbar);
+        //toolbar = (Toolbar) findViewById(R.id.test_toolbar);
         //toolbar.setTitle(this.getResources().getString(R.string.main_title));
-        setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar);
 
         text = (TextView) findViewById(R.id.test_text);
         title = (TextView) findViewById(R.id.test_toolbar_title);
         back = (ImageView) findViewById(R.id.test_toolbar_back);
-
+        Intent intent=getIntent();
+        Bundle bundle=intent.getExtras();
+        text.setText(bundle.getString("textString", "null"));
+        /*Intent intent = new Intent(this, TwoActivity.class);
+        intent.putExtra("key", "value");
+        startActivity(intent);*/
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

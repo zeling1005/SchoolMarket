@@ -46,7 +46,7 @@ public class SplashActivity extends BaseActivity {
     private void splashAction() {
         //判断是否登录，登录则跳转主界面，否则到注册登录界面
         User user= LoginInfoExecutor.getUser(SplashActivity.this);
-        if(user==null){
+        if(user == null){
             //跳转到注册登录界面
             new Handler().postDelayed(new Runnable() {
                 @Override
