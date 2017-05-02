@@ -1,7 +1,9 @@
 package com.peter.schoolmarket.mvp.login.register.next;
 
+import com.peter.schoolmarket.application.AppConf;
 import com.peter.schoolmarket.data.dto.Result;
 import com.peter.schoolmarket.data.pojo.User;
+import com.peter.schoolmarket.mock.UserMock;
 import com.peter.schoolmarket.network.NetReturn;
 import com.peter.schoolmarket.network.ReqExecutor;
 
@@ -16,6 +18,10 @@ import rx.schedulers.Schedulers;
 public class RegisterNextModel implements IRegisterNextModel {
     @Override
     public void addPhoneNumber(String phoneNumber, final String userId, final OnRegisterNextListener onRegisterNextListener) {
+        if (AppConf.useMock){
+            onRegisterNextListener.registerNextResult(new UserMock().loginOrRegisterNext());
+            return;
+        }
 
         final Result<User> result=new Result<User>().result(NetReturn.SERVER_ERROR);
 

@@ -2,8 +2,10 @@ package com.peter.schoolmarket.mvp.login;
 
 import android.widget.Toast;
 
+import com.peter.schoolmarket.application.AppConf;
 import com.peter.schoolmarket.data.dto.Result;
 import com.peter.schoolmarket.data.pojo.User;
+import com.peter.schoolmarket.mock.UserMock;
 import com.peter.schoolmarket.network.NetReturn;
 import com.peter.schoolmarket.network.ReqExecutor;
 
@@ -25,6 +27,10 @@ public class UserModel implements IUserModel {
     //登录业务
     @Override
     public void login(final String userName, final String password, final OnLoginListener loginListener) {
+        if (AppConf.useMock){
+            loginListener.loginResult(new UserMock().loginOrRegisterNext());
+            return;
+        }
 
         final Result<User> result=new Result<User>().result(NetReturn.SERVER_ERROR);
 
@@ -60,6 +66,10 @@ public class UserModel implements IUserModel {
     //注册业务
     @Override
     public void register(final String userName, final String password, final OnRegisterListener registerListener) {
+        if (AppConf.useMock){
+            registerListener.registerResult(new UserMock().register());
+            return;
+        }
 
         final Result<String> result = new Result<String>().result(NetReturn.SERVER_ERROR);
 

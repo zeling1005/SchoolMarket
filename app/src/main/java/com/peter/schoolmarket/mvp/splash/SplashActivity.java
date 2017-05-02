@@ -4,14 +4,17 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.WindowManager;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.peter.schoolmarket.R;
+import com.peter.schoolmarket.data.dto.Result;
 import com.peter.schoolmarket.data.pojo.User;
 import com.peter.schoolmarket.data.storage.LoginInfoExecutor;
+import com.peter.schoolmarket.mock.UserMock;
 import com.peter.schoolmarket.mvp.base.BaseActivity;
 import com.peter.schoolmarket.mvp.login.LoginActivity;
 import com.peter.schoolmarket.mvp.main.MainActivity;

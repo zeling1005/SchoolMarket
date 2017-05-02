@@ -5,6 +5,7 @@ import android.app.Application;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 /**
  * Created by PetterChen on 2017/4/10.
@@ -21,13 +22,16 @@ public class MarketApp extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
-        init();
+        initialize();
     }
 
-    private void init() {
+    private void initialize() {
         //fresco初始化
         Fresco.initialize(this);
         //Realm初始化
         //Realm.init(this);
+        Realm.init(this);
+        /*RealmConfiguration config = new RealmConfiguration.Builder().build();
+        Realm.setDefaultConfiguration(config);*/
     }
 }

@@ -159,6 +159,7 @@ public class LoginActivity extends BaseActivity implements ILoginRegisterView {
 
     @Override
     public void registerSuccess(String userId) {
+        //用离线数据时，userId =  001;
         Intent intent=new Intent(LoginActivity.this, RegisterNextActivity.class);
         intent.putExtra("userId",userId);
         startActivity(intent);

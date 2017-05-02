@@ -37,7 +37,7 @@ public class MainActivity extends BaseActivity {
     DrawerLayout drawer;
     Toolbar toolbar;
     MaterialSearchView searchView;
-    private Realm realm;
+    //private Realm realm;
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
@@ -48,8 +48,9 @@ public class MainActivity extends BaseActivity {
         toolbar.setTitle(this.getResources().getString(R.string.main_title));
         setSupportActionBar(toolbar);
 
-        realm=Realm.getDefaultInstance();
-        presenter = new MainPresenter(this, realm);
+        //realm=Realm.getDefaultInstance();
+        //presenter = new MainPresenter(this, realm);
+        presenter = new MainPresenter(this);
 
         //设置侧滑栏
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -72,6 +73,7 @@ public class MainActivity extends BaseActivity {
                 return true;
             }
         });
+        searchView = (MaterialSearchView) findViewById(R.id.search_view);
         View headerLayout= navigationView.inflateHeaderView(R.layout.main_nav_header);
         presenter.initMain(searchView, headerLayout);
     }
@@ -94,6 +96,7 @@ public class MainActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }*/
 
+    //MaterialSearchView处理返回结果
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == MaterialSearchView.REQUEST_VOICE && resultCode == RESULT_OK) {
@@ -124,6 +127,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        realm.close();
+        //realm.close();
     }
 }

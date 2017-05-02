@@ -11,7 +11,7 @@ import io.realm.RealmConfiguration;
  */
 
 public class RealmUtils {
-    private Context appContext;
+    /*private Context appContext;
     //realm唯一实例
     private static RealmUtils instance;
     //realm名字
@@ -35,5 +35,5 @@ public class RealmUtils {
 
     public Realm getRealm() {
         return Realm.getInstance(new RealmConfiguration.Builder(appContext).name(realmName).build());
-    }
+    }*/
 }

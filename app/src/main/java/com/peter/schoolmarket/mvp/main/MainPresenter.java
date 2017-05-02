@@ -37,11 +37,11 @@ public class MainPresenter implements IMainPresenter {
     TextView toolbarTitle;
     BottomNavigationBar bottomNavigationBar;
     TestFragment testFragment;
-    private Realm realmDefault;
+    //private Realm realmDefault;
 
-    public MainPresenter(AppCompatActivity context,Realm realm) {
+    public MainPresenter(AppCompatActivity context) {
         this.context = context;
-        this.realmDefault=realm;
+        //this.realmDefault=realm;
         fm = context.getFragmentManager();
         toolbarTitle=(TextView)context.findViewById(R.id.toolbar_title);
         bottomNavigationBar=(BottomNavigationBar)context.findViewById(R.id.bottom_navigation_bar);

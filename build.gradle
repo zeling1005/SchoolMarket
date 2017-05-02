@@ -7,7 +7,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.0'
         //添加realm插件
-        classpath "io.realm:realm-gradle-plugin:1.2.0"
+        classpath "io.realm:realm-gradle-plugin:2.2.1"
         //dagger2
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8' //添加apt
 

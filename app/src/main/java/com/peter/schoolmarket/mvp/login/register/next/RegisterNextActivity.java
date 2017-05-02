@@ -51,8 +51,14 @@ public class RegisterNextActivity extends BaseActivity implements IRegisterNextV
     private String oldCode;
     private String userId;
     private String phone;
+    private String oldPhone;
     private static int timeCount = 60;
     private Handler timerClock;
+    //发送验证码
+    BroadcastReceiver sendBroadcastReceiver;
+    BroadcastReceiver deliveryBroadcastReceiver;
+    private String SENT = "SMS_SENT";
+    private String DELIVERED = "SMS_DELIVERED";
 
 
     @Override
@@ -72,6 +78,7 @@ public class RegisterNextActivity extends BaseActivity implements IRegisterNextV
         registerNextSub = (TextView) findViewById(R.id.register_next_sub);
         getCode = (TextView) findViewById(R.id.register_next_get_code);
         code = (TextInputLayout) findViewById(R.id.register_next_security_code);
+        timerClock = new Handler();
         Intent intent=getIntent();
         userId=intent.getStringExtra("userId");
         registerNextSub.setOnClickListener(new View.OnClickListener() {
@@ -84,7 +91,7 @@ public class RegisterNextActivity extends BaseActivity implements IRegisterNextV
                 }else {
                     phoneLayout.setErrorEnabled(false);
                     String newCode = code.getEditText().getText().toString().trim();
-                    if (!(newCode.isEmpty()) && newCode.equals(oldCode)) {
+                    if (!(newCode.isEmpty()) && newCode.equals(oldCode) && phone.equals(oldPhone)) {
                         code.setErrorEnabled(false);
                         iRegisterNextPresenter.addPhoneNum(phone, userId);
                     } else {
@@ -97,31 +104,25 @@ public class RegisterNextActivity extends BaseActivity implements IRegisterNextV
         getCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendSMS(phone);
+                oldPhone = phoneLayout.getEditText().getText().toString().trim();
+                if (oldPhone.isEmpty() || oldPhone.length() != 11){
+                    phoneLayout.setErrorEnabled(true);
+                    phoneLayout.setError("请输入正确的手机号");
+                }else {
+                    phoneLayout.setErrorEnabled(false);
+                    sendSMS(oldPhone);
+                }
             }
         });
 
+        //发送验证码
+        sendBroadcastReceiver = new BroadcastReceiver()
+        {
 
-    }
-
-    private void sendSMS(String phoneNumber){
-        oldCode = "";
-        // TODO Auto-generated method stub
-        for(int i=0;i<6;i++){//产生一个六位数的激活码
-            int k=(int) (Math.random()*10);
-            oldCode+=k;
-        }
-        String message = "[闲货]短信验证码 " + oldCode + ",请在十分钟内完成验证。";
-        //处理返回的发送状态
-        String SENT_SMS_ACTION = "SENT_SMS_ACTION";
-        Intent sentIntent = new Intent(SENT_SMS_ACTION);
-        PendingIntent sentPI = PendingIntent.getBroadcast(RegisterNextActivity.this, 0, sentIntent,
-                0);
-        // register the Broadcast Receivers
-        (RegisterNextActivity.this).registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context _context, Intent _intent) {
-                switch (getResultCode()) {
+            public void onReceive(Context arg0, Intent arg1)
+            {
+                switch (getResultCode())
+                {
                     case Activity.RESULT_OK:
                         Log.i("====>", "Activity.RESULT_OK");
                         break;
@@ -139,11 +140,40 @@ public class RegisterNextActivity extends BaseActivity implements IRegisterNextV
                         break;
                 }
             }
-        }, new IntentFilter(SENT_SMS_ACTION));
+        };
+        deliveryBroadcastReceiver = new BroadcastReceiver()
+        {
+            public void onReceive(Context arg0, Intent arg1)
+            {
+                switch (getResultCode())
+                {
+                    case Activity.RESULT_OK:
+                        Log.i("====>", "SMS Delivered");
+                        break;
+                    case Activity.RESULT_CANCELED:
+                        Log.i("====>", "SMS not delivered");
+                        break;
+                }
+            }
+        };
+        registerReceiver(deliveryBroadcastReceiver, new IntentFilter(DELIVERED));
+        registerReceiver(sendBroadcastReceiver , new IntentFilter(SENT));
 
-        //获取短信管理器
-        android.telephony.SmsManager smsManager = android.telephony.SmsManager.getDefault();
-        smsManager.sendTextMessage(phoneNumber, null, message, sentPI, null);
+    }
+
+    private void sendSMS(String phoneNumber){
+        oldCode = "";
+        // TODO Auto-generated method stub
+        for(int i=0;i<6;i++){//产生一个六位数的激活码
+            int k=(int) (Math.random()*10);
+            oldCode+=k;
+        }
+        String message = "[闲货]短信验证码 " + oldCode + ",请在十分钟内完成验证。";
+
+        PendingIntent sentPI = PendingIntent.getBroadcast(this, 0, new Intent(SENT), 0);
+        PendingIntent deliveredPI = PendingIntent.getBroadcast(this, 0, new Intent(DELIVERED), 0);
+        SmsManager sms = SmsManager.getDefault();
+        sms.sendTextMessage(phoneNumber, null, message, sentPI, deliveredPI);
         Toast.makeText(RegisterNextActivity.this,
                 "短信发送成功", Toast.LENGTH_SHORT)
                 .show();
@@ -153,7 +183,7 @@ public class RegisterNextActivity extends BaseActivity implements IRegisterNextV
             @Override
             public void run() {
                 if (timeCount > 0){
-                    getCode.setText("" + --timeCount + "秒后重新发送");
+                    getCode.setText("" + --timeCount + "秒");
                     timerClock.postDelayed(this, 1000);
                 } else {
                     getCode.setText((RegisterNextActivity.this).getResources().getString(R.string.register_next_get_code));
@@ -167,6 +197,14 @@ public class RegisterNextActivity extends BaseActivity implements IRegisterNextV
         for (String text : divideContents) {
             smsManager.sendTextMessage(phoneNumber, null, text, sentPI, null);
         }*/
+    }
+
+    @Override
+    protected void onStop()
+    {
+        unregisterReceiver(sendBroadcastReceiver);
+        unregisterReceiver(deliveryBroadcastReceiver);
+        super.onStop();
     }
 
     @Override

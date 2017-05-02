@@ -1,6 +1,7 @@
 package com.peter.schoolmarket.mvp.login;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.peter.schoolmarket.data.dto.Result;
 import com.peter.schoolmarket.data.pojo.User;
@@ -51,6 +52,7 @@ public class LoginRegisterPresenter implements ILoginRegisterPresenter, OnLoginL
 
         switch (result.getCode()) {
             case 100://操作成功
+                //Log.d("login", result.getData().toString());
                 LoginInfoExecutor.logIn(context, result.getData());
                 loginRegisterView.loginSuccess();
                 break;
@@ -70,6 +72,7 @@ public class LoginRegisterPresenter implements ILoginRegisterPresenter, OnLoginL
         loginRegisterView.hideRegisterLoading();
         switch (result.getCode()) {
             case 100://操作成功
+                //getData()是userId
                 loginRegisterView.registerSuccess(result.getData());
                 break;
             case 99://网络异常或者系统错误
