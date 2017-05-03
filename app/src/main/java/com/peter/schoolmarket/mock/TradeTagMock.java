@@ -31,34 +31,54 @@ public class TradeTagMock {
      *  "title": "3瓶脉动饮料"
      *},
      */
+    //mWebView.loadUrl("file:///android_asset/test.html");
+    //context.getClass().getClassLoader().getResourceAsStream("assets/"+资源名);
     public Result<List<Trade>> getTrades(){
         String jsonStr="[\n" +
                 "  {\n" +
                 "    \"id\": \"0001\",\n" +
-                "    \"authorImg\": \"https://jcalaz.github.io/img/sort_clothes.jpeg\",\n" +
-                "    \"imgUrls\": \"https://jcalaz.github.io/img/sort_body.jpg\",\n" +
-                "    \"authorName\": \"安琪\",\n" +
-                "    \"nowPrice\": 9,\n" +
+                "    \"authorImg\": \"http://opdpjh63a.bkt.clouddn.com/sort_avater_cluo.jpg\",\n" +
+                "    \"imgUrls\": \"http://opdpjh63a.bkt.clouddn.com/apple_phone.jpg\",\n" +
+                "    \"authorName\": \"tom\",\n" +
+                "    \"nowPrice\": 2000,\n" +
                 "    \"status\": 0,\n" +
-                "    \"title\": \"3瓶脉动饮料\"\n" +
+                "    \"title\": \"苹果手机\"\n" +
                 "  },\n" +
                 "  {\n" +
                 "    \"id\": \"0002\",\n" +
-                "    \"authorImg\": \"https://jcalaz.github.io/img/sort_avater_cluo.jpg\",\n" +
-                "    \"imgUrls\": \"https://jcalaz.github.io/img/bg.jpg\",\n" +
+                "    \"authorImg\": \"http://opdpjh63a.bkt.clouddn.com/sort_clothes.jpeg\",\n" +
+                "    \"imgUrls\": \"http://opdpjh63a.bkt.clouddn.com/battledore.jpg\",\n" +
                 "    \"authorName\": \"peter\",\n" +
-                "    \"nowPrice\": 32,\n" +
+                "    \"nowPrice\": 50,\n" +
                 "    \"status\": 0,\n" +
-                "    \"title\": \"盆栽\"\n" +
+                "    \"title\": \"羽毛球拍\"\n" +
                 "  },\n" +
                 "  {\n" +
                 "    \"id\": \"0003\",\n" +
-                "    \"authorImg\": \"https://jcalaz.github.io/img/sort_clothes.jpeg\",\n" +
-                "    \"imgUrls\": \"https://jcalaz.github.io/img/sort_computer.jpg\",\n" +
+                "    \"authorImg\": \"http://opdpjh63a.bkt.clouddn.com/sort_body.jpg\",\n" +
+                "    \"imgUrls\": \"http://opdpjh63a.bkt.clouddn.com/book.jpg\",\n" +
                 "    \"authorName\": \"nice\",\n" +
-                "    \"nowPrice\": 3659,\n" +
+                "    \"nowPrice\": 20,\n" +
                 "    \"status\": 0,\n" +
-                "    \"title\": \"三星笔记本\"\n" +
+                "    \"title\": \"传统民谣书系\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"id\": \"0004\",\n" +
+                "    \"authorImg\": \"http://opdpjh63a.bkt.clouddn.com/sort_avater_cluo.jpg\",\n" +
+                "    \"imgUrls\": \"http://opdpjh63a.bkt.clouddn.com/mac_computer.jpg\",\n" +
+                "    \"authorName\": \"tom\",\n" +
+                "    \"nowPrice\": 5000,\n" +
+                "    \"status\": 0,\n" +
+                "    \"title\": \"苹果电脑\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"id\": \"0005\",\n" +
+                "    \"authorImg\": \"http://opdpjh63a.bkt.clouddn.com/sort_clothes.jpeg\",\n" +
+                "    \"imgUrls\": \"http://opdpjh63a.bkt.clouddn.com/table_lamp.jpeg\",\n" +
+                "    \"authorName\": \"nice\",\n" +
+                "    \"nowPrice\": 30,\n" +
+                "    \"status\": 0,\n" +
+                "    \"title\": \"台灯\"\n" +
                 "  }\n" +
                 "]";
         List<Trade> trades= new Gson().fromJson(jsonStr, new TypeToken<List<Trade>>(){}.getType());

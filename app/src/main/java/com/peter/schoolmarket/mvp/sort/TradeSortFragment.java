@@ -33,6 +33,7 @@ public class TradeSortFragment extends BaseFragment implements ITradeSortView {
     protected void initViews(View view, Bundle savedInstanceState) {
         recyclerView = (RecyclerView) view.findViewById(R.id.sort_grid);
         tradeAdd = (FloatingActionButton) view.findViewById(R.id.sort_deal_plus);
+        presenter = new TredeSortPresenter(getActivity(), this);
 
         tradeAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,6 +41,10 @@ public class TradeSortFragment extends BaseFragment implements ITradeSortView {
                 //跳转到添加商品界面
             }
         });
+
+        /*LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());*/
 
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),3));
         recyclerView.setItemAnimator(new DefaultItemAnimator());

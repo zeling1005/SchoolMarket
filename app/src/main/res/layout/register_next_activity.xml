@@ -28,7 +28,7 @@
             <AutoCompleteTextView
                 android:id="@+id/register_next_phone_text"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:hint="@string/register_next_phone"
                 android:inputType="phone"
                 android:maxLength="11"
@@ -52,7 +52,7 @@
             <AutoCompleteTextView
                 android:id="@+id/register_security_code_text"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:hint="@string/register_next_code"
                 android:inputType="phone"
                 android:maxLength="6"
@@ -61,7 +61,8 @@
 
         <TextView
             android:id="@+id/register_next_get_code"
-            android:layout_width="wrap_content"
+            android:background="@drawable/login_back"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical"
             android:gravity="center"

@@ -1,6 +1,10 @@
 package com.peter.schoolmarket.mvp.find;
 
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.net.Uri;
 import android.view.View;
 import android.widget.Toast;
@@ -12,6 +16,8 @@ import com.peter.schoolmarket.data.dto.Result;
 import com.peter.schoolmarket.data.pojo.Trade;
 import com.peter.schoolmarket.util.ResultInterceptor;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +52,7 @@ public class FindPresenter implements IFindPresenter, IGainListener {
             initList(data);
         }else {
             //这里可以添加一个加载窗口
+            view.showProgress();
             model.tradesDataReq(this, 0, realm);
         }
     }
@@ -53,6 +60,7 @@ public class FindPresenter implements IFindPresenter, IGainListener {
     @Override
     public void refreshView(Realm realm) {
         //进行网络请求，查看是否更新数据
+        //view.showProgress();
         model.tradesDataReq(this, 0, realm);
     }
 
@@ -87,25 +95,11 @@ public class FindPresenter implements IFindPresenter, IGainListener {
     @Override
     public void onReqComplete(Result<List<Trade>> result, Realm realm) {
         view.hideRefresh();
+        view.hideProgress();
         if (!ResultInterceptor.instance.resultDataHandler(result)){//判断是否Result数据为空
             return;
         }
         final List<Trade> tradeList = result.getData();
-        /*for (Trade trade:result.getData()){//(Trade trade : List<Trade>)
-            //realm添加trade
-            Trade newTrade=new Trade();
-            newTrade.setId(trade.getId());
-            newTrade.setTitle(trade.getTitle());
-            newTrade.setAuthorId(trade.getAuthorId());
-            newTrade.setAuthorName(trade.getAuthorName());
-            newTrade.setAuthorImg(trade.getAuthorImg());
-            newTrade.setNowPrice(trade.getNowPrice());
-            newTrade.setOriginalPrice(trade.getOriginalPrice());
-            newTrade.setTagName(trade.getTagName());
-            newTrade.setImgUrls(trade.getImgUrls());
-            newTrade.setStatus(trade.getStatus());
-            tradeList.add(newTrade);
-        }*/
         initList(tradeList);
         final RealmResults<Trade> results = realm.where(Trade.class).findAll();
         realm.executeTransaction(new Realm.Transaction() {//清空数据

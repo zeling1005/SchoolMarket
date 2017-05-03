@@ -41,7 +41,7 @@ public class SplashActivity extends BaseActivity {
         view = (SimpleDraweeView) findViewById(R.id.loading_gif);
         DraweeController builder = Fresco.newDraweeControllerBuilder()
                 .setAutoPlayAnimations(true)
-                .setUri(Uri.parse("res://drawable/" + R.drawable.splash_loading))
+                .setUri(Uri.parse("res://drawable/" + R.drawable.phone_splash))
                 .build();
         view.setController(builder);
     }

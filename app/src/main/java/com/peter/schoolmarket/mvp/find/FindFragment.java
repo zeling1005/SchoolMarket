@@ -1,17 +1,22 @@
 package com.peter.schoolmarket.mvp.find;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.peter.schoolmarket.R;
 import com.peter.schoolmarket.adapter.recycler.RecyclerCommonAdapter;
 import com.peter.schoolmarket.di.components.DaggerFindFragmentComponent;
 import com.peter.schoolmarket.di.modules.FindFragmentModule;
 import com.peter.schoolmarket.mvp.base.BaseFragment;
+import com.peter.schoolmarket.mvp.main.MainActivity;
+import com.peter.schoolmarket.mvp.splash.SplashActivity;
 
 import javax.inject.Inject;
 
@@ -25,11 +30,9 @@ public class FindFragment extends BaseFragment implements IFindView {
 
     @Inject
     IFindPresenter presenter;
-
     RecyclerView recyclerView;
-
     SwipeRefreshLayout refreshLayout;
-
+    MaterialDialog progress;
     private Realm realm;
 
 
@@ -45,6 +48,13 @@ public class FindFragment extends BaseFragment implements IFindView {
         refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.find_trades_refresh);
 
         realm=Realm.getDefaultInstance();
+
+        progress = new MaterialDialog.Builder(view.getContext())
+                .content("正在加载...")
+                .progress(true, 0)
+                .progressIndeterminateStyle(false)//是否水平放置
+                .title("请稍等")
+                .build();
 
         DaggerFindFragmentComponent.builder()
                 .findFragmentModule(new FindFragmentModule(getActivity(),this))
@@ -73,7 +83,37 @@ public class FindFragment extends BaseFragment implements IFindView {
 
     @Override
     public void hideRefresh() {
-        refreshLayout.setRefreshing(false);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //延迟1秒
+                if (refreshLayout.isRefreshing()) {
+                    refreshLayout.setRefreshing(false);
+                }
+            }
+        }, 2500);
+        /*if (refreshLayout.isRefreshing()) {
+            refreshLayout.setRefreshing(false);
+        }*/
+
+    }
+
+    @Override
+    public void showProgress() {
+        progress.show();
+    }
+
+    @Override
+    public void hideProgress() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //延迟1秒
+            }
+        }, 1500);
+        if (progress.isShowing()) {
+            progress.dismiss();
+        }
     }
 
     @Override

@@ -42,7 +42,7 @@ public class TredeSortPresenter implements ITradeSortPresenter {
     }
 
     public void initList(final List<TradeTag> tags) {
-        RecyclerCommonAdapter<?> adapter=new RecyclerCommonAdapter<TradeTag>(context,tags, R.layout.sort_fragment) {
+        RecyclerCommonAdapter<?> adapter=new RecyclerCommonAdapter<TradeTag>(context,tags, R.layout.sort_item) {
             @Override
             public void convert(RecyclerViewHolder holder, TradeTag item) {
                 holder.setText(R.id.grid_tv,item.getName());
@@ -57,7 +57,7 @@ public class TredeSortPresenter implements ITradeSortPresenter {
                 String tagName = item.getName();
                 TredeSortPresenter.this.view.jumpTradeDetail(tagName);
                 //跳转到分类商品详情页面
-                Toast.makeText(context, "jump", Toast.LENGTH_LONG);
+                Toast.makeText(context, "tradeTagJump", Toast.LENGTH_LONG);
                 /*Intent intent=new Intent(context,TradeDetailActivity.class);
                 intent.putExtra("tradeId",item.getId());
                 intent.putExtra("userId",item.getAuthorId());

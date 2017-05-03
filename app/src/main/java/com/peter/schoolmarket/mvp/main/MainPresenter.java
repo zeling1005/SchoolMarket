@@ -21,6 +21,7 @@ import com.peter.schoolmarket.data.pojo.User;
 import com.peter.schoolmarket.data.storage.LoginInfoExecutor;
 import com.peter.schoolmarket.mvp.find.FindFragment;
 import com.peter.schoolmarket.mvp.login.LoginActivity;
+import com.peter.schoolmarket.mvp.sort.TradeSortFragment;
 import com.peter.schoolmarket.mvp.test.TestActivity;
 import com.peter.schoolmarket.mvp.test.TestFragment;
 
@@ -39,6 +40,7 @@ public class MainPresenter implements IMainPresenter {
     BottomNavigationBar bottomNavigationBar;
     TestFragment testFragment;
     FindFragment findFragment;
+    TradeSortFragment tradeSortFragment;
     //private Realm realmDefault;
 
     public MainPresenter(AppCompatActivity context) {
@@ -202,21 +204,33 @@ public class MainPresenter implements IMainPresenter {
                 ft.add(R.id.frame_layout, findFragment);
             }
                 break;
-            case 1 : type = 1;
+            case 1 : if (tradeSortFragment != null) {
+                ft.show(tradeSortFragment);
+            } else {
+                tradeSortFragment = new TradeSortFragment();
+                ft.add(R.id.frame_layout, tradeSortFragment);
+            }
                 break;
-            case 2 : type = 2;
+            case 2 : if (testFragment != null) {
+                ft.show(testFragment);
+            } else {
+                testFragment = new TestFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("textString", "");
+                testFragment.setArguments(bundle);
+                ft.add(R.id.frame_layout, testFragment);
+            }
                 break;
-            case 3 : type = 3;
+            case 3 : if (testFragment != null) {
+                ft.show(testFragment);
+            } else {
+                testFragment = new TestFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("textString", "");
+                testFragment.setArguments(bundle);
+                ft.add(R.id.frame_layout, testFragment);
+            }
                 break;
-        }
-        if (testFragment != null) {
-            ft.show(testFragment);
-        } else {
-            testFragment = new TestFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString("textString", "" + type);
-            testFragment.setArguments(bundle);
-            ft.add(R.id.frame_layout, testFragment);
         }
         ft.commit();
     }
@@ -227,6 +241,9 @@ public class MainPresenter implements IMainPresenter {
         }
         if (findFragment != null) {
             ft.hide(findFragment);
+        }
+        if (tradeSortFragment != null) {
+            ft.hide(tradeSortFragment);
         }
     }
 
