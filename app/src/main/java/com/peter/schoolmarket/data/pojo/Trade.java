@@ -1,11 +1,9 @@
 package com.peter.schoolmarket.data.pojo;
 
-import com.google.gson.annotations.Expose;
-
 import java.io.Serializable;
-import java.util.List;
 
 import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 
 /**
@@ -16,7 +14,10 @@ public class Trade extends RealmObject implements Serializable {
     @PrimaryKey
     private String id;//商品ID
     private String title;//商品名字
-    private User author;//商品所属者
+    //private User author;//商品所属者
+    private String authorName;
+    private String authorImg;
+    private String authorId;
     private long originalPrice;//商品原价格
     private long nowPrice;//二手商品价格
     private String tagName;//商品类别
@@ -24,22 +25,8 @@ public class Trade extends RealmObject implements Serializable {
     private String describe;//描述
     private long createTime;//商品创建时间
     private int status;//商品状态。0:在售，1:售出
-    @Expose
+    @Ignore
     private boolean releaseCheck;//为了在发布时方便检查数据完整性，不存储在数据库中
-
-    @Override
-    public String toString() {
-        return "Trade{" +
-                "id='" + id + '\'' +
-                ", title='" + title + '\'' +
-                ", author=" + author +
-                ", originalPrice=" + originalPrice +
-                ", tagName='" + tagName + '\'' +
-                ", imgUrls='" + imgUrls + '\'' +
-                ", status=" + status +
-                ", releaseCheck=" + releaseCheck +
-                '}';
-    }
 
     public void setId(String id) {
         this.id = id;
@@ -53,8 +40,16 @@ public class Trade extends RealmObject implements Serializable {
         this.title = title;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public void setAuthorImg(String authorImg) {
+        this.authorImg = authorImg;
+    }
+
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
     }
 
     public void setOriginalPrice(long originalPrice) {
@@ -89,8 +84,16 @@ public class Trade extends RealmObject implements Serializable {
         return id;
     }
 
-    public User getAuthor() {
-        return author;
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public String getAuthorImg() {
+        return authorImg;
+    }
+
+    public String getAuthorId() {
+        return authorId;
     }
 
     public long getCreateTime() {

@@ -11,11 +11,8 @@ import io.realm.annotations.Required;
 public class User extends RealmObject {
     @PrimaryKey
     private String id;
-    @Required
     private String username;//用户名
-    @Required
     private String password;//用户密码
-    @Required
     private String phone;//手机号
     private String avatarUrl;//头像地址
 

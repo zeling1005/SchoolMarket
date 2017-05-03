@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-//应用realm插件
+apply plugin: 'android-apt'
 apply plugin: 'realm-android'
 //dagger2
 apply plugin: 'com.neenbedankt.android-apt'//添加apt命令

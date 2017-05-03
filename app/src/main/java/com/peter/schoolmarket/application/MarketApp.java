@@ -29,9 +29,8 @@ public class MarketApp extends Application {
         //fresco初始化
         Fresco.initialize(this);
         //Realm初始化
-        //Realm.init(this);
         Realm.init(this);
-        /*RealmConfiguration config = new RealmConfiguration.Builder().build();
-        Realm.setDefaultConfiguration(config);*/
+        RealmConfiguration config = new RealmConfiguration.Builder().build();
+        Realm.setDefaultConfiguration(config);
     }
 }

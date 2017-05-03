@@ -19,6 +19,7 @@ import com.peter.schoolmarket.R;
 import com.peter.schoolmarket.application.AppConf;
 import com.peter.schoolmarket.data.pojo.User;
 import com.peter.schoolmarket.data.storage.LoginInfoExecutor;
+import com.peter.schoolmarket.mvp.find.FindFragment;
 import com.peter.schoolmarket.mvp.login.LoginActivity;
 import com.peter.schoolmarket.mvp.test.TestActivity;
 import com.peter.schoolmarket.mvp.test.TestFragment;
@@ -37,6 +38,7 @@ public class MainPresenter implements IMainPresenter {
     TextView toolbarTitle;
     BottomNavigationBar bottomNavigationBar;
     TestFragment testFragment;
+    FindFragment findFragment;
     //private Realm realmDefault;
 
     public MainPresenter(AppCompatActivity context) {
@@ -193,7 +195,12 @@ public class MainPresenter implements IMainPresenter {
         FragmentTransaction ft = fm.beginTransaction();
         hideAllFragment(ft);
         switch (position) {
-            case 0 : type = 0;
+            case 0 : if (findFragment != null) {
+                ft.show(findFragment);
+            } else {
+                findFragment = new FindFragment();
+                ft.add(R.id.frame_layout, findFragment);
+            }
                 break;
             case 1 : type = 1;
                 break;
@@ -217,6 +224,9 @@ public class MainPresenter implements IMainPresenter {
     public void hideAllFragment(FragmentTransaction ft) {
         if (testFragment != null) {
             ft.hide(testFragment);
+        }
+        if (findFragment != null) {
+            ft.hide(findFragment);
         }
     }
 

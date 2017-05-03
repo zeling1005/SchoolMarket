@@ -64,7 +64,7 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
             @Override
             public void onClick(View v) {
                 String myId= LoginInfoExecutor.getUser(TradeDetailActivity.this).getId();
-                if (!(trade.getAuthor().getId()).equals(myId)){
+                /*if (!(trade.getAuthor().getId()).equals(myId)){
                     new MaterialDialog.Builder(TradeDetailActivity.this)
                             .title("确认下单？")
                             .content("请在确认下单之后联系卖家！")
@@ -77,7 +77,7 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
                                 }
                             })
                             .show();
-                }
+                }*/
             }
         });
         phone.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +104,7 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
         name.setText(trade.getTitle());
         nowPrice.setText("友情价:￥" + trade.getNowPrice());
         originalPrice.setText("原价:￥" + trade.getOriginalPrice());
-        phone.setText(trade.getAuthor().getPhone());
+        //phone.setText(trade.getAuthor().getPhone());
         describe.setText(trade.getDescribe());
     }
 

@@ -1,7 +1,6 @@
 package com.peter.schoolmarket.mvp.find;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
 import android.widget.Toast;
@@ -38,8 +37,11 @@ public class FindPresenter implements IFindPresenter, IGainListener {
 
     @Override
     public void initView(Realm realm) {
+
         RealmQuery<Trade> query =  realm.where(Trade.class);
-        List<Trade> data =  query.findAll();
+        RealmResults<Trade> results = query.findAll();
+        List<Trade> data =  realm.copyFromRealm(results);
+
         if (data.size()>0){
             initList(data);
         }else {
@@ -60,8 +62,8 @@ public class FindPresenter implements IFindPresenter, IGainListener {
             public void convert(RecyclerViewHolder holder, Trade item) {
                 holder.setText(R.id.deal_title,item.getTitle());
                 holder.setFrescoImg(R.id.deal_img, Uri.parse(item.getImgUrls()));
-                holder.setFrescoImg(R.id.author_img,Uri.parse(item.getAuthor().getAvatarUrl()));
-                holder.setText(R.id.author_name,item.getAuthor().getUsername());
+                holder.setFrescoImg(R.id.author_img,Uri.parse(item.getAuthorImg()));
+                holder.setText(R.id.author_name,item.getAuthorName());
                 holder.setText(R.id.deal_price,"￥ "+item.getNowPrice());
             }
         };
@@ -88,19 +90,22 @@ public class FindPresenter implements IFindPresenter, IGainListener {
         if (!ResultInterceptor.instance.resultDataHandler(result)){//判断是否Result数据为空
             return;
         }
-        final List<Trade> tradeList=new ArrayList<>();
-        for (Trade trade:result.getData()){//(Trade trade : List<Trade>)
+        final List<Trade> tradeList = result.getData();
+        /*for (Trade trade:result.getData()){//(Trade trade : List<Trade>)
             //realm添加trade
             Trade newTrade=new Trade();
             newTrade.setId(trade.getId());
             newTrade.setTitle(trade.getTitle());
-            newTrade.setAuthor(trade.getAuthor());
+            newTrade.setAuthorId(trade.getAuthorId());
+            newTrade.setAuthorName(trade.getAuthorName());
+            newTrade.setAuthorImg(trade.getAuthorImg());
             newTrade.setNowPrice(trade.getNowPrice());
+            newTrade.setOriginalPrice(trade.getOriginalPrice());
             newTrade.setTagName(trade.getTagName());
             newTrade.setImgUrls(trade.getImgUrls());
             newTrade.setStatus(trade.getStatus());
             tradeList.add(newTrade);
-        }
+        }*/
         initList(tradeList);
         final RealmResults<Trade> results = realm.where(Trade.class).findAll();
         realm.executeTransaction(new Realm.Transaction() {//清空数据

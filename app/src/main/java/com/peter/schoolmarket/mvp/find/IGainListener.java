@@ -2,6 +2,7 @@ package com.peter.schoolmarket.mvp.find;
 
 import com.peter.schoolmarket.data.dto.Result;
 import com.peter.schoolmarket.data.pojo.Trade;
+import com.peter.schoolmarket.data.pojo.User;
 
 import java.util.List;
 

@@ -50,24 +50,16 @@ public interface UserReq {
             @Path("userId")  String user_id,
             @Field("phone")  String phone);
 
+    /**
+     * 注册下一步，设置学校和手机号
+     */
+    @POST(RetrofitConf.get_user_info)
+    @FormUrlEncoded
+    Observable<Result<User>> getUserInfo(
+            @Field("userId") String userId);
+
     /*---------------------------我是分割线---------------------------------*/
 
-    /**
-     * 获取token
-     */
-    @POST(RetrofitConf.auth)
-    @FormUrlEncoded
-    Call<String> auth(
-            @Field("username") String username,
-            @Field("password") String password);
-
-    /**
-     * 获取用户发起的志愿队列表
-     */
-    @GET(RetrofitConf.get_user_team)
-    Observable<Result<List<User>>> getUserTeams(
-            @Path("userId")  String user_id
-    );
 
     /**
      * 获取用户所有交易信息,实现使用后台轮询
@@ -90,17 +82,5 @@ public interface UserReq {
     Observable<Result<List<User>>> getUserTrades(
             @Path("userId")  String user_id,
             @Query("type") int type
-    );
-
-    /**
-     * 捐赠用户的商品
-     */
-    @PUT(RetrofitConf.donate_user_trade)
-    @FormUrlEncoded
-    Observable<Result<String>> donateUserTrade(
-            @Path("userId")  String user_id,
-            @Field("tradeId")  String tradeId,
-            @Field("tradeImg")  String tradeImg,
-            @Field("team")  String team
     );
 }

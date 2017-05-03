@@ -119,7 +119,7 @@ public class TradeAddPresenter implements ITradeAddPresenter, ITradeAddListener 
         author.setId(authorOld.getId());
         author.setUsername(authorOld.getUsername());
         author.setAvatarUrl(authorOld.getAvatarUrl());
-        trade.setAuthor(author);
+        //trade.setAuthor(author);
         trade.setReleaseCheck(true);
         return trade;
     }
