@@ -45,8 +45,9 @@ public class MainActivity extends BaseActivity {
 
         //设置标题栏
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(this.getResources().getString(R.string.main_title));
+        //toolbar.setTitle(this.getResources().getString(R.string.main_title));
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         //realm=Realm.getDefaultInstance();
         //presenter = new MainPresenter(this, realm);

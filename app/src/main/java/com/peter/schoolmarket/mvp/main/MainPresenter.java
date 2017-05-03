@@ -129,7 +129,11 @@ public class MainPresenter implements IMainPresenter {
         SimpleDraweeView avatarUrl=(SimpleDraweeView) headerLayout.findViewById(R.id.header_portrait);
         TextView username=(TextView) headerLayout.findViewById(R.id.header_user_name);
         TextView phone=(TextView) headerLayout.findViewById(R.id.header_phone);
-        avatarUrl.setImageURI(Uri.parse(AppConf.BASE_URL+user.getAvatarUrl()));
+        if (AppConf.useMock){
+            avatarUrl.setImageURI("res://drawable/"+R.drawable.main_person);
+        } else {
+            avatarUrl.setImageURI(Uri.parse(AppConf.BASE_URL+user.getAvatarUrl()));
+        }
         username.setText(user.getUsername());
         phone.setText(user.getPhone());
     }

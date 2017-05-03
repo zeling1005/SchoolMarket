@@ -6,16 +6,24 @@
         <item name="colorPrimary">@color/colorPrimary</item>                  <!-- 状态栏 -->
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>          <!-- toolbar -->
         <item name="colorAccent">@color/colorAccent</item>                    <!-- 常用控件默认背景色 -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/md_black_1000</item>
+    </style>
 
 
     <!--图片选择器风格-->
@@ -40,10 +48,11 @@
         <item name="searchVoiceIcon">@drawable/ic_action_voice_search_inverted</item>
 
         <!-- Change clear text icon -->
-        <item name="searchCloseIcon">@drawable/ic_action_navigation_close_inverted</item>
+
+        <item name="searchCloseIcon">@drawable/ic_search_cancel</item>
 
         <!-- Change up icon -->
-        <item name="searchBackIcon">@drawable/ic_action_navigation_arrow_back_inverted</item>
+        <item name="searchBackIcon">@drawable/ic_search_back</item>
 
         <!-- Change icon for the suggestions -->
         <item name="searchSuggestionIcon">@drawable/ic_suggestion</item>

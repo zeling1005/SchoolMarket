@@ -37,6 +37,7 @@
     <string name="nav_share">推荐给朋友</string>
     <string name="nav_setting">设置</string>
     <string name="nav_exit">退出</string>
+    <string name="nav_other">其它</string>
 
     <!--main activity-->
     <string name="main_title">发现</string>

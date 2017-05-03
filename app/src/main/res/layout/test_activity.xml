@@ -34,7 +34,7 @@
                 android:maxLines="1"
                 android:text="测试"
                 android:textColor="@color/md_black_1000"
-                android:textSize="25sp"/>
+                android:textSize="@dimen/font_size_normal_high"/>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
@@ -49,7 +49,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="test activity"
-            android:textSize="25sp"/>
+            android:textSize="16sp"/>
 
     </LinearLayout>
 
