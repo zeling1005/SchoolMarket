@@ -2,29 +2,20 @@ package com.peter.schoolmarket.mvp.sort.trades;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.speech.RecognizerIntent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.github.johnpersano.supertoasts.library.Style;
-import com.github.johnpersano.supertoasts.library.SuperToast;
-import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
-import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.peter.schoolmarket.R;
 import com.peter.schoolmarket.adapter.recycler.DividerItemDecoration;
 import com.peter.schoolmarket.adapter.recycler.RecyclerCommonAdapter;
 import com.peter.schoolmarket.mvp.base.BaseActivity;
-
-import java.util.ArrayList;
 
 /**
  * Created by PetterChen on 2017/4/29.
@@ -92,12 +83,7 @@ public class TradeTagDetailActivity extends BaseActivity implements ITradeTagDet
 
     @Override
     public void loadDataFail(String errorMsg) {
-        new SuperToast(TradeTagDetailActivity.this)
-                .setText(errorMsg)
-                .setDuration(Style.DURATION_LONG)
-                .setColor(PaletteUtils.getTransparentColor(PaletteUtils.MATERIAL_RED))
-                .setAnimations(Style.ANIMATIONS_POP)
-                .show();
+        Toast.makeText(this, errorMsg, Toast.LENGTH_SHORT).show();
     }
 
     @Override

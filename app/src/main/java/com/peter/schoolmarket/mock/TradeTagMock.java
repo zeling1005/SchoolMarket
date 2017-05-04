@@ -31,8 +31,6 @@ public class TradeTagMock {
      *  "title": "3瓶脉动饮料"
      *},
      */
-    //mWebView.loadUrl("file:///android_asset/test.html");
-    //context.getClass().getClassLoader().getResourceAsStream("assets/"+资源名);
     public Result<List<Trade>> getTrades(){
         String jsonStr="[\n" +
                 "  {\n" +
@@ -92,6 +90,11 @@ public class TradeTagMock {
         result.setMsg("");
         result.setData(trades);
         return result;
+    }
+
+    public Result<String> getReleaseTradeResult() {
+        String json="{\"code\":100,\"msg\":\"操作成功\"}";
+        return new Gson().fromJson(json,  new TypeToken<Result<String>>() {}.getType());
     }
 
     public Result<Trade> getTradeDetail(){

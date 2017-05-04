@@ -33,7 +33,9 @@ dependencies {
     }
 
     //图片选择器
-    compile 'cn.finalteam.rxgalleryfinal:library:1.0.1'
+    compile 'cn.finalteam.rxgalleryfinal:library:0.0.3'
+    compile 'com.android.support:recyclerview-v7:24.2.0'
+
     //支持以下主流图片加载器，开发者自行选择
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.github.bumptech.glide:glide:3.7.0'

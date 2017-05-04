@@ -1,38 +1,26 @@
 package com.peter.schoolmarket.mvp.trade.add;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.View;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.github.johnpersano.supertoasts.library.Style;
-import com.github.johnpersano.supertoasts.library.SuperToast;
-import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 import com.peter.schoolmarket.R;
 import com.peter.schoolmarket.data.pojo.TradeTag;
 import com.peter.schoolmarket.mvp.base.BaseActivity;
-import com.peter.schoolmarket.mvp.main.MainActivity;
 import com.peter.schoolmarket.util.TradeTagUtils;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import cn.finalteam.rxgalleryfinal.RxGalleryFinal;
-import cn.finalteam.rxgalleryfinal.RxGalleryFinalApi;
 import cn.finalteam.rxgalleryfinal.imageloader.ImageLoaderType;
 import cn.finalteam.rxgalleryfinal.rxbus.RxBusResultSubscriber;
 import cn.finalteam.rxgalleryfinal.rxbus.event.ImageRadioResultEvent;
-import cn.finalteam.rxgalleryfinal.utils.Logger;
 
 /**
  * Created by PetterChen on 2017/4/30.
@@ -52,10 +40,13 @@ public class TradeAddActivity extends BaseActivity implements ITradeAddView {
     MaterialDialog progress;
     TradeAddPresenter presenter;
     private List<String> tags;
+    private String picUrl;
     private String picUploadUrl;
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
+        setContentView(R.layout.trade_add_activity);
+
         addImg = (SimpleDraweeView) findViewById(R.id.trade_add_img);
         selectTag = (TextView) findViewById(R.id.trade_add_tag_select);
         tradeTitle = (EditText) findViewById(R.id.trade_add_title_content);
@@ -68,12 +59,12 @@ public class TradeAddActivity extends BaseActivity implements ITradeAddView {
         progress = new MaterialDialog.Builder(TradeAddActivity.this)
                 .content("正在处理...")
                 .progress(true, 0)
-                .progressIndeterminateStyle(false)
+                .progressIndeterminateStyle(false)//是否水平进度条
                 .title("请稍等")
                 .build();
         presenter = new TradeAddPresenter(this, this);
 
-        tags = new ArrayList<String>();
+        tags = new ArrayList<>();
 
         initTags();
 
@@ -97,10 +88,7 @@ public class TradeAddActivity extends BaseActivity implements ITradeAddView {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //返回到上一个界面
-                /*Intent intent=new Intent(TradeAddActivity.this,MainActivity.class);
-                startActivity(intent);
-                finish();*/
+                (TradeAddActivity.this).finish();
             }
         });
         submit.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +101,25 @@ public class TradeAddActivity extends BaseActivity implements ITradeAddView {
         addImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                picSelector();
+                RxGalleryFinal
+                        .with(TradeAddActivity.this)
+                        .image()
+                        .radio()
+                        .crop()
+                        .cropropCompressionQuality(40)
+                        .cropWithAspectRatio(1,1)
+                        .imageLoader(ImageLoaderType.FRESCO)
+                        .subscribe(new RxBusResultSubscriber<ImageRadioResultEvent>() {
+                            @Override
+                            protected void onEvent(ImageRadioResultEvent imageRadioResultEvent) throws Exception {
+                                String path=imageRadioResultEvent.getResult().getCropPath();
+                                picUrl = "file://"+path;
+                                picUploadUrl = "" + path;
+                                //Log.d("TradeAdd", picUploadUrl);
+                                addImg.setImageURI(picUrl);
+                            }
+                        })
+                        .openGallery();
             }
         });
     }
@@ -125,68 +131,28 @@ public class TradeAddActivity extends BaseActivity implements ITradeAddView {
         }
     }
 
-    private void picSelector(){
-        try {
-            //自定义方法的单选
-            RxGalleryFinal
-                    .with(TradeAddActivity.this)
-                    .image()
-                    .radio()
-                    .crop()
-                    .imageLoader(ImageLoaderType.FRESCO)
-                    .subscribe(new RxBusResultSubscriber<ImageRadioResultEvent>() {
-                        @Override
-                        protected void onEvent(ImageRadioResultEvent imageRadioResultEvent) throws Exception {
-                            //图片选择结果
-                            picUploadUrl = imageRadioResultEvent.getResult().getCropPath();
-                            /*
-                            File file=new File(filePath);
-                            if (!file.exists()){
-                                return null;
-                            }
-                            // TODO: 16-11-30  没有判断file的类型
-                            RequestBody requestBody = RequestBody.create(MediaType.parse("image/png"), file);
-                            MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(),
-                            requestBody);*/
-                        }
-                    })
-                    .openGallery();
-        } catch (Exception e) {
-            Logger.w("图片选择器出现异常:"+e.getLocalizedMessage());
-        }
-    }
-
     @Override
     public void tradeAddSuccess() {
-        new SuperToast(TradeAddActivity.this)
-                .setText("发布成功")
-                .setDuration(Style.DURATION_LONG)
-                .setColor(PaletteUtils.getTransparentColor(PaletteUtils.MATERIAL_GREEN))
-                .setAnimations(Style.ANIMATIONS_POP)
-                .show();
-        //返回到分类界面
-        /*Intent intent=new Intent(TradeAddActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();*/
+        Toast.makeText(this, "发布成功", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     @Override
     public void whenFail(String errorMsg) {
-        new SuperToast(TradeAddActivity.this)
-                .setText(errorMsg)
-                .setDuration(Style.DURATION_LONG)
-                .setColor(PaletteUtils.getTransparentColor(PaletteUtils.MATERIAL_RED))
-                .setAnimations(Style.ANIMATIONS_FLY)
-                .show();
+        Toast.makeText(this, errorMsg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showProgress() {
-        progress.show();
+        if (!progress.isShowing()){
+            progress.show();
+        }
     }
 
     @Override
     public void hideProgress() {
-        progress.dismiss();
+        if (progress.isShowing()) {
+            progress.dismiss();
+        }
     }
 }

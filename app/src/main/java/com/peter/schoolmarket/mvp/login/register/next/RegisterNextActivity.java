@@ -12,22 +12,15 @@ import android.support.design.widget.TextInputLayout;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.github.johnpersano.supertoasts.library.Style;
-import com.github.johnpersano.supertoasts.library.SuperToast;
-import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 import com.peter.schoolmarket.R;
 import com.peter.schoolmarket.di.components.DaggerRegisterNextComponent;
 import com.peter.schoolmarket.di.modules.RegisterNextModule;
 import com.peter.schoolmarket.mvp.base.BaseActivity;
-import com.peter.schoolmarket.mvp.login.LoginActivity;
 import com.peter.schoolmarket.mvp.main.MainActivity;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -234,11 +227,6 @@ public class RegisterNextActivity extends BaseActivity implements IRegisterNextV
 
     @Override
     public void addFailed() {
-        new SuperToast(RegisterNextActivity.this)
-                .setText("网络异常或者系统错误")
-                .setDuration(Style.DURATION_LONG)
-                .setColor(PaletteUtils.getTransparentColor(PaletteUtils.MATERIAL_RED))
-                .setAnimations(Style.ANIMATIONS_POP)
-                .show();
+        Toast.makeText(this, "网络异常或者系统错误", Toast.LENGTH_SHORT).show();
     }
 }

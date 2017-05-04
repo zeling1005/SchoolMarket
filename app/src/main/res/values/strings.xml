@@ -51,4 +51,14 @@
     <string name="trade_tag_item_new_price">now price</string>
     <string name="trade_tag_item_original_price">original price</string>
 
+    <!--trade add activity-->
+    <string name="trade_add_title">发现</string>
+    <string name="trade_add_content_title">标题</string>
+    <string name="trade_add_content_now_price">价格(元)</string>
+    <string name="trade_add_content_original_price">原价(元)</string>
+    <string name="trade_add_content_describe">描述</string>
+    <string name="trade_add_content_tag_select">设置分类</string>
+
+
+
 </resources>

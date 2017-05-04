@@ -16,6 +16,7 @@ import com.peter.schoolmarket.adapter.recycler.RecyclerCommonAdapter;
 import com.peter.schoolmarket.data.pojo.TradeTag;
 import com.peter.schoolmarket.mvp.base.BaseFragment;
 import com.peter.schoolmarket.mvp.sort.trades.TradeTagDetailActivity;
+import com.peter.schoolmarket.mvp.trade.add.TradeAddActivity;
 
 /**
  * Created by PetterChen on 2017/4/29.
@@ -43,12 +44,10 @@ public class TradeSortFragment extends BaseFragment implements ITradeSortView {
             @Override
             public void onClick(View v) {
                 //跳转到添加商品界面
+                Intent intent = new Intent(getActivity(), TradeAddActivity.class);
+                getActivity().startActivity(intent);
             }
         });
-
-        /*LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());*/
 
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),3));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -56,15 +55,6 @@ public class TradeSortFragment extends BaseFragment implements ITradeSortView {
 
         presenter.initView();
     }
-
-    /*@Override
-    public void jumpTradeDetail(String tagName) {
-        //跳转到分类商品详情页面
-        Toast.makeText(getActivity(), "jump to " + tagName, Toast.LENGTH_LONG).show();
-        Intent intent=new Intent(getActivity(),TradeTagDetailActivity.class);
-        intent.putExtra("tagName", tagName);
-        getActivity().startActivity(intent);
-    }*/
 
     @Override
     public void loadTradeTagData(RecyclerCommonAdapter<?> adapter) {

@@ -2,18 +2,11 @@ package com.peter.schoolmarket.mvp.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Window;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.github.johnpersano.supertoasts.library.Style;
-import com.github.johnpersano.supertoasts.library.SuperToast;
-import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 import com.peter.schoolmarket.R;
-import com.peter.schoolmarket.data.pojo.User;
 import com.peter.schoolmarket.di.components.DaggerLoginRegisterComponent;
 import com.peter.schoolmarket.di.modules.LoginRegisterModule;
 import com.peter.schoolmarket.di.qualifiers.LoginProgress;
@@ -21,7 +14,6 @@ import com.peter.schoolmarket.di.qualifiers.RegisterProgress;
 import com.peter.schoolmarket.mvp.base.BaseActivity;
 import com.peter.schoolmarket.mvp.login.register.next.RegisterNextActivity;
 import com.peter.schoolmarket.mvp.main.MainActivity;
-import com.peter.schoolmarket.mvp.splash.SplashActivity;
 
 import javax.inject.Inject;
 
@@ -149,12 +141,7 @@ public class LoginActivity extends BaseActivity implements ILoginRegisterView {
 
     @Override
     public void loginFailed(String msg) {
-        new SuperToast(LoginActivity.this)
-                .setText(msg)
-                .setDuration(Style.DURATION_LONG)
-                .setColor(PaletteUtils.getTransparentColor(PaletteUtils.MATERIAL_RED))
-                .setAnimations(Style.ANIMATIONS_POP)
-                .show();
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -168,12 +155,7 @@ public class LoginActivity extends BaseActivity implements ILoginRegisterView {
 
     @Override
     public void registerFailed(String msg) {
-        new SuperToast(LoginActivity.this)
-                .setText(msg)
-                .setDuration(Style.DURATION_LONG)
-                .setColor(PaletteUtils.getTransparentColor(PaletteUtils.MATERIAL_RED))
-                .setAnimations(Style.ANIMATIONS_POP)
-                .show();
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
 }

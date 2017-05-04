@@ -5,7 +5,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.peter.schoolmarket.R;
 import com.peter.schoolmarket.data.dto.Result;
 import com.peter.schoolmarket.data.pojo.Trade;
 import com.peter.schoolmarket.data.pojo.User;
@@ -14,9 +13,6 @@ import com.peter.schoolmarket.network.NetReturn;
 import com.peter.schoolmarket.network.RetrofitUtils;
 import com.peter.schoolmarket.util.ResultInterceptor;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -24,13 +20,13 @@ import okhttp3.RequestBody;
  * Created by PetterChen on 2017/4/30.
  */
 
-public class TradeAddPresenter implements ITradeAddPresenter, ITradeAddListener {
+class TradeAddPresenter implements ITradeAddPresenter, ITradeAddListener {
 
     private ITradeAddModel model;
     private ITradeAddView view;
     private Context context;
 
-    public TradeAddPresenter(Context context, ITradeAddView view) {
+    TradeAddPresenter(Context context, ITradeAddView view) {
         this.context = context;
         this.view = view;
         this.model=new TradeAddModel();
@@ -54,24 +50,19 @@ public class TradeAddPresenter implements ITradeAddPresenter, ITradeAddListener 
         if (!trade.isReleaseCheck()){
             return;
         }
+        view.showProgress();
         trade.setStatus(0);//状态,0代表商品待售
         trade.setCreateTime(System.currentTimeMillis());//设置商品发布时间
-        view.showProgress();
         MultipartBody.Part part= RetrofitUtils.fileToMultipartBodyPart(picUploadUrl);
         String tradeJsonStr=new Gson().toJson(trade);
         RequestBody tradeJson=RetrofitUtils.createPartFromString(tradeJsonStr);
         model.addTradeReq(tradeJson,part,this);
     }
 
-    private Trade checkForm(String picUploadUrls, EditText title, EditText nowPrice,
+    private Trade checkForm(String picUploadUrl, EditText title, EditText nowPrice,
                             EditText originalPrice, EditText desc, TextView tag){
         Trade trade=new Trade();
         trade.setReleaseCheck(false);
-        if (!(picUploadUrls == null || picUploadUrls.equals(""))){
-            view.whenFail("请选择配图");
-            return trade;
-        }
-        trade.setImgUrls(picUploadUrls);
 
         String titleData=title.getText().toString().trim();
         if (titleData.isEmpty()){
@@ -110,16 +101,20 @@ public class TradeAddPresenter implements ITradeAddPresenter, ITradeAddListener 
         }
         trade.setTagName(tagData);
 
+        if (picUploadUrl == null || picUploadUrl.equals("")){
+            view.whenFail("请选择配图");
+            return trade;
+        }
+        trade.setImgUrls(picUploadUrl);
+
         User authorOld= LoginInfoExecutor.getUser(context);
         if (authorOld==null || authorOld.getId()==null){
             return trade;
         }
+        trade.setAuthorId(authorOld.getId());
+        trade.setAuthorName(authorOld.getUsername());
+        trade.setAuthorImg(authorOld.getAvatarUrl());
 
-        User author=new User();
-        author.setId(authorOld.getId());
-        author.setUsername(authorOld.getUsername());
-        author.setAvatarUrl(authorOld.getAvatarUrl());
-        //trade.setAuthor(author);
         trade.setReleaseCheck(true);
         return trade;
     }

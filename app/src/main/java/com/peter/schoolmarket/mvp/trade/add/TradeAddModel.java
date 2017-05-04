@@ -1,6 +1,8 @@
 package com.peter.schoolmarket.mvp.trade.add;
 
+import com.peter.schoolmarket.application.AppConf;
 import com.peter.schoolmarket.data.dto.Result;
+import com.peter.schoolmarket.mock.TradeTagMock;
 import com.peter.schoolmarket.network.NetReturn;
 import com.peter.schoolmarket.network.ReqExecutor;
 
@@ -19,6 +21,11 @@ import rx.schedulers.Schedulers;
 public class TradeAddModel implements ITradeAddModel {
     @Override
     public void addTradeReq(final RequestBody tradeJson, final MultipartBody.Part pic, final ITradeAddListener listener) {
+        if (AppConf.useMock){
+            listener.addTradeResult(new TradeTagMock().getReleaseTradeResult());
+            return;
+        }
+
         final Result<String> result= new Result<String>().result(NetReturn.SERVER_ERROR);
         ReqExecutor
                 .INSTANCE()
