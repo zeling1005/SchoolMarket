@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -36,11 +37,11 @@ public class MainPresenter implements IMainPresenter {
 
     private AppCompatActivity context;
     private FragmentManager fm;
-    TextView toolbarTitle;
-    BottomNavigationBar bottomNavigationBar;
-    TestFragment testFragment;
-    FindFragment findFragment;
-    TradeSortFragment tradeSortFragment;
+    private TextView toolbarTitle;
+    private BottomNavigationBar bottomNavigationBar;
+    private TestFragment testFragment;
+    private FindFragment findFragment;
+    private TradeSortFragment tradeSortFragment;
     //private Realm realmDefault;
 
     public MainPresenter(AppCompatActivity context) {
@@ -103,8 +104,9 @@ public class MainPresenter implements IMainPresenter {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 //Do some magic
-                Snackbar.make(context.findViewById(R.id.toolbar_container), "Query: " + query, Snackbar.LENGTH_LONG)
-                        .show();
+                /*Snackbar.make(context.findViewById(R.id.toolbar_container), "Query: " + query, Snackbar.LENGTH_LONG)
+                        .show();*/
+                Toast.makeText(context, "Query: " + query, Toast.LENGTH_SHORT).show();
                 return false;
             }
 

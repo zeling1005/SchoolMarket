@@ -23,24 +23,16 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <view
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="top"
-            android:background="@color/md_grey_900"/>
-        <view
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="bottom"
-            android:background="@color/md_grey_800"/>
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center|start">
+            android:layout_gravity="center|start"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/trade_tag_detail_name"
@@ -49,7 +41,7 @@
                 android:text="@string/trade_tag_item_name"
                 android:textColor="@color/md_grey_800"
                 android:textSize="@dimen/font_size_normal"
-                android:textStyle="bold" />
+                />
 
             <TextView
                 android:id="@+id/trade_tag_detail_now_price"
@@ -58,7 +50,7 @@
                 android:text="@string/trade_tag_item_new_price"
                 android:textColor="@color/md_red_500"
                 android:textSize="@dimen/font_size_normal"
-                android:textStyle="bold" />
+                />
 
             <TextView
                 android:id="@+id/trade_tag_detail_original_price"
@@ -67,7 +59,7 @@
                 android:text="@string/trade_tag_item_original_price"
                 android:textColor="@color/md_grey_800"
                 android:textSize="@dimen/font_size_normal"
-                android:textStyle="bold" />
+                />
 
         </LinearLayout>
 
@@ -79,9 +71,10 @@
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:alpha="0.6"
-                android:src="@drawable/trade_tag_detail_next"/>
+                android:src="@drawable/trade_tag_detail_next" />
 
         </LinearLayout>
+
     </FrameLayout>
+
 </LinearLayout>

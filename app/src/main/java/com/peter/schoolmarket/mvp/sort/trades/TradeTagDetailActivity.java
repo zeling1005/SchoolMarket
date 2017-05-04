@@ -3,6 +3,7 @@ package com.peter.schoolmarket.mvp.sort.trades;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +23,6 @@ import com.peter.schoolmarket.R;
 import com.peter.schoolmarket.adapter.recycler.DividerItemDecoration;
 import com.peter.schoolmarket.adapter.recycler.RecyclerCommonAdapter;
 import com.peter.schoolmarket.mvp.base.BaseActivity;
-import com.peter.schoolmarket.mvp.main.MainActivity;
 
 import java.util.ArrayList;
 
@@ -34,21 +34,27 @@ public class TradeTagDetailActivity extends BaseActivity implements ITradeTagDet
 
     protected RecyclerView recyclerView;
     TradeTagDetailPresenter presenter;
-    private String tagName;
-    private MaterialSearchView searchView;
     private ImageView back;
+    SwipeRefreshLayout refreshLayout;
     MaterialDialog progress;
     TextView title;
+    private String tagName;
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
         setContentView(R.layout.trade_tag_detail_activity);
 
+        Intent intent=getIntent();
+        Bundle bundle=intent.getExtras();
+        tagName=bundle.getString("tagName");
+
         recyclerView = (RecyclerView) findViewById(R.id.trade_tag_detail_list);
+        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.trade_tag_detail_refresh);
         presenter = new TradeTagDetailPresenter(this, this);
         back = (ImageView) findViewById(R.id.trade_tag_back);
         title = (TextView) findViewById(R.id.trade_tag_title);
-        searchView = (MaterialSearchView) findViewById(R.id.trade_tag_search_view);
+
+        title.setText(tagName);
 
         progress = new MaterialDialog.Builder(this)
                 .content("正在加载...")
@@ -57,47 +63,27 @@ public class TradeTagDetailActivity extends BaseActivity implements ITradeTagDet
                 .title("请稍等")
                 .build();
 
-        Intent intent=getIntent();
-        Bundle bundle=intent.getExtras();
-        tagName=bundle.getString("tagName");
+        refreshLayout.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_red_light,
+                android.R.color.holo_orange_light, android.R.color.holo_green_light);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.refresh();
+            }
+        });
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent intent=new Intent(TradeTagDetailActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();*/
                 (TradeTagDetailActivity.this).finish();
             }
         });
 
-        title.setText(tagName);
         recyclerView.setLayoutManager(new LinearLayoutManager(TradeTagDetailActivity.this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(this));
-        if (tagName!=null){
-            presenter.getTradeListByTag(tagName);
-        }
+        presenter.init(tagName);
     }
-
-    //当客户点击MENU按钮的时候，调用该方法
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.trade_tag_search_item, menu);
-        MenuItem item = menu.findItem(R.id.trade_tag_search);
-        searchView.setMenuItem(item);
-        return true;
-    }
-
-    /*@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_search) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
 
     @Override
     public void loadDataSuccess(RecyclerCommonAdapter<?> adapter) {
@@ -122,35 +108,16 @@ public class TradeTagDetailActivity extends BaseActivity implements ITradeTagDet
     }
 
     @Override
+    public void hideRefresh() {
+        if (refreshLayout.isRefreshing()) {
+            refreshLayout.setRefreshing(false);
+        }
+    }
+
+    @Override
     public void hideProgress() {
         if (progress.isShowing()) {
             progress.dismiss();
         }
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == MaterialSearchView.REQUEST_VOICE && resultCode == RESULT_OK) {
-            ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-            if (matches != null && matches.size() > 0) {
-                String searchWrd = matches.get(0);
-                if (!TextUtils.isEmpty(searchWrd)) {
-                    searchView.setQuery(searchWrd, false);
-                }
-            }
-
-            return;
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (searchView.isSearchOpen()) {
-            searchView.closeSearch();
-        } else {
-            super.onBackPressed();
-        }
-    }
-
 }

@@ -7,6 +7,6 @@ import com.miguelcatalan.materialsearchview.MaterialSearchView;
  */
 
 public interface ITradeTagDetailPresenter {
-    void init(MaterialSearchView searchView);
-    void getTradeListByTag(String tagName);
+    void init(String tagName);
+    void refresh();
 }

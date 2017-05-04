@@ -11,6 +11,7 @@ public interface ITradeTagDetailView {
 
     void loadDataFail(String errorMsg);//当数据获取失败
 
+    void hideRefresh();
     void showProgress();
     void hideProgress();
 }
