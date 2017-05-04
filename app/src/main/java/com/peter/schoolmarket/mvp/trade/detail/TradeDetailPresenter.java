@@ -29,7 +29,7 @@ public class TradeDetailPresenter implements ITradeDetailPresenter, ITradeDetail
 
     @Override
     public void loadTradeData(Trade trade) {
-        //本来需要显示加载窗口的，但是由于数据不是从服务器来的，没有时间消耗
+        //本来需要显示加载窗口的，但是由于数据不是从服务器来的
         view.loadTradeSuccess(trade);
     }
 

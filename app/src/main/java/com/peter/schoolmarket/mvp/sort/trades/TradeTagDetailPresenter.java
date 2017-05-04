@@ -1,7 +1,9 @@
 package com.peter.schoolmarket.mvp.sort.trades;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
@@ -10,6 +12,7 @@ import com.peter.schoolmarket.adapter.recycler.RecyclerCommonAdapter;
 import com.peter.schoolmarket.adapter.recycler.RecyclerViewHolder;
 import com.peter.schoolmarket.data.dto.Result;
 import com.peter.schoolmarket.data.pojo.Trade;
+import com.peter.schoolmarket.mvp.trade.detail.TradeDetailActivity;
 import com.peter.schoolmarket.util.ResultInterceptor;
 
 import java.util.List;
@@ -71,11 +74,12 @@ class TradeTagDetailPresenter implements ITradeTagDetailPresenter, ITradeTagDeta
                 Trade item=result.getData().get(position);
 
                 //跳转到商品详情页面
-                Toast.makeText(context, "jumpTradeDetail", Toast.LENGTH_SHORT).show();
-                /*Intent intent=new Intent(context,TradeDetailActivity.class);
-                intent.putExtra("tradeId",item.getId());
-                intent.putExtra("userId",item.getAuthorId());
-                context.startActivity(intent);*/
+                //Toast.makeText(context, "jumpTradeDetail", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(context,TradeDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("trade", item);
+                intent.putExtras(bundle);
+                context.startActivity(intent);
 
             }
         });

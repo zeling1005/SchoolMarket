@@ -18,6 +18,7 @@ public class Trade extends RealmObject implements Serializable {
     private String authorName;
     private String authorImg;
     private String authorId;
+    private String authorPhone;
     private long originalPrice;//商品原价格
     private long nowPrice;//二手商品价格
     private String tagName;//商品类别
@@ -30,6 +31,10 @@ public class Trade extends RealmObject implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setAuthorPhone(String authorPhone) {
+        this.authorPhone = authorPhone;
     }
 
     public void setCreateTime(long createTime) {
@@ -82,6 +87,10 @@ public class Trade extends RealmObject implements Serializable {
 
     public String getId() {
         return id;
+    }
+
+    public String getAuthorPhone() {
+        return authorPhone;
     }
 
     public String getAuthorName() {

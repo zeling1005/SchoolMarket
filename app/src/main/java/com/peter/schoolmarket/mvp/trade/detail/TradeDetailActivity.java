@@ -21,16 +21,19 @@ import com.peter.schoolmarket.mvp.base.BaseActivity;
  */
 
 public class TradeDetailActivity extends BaseActivity implements ITradeDetailView {
-    private TradeDetailPresenter presenter;
     private ImageView goBack;
+    private ImageView sendMsg;
+    private SimpleDraweeView authorImg;
+    private TextView authorName;
     private SimpleDraweeView img;
     private TextView name;
     private TextView nowPrice;
     private TextView originalPrice;
     private TextView phone;
     private TextView describe;
-    private MaterialDialog progress;
     private TextView submit;
+    private MaterialDialog progress;
+    private TradeDetailPresenter presenter;
     private Trade trade;
 
     @Override
@@ -38,6 +41,9 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
         setContentView(R.layout.trade_detail_activity);
 
         goBack = (ImageView) findViewById(R.id.trade_detail_toolbar_back);
+        sendMsg = (ImageView) findViewById(R.id.trade_detail_send_msg);
+        authorImg = (SimpleDraweeView) findViewById(R.id.trade_detail_author_img);
+        authorName = (TextView) findViewById(R.id.trade_detail_author_name);
         img = (SimpleDraweeView) findViewById(R.id.trade_detail_img);
         name = (TextView) findViewById(R.id.trade_detail_name);
         nowPrice = (TextView) findViewById(R.id.trade_detail_now_price);
@@ -52,21 +58,31 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
                 .title("请稍等")
                 .build();
         presenter = new TradeDetailPresenter(this, this);
-        //Person person = (Person) getIntent().getSerializableExtra("person_data");
+
         Intent intent=getIntent();
-        trade = (Trade) intent.getSerializableExtra("trade_data");
+        trade = (Trade) intent.getSerializableExtra("trade");
+
         presenter.loadTradeData(trade);
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //设置成返回上一个activity或者fragment
+                (TradeDetailActivity.this).finish();
             }
         });
+        sendMsg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳转到信息发送
+                Toast.makeText(TradeDetailActivity.this, "jump send msg", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String myId= LoginInfoExecutor.getUser(TradeDetailActivity.this).getId();
-                /*if (!(trade.getAuthor().getId()).equals(myId)){
+                if (!(trade.getAuthorId()).equals(myId)){
                     new MaterialDialog.Builder(TradeDetailActivity.this)
                             .title("确认下单？")
                             .content("请在确认下单之后联系卖家！")
@@ -75,17 +91,20 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
                             .onPositive(new MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                    presenter.placeOrder(trade.getId());
+                                    //执行下单操作
+                                    //presenter.placeOrder(trade.getId());
+                                    Toast.makeText(TradeDetailActivity.this, "submit", Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .show();
-                }*/
+                }
             }
         });
         phone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //跳转到拨号界面
+                Toast.makeText(TradeDetailActivity.this, "jump to call up", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -102,12 +121,19 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
 
     @Override
     public void loadTradeSuccess(Trade trade) {
+        String temp = "";
+        authorImg.setImageURI(trade.getAuthorImg());
+        authorName.setText(trade.getAuthorName());
         img.setImageURI(trade.getImgUrls());
-        name.setText(trade.getTitle());
-        nowPrice.setText("友情价:￥" + trade.getNowPrice());
-        originalPrice.setText("原价:￥" + trade.getOriginalPrice());
-        //phone.setText(trade.getAuthor().getPhone());
-        describe.setText(trade.getDescribe());
+        temp = getResources().getString(R.string.trade_detail_name) + trade.getTitle();
+        name.setText(temp);
+        temp = getResources().getString(R.string.trade_detail_now_price) + trade.getNowPrice();
+        nowPrice.setText(temp);
+        temp = getResources().getString(R.string.trade_detail_original_price) + trade.getOriginalPrice();
+        originalPrice.setText(temp);
+        temp = getResources().getString(R.string.trade_detail_describe) + trade.getDescribe();
+        phone.setText(trade.getAuthorPhone());
+        describe.setText(temp);
     }
 
     @Override

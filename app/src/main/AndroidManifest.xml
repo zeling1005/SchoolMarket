@@ -66,11 +66,11 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
-        <activity android:name=".mvp.trade.detail.TradeDetailActivity"
+        <activity android:name=".mvp.trade.add.TradeAddActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
-        <activity android:name=".mvp.trade.add.TradeAddActivity"
+        <activity android:name=".mvp.trade.detail.TradeDetailActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 

@@ -28,7 +28,7 @@ public class TradeTagMock {
      *  "authorName": "安琪"
      *  "nowPrice": 9,
      *  "status": 0,
-     *  "title": "3瓶脉动饮料"
+     *  "title": "3瓶脉动饮料"authorPhone
      *},
      */
     public Result<List<Trade>> getTrades(){
@@ -40,6 +40,7 @@ public class TradeTagMock {
                 "    \"authorName\": \"tom\",\n" +
                 "    \"nowPrice\": 2000,\n" +
                 "    \"originalPrice\": 5000,\n" +
+                "    \"authorPhone\": \"18202429136\",\n" +
                 "    \"status\": 0,\n" +
                 "    \"title\": \"苹果手机\"\n" +
                 "  },\n" +
@@ -50,6 +51,7 @@ public class TradeTagMock {
                 "    \"authorName\": \"peter\",\n" +
                 "    \"nowPrice\": 50,\n" +
                 "    \"originalPrice\": 150,\n" +
+                "    \"authorPhone\": \"18202429136\",\n" +
                 "    \"status\": 0,\n" +
                 "    \"title\": \"羽毛球拍\"\n" +
                 "  },\n" +
@@ -60,6 +62,7 @@ public class TradeTagMock {
                 "    \"authorName\": \"nice\",\n" +
                 "    \"nowPrice\": 20,\n" +
                 "    \"originalPrice\": 50,\n" +
+                "    \"authorPhone\": \"18202429136\",\n" +
                 "    \"status\": 0,\n" +
                 "    \"title\": \"传统民谣书系\"\n" +
                 "  },\n" +
@@ -70,6 +73,7 @@ public class TradeTagMock {
                 "    \"authorName\": \"tom\",\n" +
                 "    \"nowPrice\": 5000,\n" +
                 "    \"originalPrice\": 14000,\n" +
+                "    \"authorPhone\": \"18202429136\",\n" +
                 "    \"status\": 0,\n" +
                 "    \"title\": \"苹果电脑\"\n" +
                 "  },\n" +
@@ -80,6 +84,7 @@ public class TradeTagMock {
                 "    \"authorName\": \"nice\",\n" +
                 "    \"nowPrice\": 30,\n" +
                 "    \"originalPrice\": 100,\n" +
+                "    \"authorPhone\": \"18202429136\",\n" +
                 "    \"status\": 0,\n" +
                 "    \"title\": \"台灯\"\n" +
                 "  }\n" +

@@ -21,6 +21,7 @@
     <dimen name="font_size_normal">16sp</dimen>
 
     <dimen name="actionBarSize">56dp</dimen>
+    <dimen name="small_header_parent_high">34dp</dimen>
 
 
 </resources>
