@@ -25,6 +25,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <view
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="top"
+            android:background="@color/md_grey_900"/>
+        <view
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="bottom"
+            android:background="@color/md_grey_800"/>
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="wrap_content"
@@ -35,27 +46,27 @@
                 android:id="@+id/trade_tag_detail_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="name"
-                android:textColor="#424242"
-                android:textSize="20sp"
+                android:text="@string/trade_tag_item_name"
+                android:textColor="@color/md_grey_800"
+                android:textSize="@dimen/font_size_normal"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/trade_tag_detail_now_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="now price"
-                android:textColor="#000000"
-                android:textSize="20sp"
+                android:text="@string/trade_tag_item_new_price"
+                android:textColor="@color/md_red_500"
+                android:textSize="@dimen/font_size_normal"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/trade_tag_detail_original_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="original"
-                android:textColor="#424242"
-                android:textSize="20sp"
+                android:text="@string/trade_tag_item_original_price"
+                android:textColor="@color/md_grey_800"
+                android:textSize="@dimen/font_size_normal"
                 android:textStyle="bold" />
 
         </LinearLayout>

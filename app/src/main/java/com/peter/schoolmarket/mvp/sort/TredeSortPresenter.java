@@ -1,6 +1,7 @@
 package com.peter.schoolmarket.mvp.sort;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
 import android.widget.Toast;
@@ -9,6 +10,7 @@ import com.peter.schoolmarket.R;
 import com.peter.schoolmarket.adapter.recycler.RecyclerCommonAdapter;
 import com.peter.schoolmarket.adapter.recycler.RecyclerViewHolder;
 import com.peter.schoolmarket.data.pojo.TradeTag;
+import com.peter.schoolmarket.mvp.sort.trades.TradeTagDetailActivity;
 import com.peter.schoolmarket.util.TradeTagUtils;
 
 import java.util.ArrayList;
@@ -55,12 +57,10 @@ public class TredeSortPresenter implements ITradeSortPresenter {
             public void onItemClick(View view, int position) {
                 TradeTag item=tags.get(position);
                 String tagName = item.getName();
-                TredeSortPresenter.this.view.jumpTradeDetail(tagName);
                 //跳转到分类商品详情页面
-                Toast.makeText(context, "tradeTagJump", Toast.LENGTH_LONG);
-                /*Intent intent=new Intent(context,TradeDetailActivity.class);
-                intent.putExtra("tradeId",item.getId());
-                intent.putExtra("userId",item.getAuthorId());
+                Toast.makeText(context, "jump to " + tagName, Toast.LENGTH_LONG).show();
+                /*Intent intent=new Intent(context,TradeTagDetailActivity.class);
+                intent.putExtra("tagName", tagName);
                 context.startActivity(intent);*/
             }
         });

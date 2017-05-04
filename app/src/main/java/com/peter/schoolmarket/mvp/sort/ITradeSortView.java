@@ -11,7 +11,7 @@ import com.peter.schoolmarket.adapter.recycler.RecyclerCommonAdapter;
 
 public interface ITradeSortView {
 
-    void jumpTradeDetail(String TagName);
+    //void jumpTradeDetail(String TagName);
 
     void loadTradeTagData(RecyclerCommonAdapter<?> adapter);
 }

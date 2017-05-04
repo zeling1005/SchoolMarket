@@ -13,11 +13,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.johnpersano.supertoasts.library.Style;
 import com.github.johnpersano.supertoasts.library.SuperToast;
 import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.peter.schoolmarket.R;
+import com.peter.schoolmarket.adapter.recycler.DividerItemDecoration;
 import com.peter.schoolmarket.adapter.recycler.RecyclerCommonAdapter;
 import com.peter.schoolmarket.mvp.base.BaseActivity;
 import com.peter.schoolmarket.mvp.main.MainActivity;
@@ -35,6 +37,7 @@ public class TradeTagDetailActivity extends BaseActivity implements ITradeTagDet
     private String tagName;
     private MaterialSearchView searchView;
     private ImageView back;
+    MaterialDialog progress;
     TextView title;
 
     @Override
@@ -47,6 +50,13 @@ public class TradeTagDetailActivity extends BaseActivity implements ITradeTagDet
         title = (TextView) findViewById(R.id.trade_tag_title);
         searchView = (MaterialSearchView) findViewById(R.id.trade_tag_search_view);
 
+        progress = new MaterialDialog.Builder(this)
+                .content("正在加载...")
+                .progress(true, 0)
+                .progressIndeterminateStyle(false)//是否水平进度条
+                .title("请稍等")
+                .build();
+
         Intent intent=getIntent();
         Bundle bundle=intent.getExtras();
         tagName=bundle.getString("tagName");
@@ -54,15 +64,17 @@ public class TradeTagDetailActivity extends BaseActivity implements ITradeTagDet
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(TradeTagDetailActivity.this, MainActivity.class);
+                /*Intent intent=new Intent(TradeTagDetailActivity.this, MainActivity.class);
                 startActivity(intent);
-                finish();
+                finish();*/
+                (TradeTagDetailActivity.this).finish();
             }
         });
 
         title.setText(tagName);
         recyclerView.setLayoutManager(new LinearLayoutManager(TradeTagDetailActivity.this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new DividerItemDecoration(this));
         if (tagName!=null){
             presenter.getTradeListByTag(tagName);
         }
@@ -100,6 +112,20 @@ public class TradeTagDetailActivity extends BaseActivity implements ITradeTagDet
                 .setColor(PaletteUtils.getTransparentColor(PaletteUtils.MATERIAL_RED))
                 .setAnimations(Style.ANIMATIONS_POP)
                 .show();
+    }
+
+    @Override
+    public void showProgress() {
+        if (!progress.isShowing()) {
+            progress.show();
+        }
+    }
+
+    @Override
+    public void hideProgress() {
+        if (progress.isShowing()) {
+            progress.dismiss();
+        }
     }
 
     @Override

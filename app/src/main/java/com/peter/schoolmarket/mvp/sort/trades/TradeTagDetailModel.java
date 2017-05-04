@@ -3,6 +3,7 @@ package com.peter.schoolmarket.mvp.sort.trades;
 import com.peter.schoolmarket.application.AppConf;
 import com.peter.schoolmarket.data.dto.Result;
 import com.peter.schoolmarket.data.pojo.Trade;
+import com.peter.schoolmarket.mock.TradeTagMock;
 import com.peter.schoolmarket.network.NetReturn;
 import com.peter.schoolmarket.network.ReqExecutor;
 
@@ -19,10 +20,10 @@ import rx.schedulers.Schedulers;
 public class TradeTagDetailModel implements ITradeTagDetailModel {
     @Override
     public void tradesDataReq(final ITradeTagDetailListener listener, final String tagName, final int page) {
-        /*if (AppConf.useMock){
-            listener.onComplete(new TradeMock().gainSchoolTrades());
+        if (AppConf.useMock){
+            listener.onComplete(new TradeTagMock().getTrades());
             return;
-        }*/
+        }
         final Result<List<Trade>> result = new Result<List<Trade>>().result(NetReturn.SERVER_ERROR);
         ReqExecutor
                 .INSTANCE()

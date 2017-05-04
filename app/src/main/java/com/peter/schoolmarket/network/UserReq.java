@@ -53,10 +53,10 @@ public interface UserReq {
     /**
      * 注册下一步，设置学校和手机号
      */
-    @POST(RetrofitConf.get_user_info)
+    /*@POST(RetrofitConf.get_user_info)
     @FormUrlEncoded
     Observable<Result<User>> getUserInfo(
-            @Field("userId") String userId);
+            @Field("userId") String userId);*/
 
     /*---------------------------我是分割线---------------------------------*/
 

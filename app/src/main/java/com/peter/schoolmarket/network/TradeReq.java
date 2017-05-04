@@ -2,6 +2,7 @@ package com.peter.schoolmarket.network;
 
 import com.peter.schoolmarket.data.dto.Result;
 import com.peter.schoolmarket.data.pojo.Trade;
+import com.peter.schoolmarket.data.pojo.User;
 
 import java.util.List;
 
@@ -25,6 +26,18 @@ public interface TradeReq {
 
     int GET_TAG=1;
     int GET_NAME=2;
+
+
+    /**
+     * 注册下一步，设置学校和手机号
+     */
+    @POST(RetrofitConf.get_author_info)
+    @FormUrlEncoded
+    Observable<Result<User>> getAuthorInfo(
+            @Field("authorId") String authorId);
+
+
+    //----------我是分割线-------------------//
 
 
     /**

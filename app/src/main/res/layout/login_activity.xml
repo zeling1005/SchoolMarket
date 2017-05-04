@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_grey_600"
+    android:background="@color/colorNormalBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <shem.com.materiallogin.MaterialLoginView
@@ -11,5 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:loginView="@layout/login_login_view"
-        app:registerView="@layout/login_register_view"/>
+        app:registerView="@layout/login_register_view"
+        app:registerIcon="@drawable/ic_register"/>
 </FrameLayout>

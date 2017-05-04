@@ -35,6 +35,8 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
+        setContentView(R.layout.trade_detail_activity);
+
         goBack = (ImageView) findViewById(R.id.trade_detail_toolbar_back);
         img = (SimpleDraweeView) findViewById(R.id.trade_detail_img);
         name = (TextView) findViewById(R.id.trade_detail_name);

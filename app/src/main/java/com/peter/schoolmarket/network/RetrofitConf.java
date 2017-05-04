@@ -8,7 +8,7 @@ public interface RetrofitConf {
     int DEFAULT_TIMEOUT = 5;
     //-----------------------------用户相关---------------------------
     String login="firsttest/UserServlet";//用户登录+
-    String get_user_info = "";//获得用户信息
+    String get_author_info = "";//获得所有者信息
     String register="";//用户注册+
     String register_next="";//用户注册下一步，设置学校，手机号+
     String update_user_pass="";//修改用户密码

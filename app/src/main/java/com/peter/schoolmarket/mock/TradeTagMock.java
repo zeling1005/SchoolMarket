@@ -37,46 +37,51 @@ public class TradeTagMock {
         String jsonStr="[\n" +
                 "  {\n" +
                 "    \"id\": \"0001\",\n" +
-                "    \"authorImg\": \"http://opdpjh63a.bkt.clouddn.com/sort_avater_cluo.jpg\",\n" +
-                "    \"imgUrls\": \"http://opdpjh63a.bkt.clouddn.com/apple_phone.jpg\",\n" +
+                "    \"authorImg\": \"http://opeuvb611.bkt.clouddn.com/sort_avater_cluo.jpg\",\n" +
+                "    \"imgUrls\": \"http://opeuvb611.bkt.clouddn.com/apple_phone.jpg\",\n" +
                 "    \"authorName\": \"tom\",\n" +
                 "    \"nowPrice\": 2000,\n" +
+                "    \"originalPrice\": 5000,\n" +
                 "    \"status\": 0,\n" +
                 "    \"title\": \"苹果手机\"\n" +
                 "  },\n" +
                 "  {\n" +
                 "    \"id\": \"0002\",\n" +
-                "    \"authorImg\": \"http://opdpjh63a.bkt.clouddn.com/sort_clothes.jpeg\",\n" +
-                "    \"imgUrls\": \"http://opdpjh63a.bkt.clouddn.com/battledore.jpg\",\n" +
+                "    \"authorImg\": \"http://opeuvb611.bkt.clouddn.com/sort_clothes.jpeg\",\n" +
+                "    \"imgUrls\": \"http://opeuvb611.bkt.clouddn.com/battledore.jpg\",\n" +
                 "    \"authorName\": \"peter\",\n" +
                 "    \"nowPrice\": 50,\n" +
+                "    \"originalPrice\": 150,\n" +
                 "    \"status\": 0,\n" +
                 "    \"title\": \"羽毛球拍\"\n" +
                 "  },\n" +
                 "  {\n" +
                 "    \"id\": \"0003\",\n" +
-                "    \"authorImg\": \"http://opdpjh63a.bkt.clouddn.com/sort_body.jpg\",\n" +
-                "    \"imgUrls\": \"http://opdpjh63a.bkt.clouddn.com/book.jpg\",\n" +
+                "    \"authorImg\": \"http://opeuvb611.bkt.clouddn.com/sort_body.jpg\",\n" +
+                "    \"imgUrls\": \"http://opeuvb611.bkt.clouddn.com/book.jpg\",\n" +
                 "    \"authorName\": \"nice\",\n" +
                 "    \"nowPrice\": 20,\n" +
+                "    \"originalPrice\": 50,\n" +
                 "    \"status\": 0,\n" +
                 "    \"title\": \"传统民谣书系\"\n" +
                 "  },\n" +
                 "  {\n" +
                 "    \"id\": \"0004\",\n" +
-                "    \"authorImg\": \"http://opdpjh63a.bkt.clouddn.com/sort_avater_cluo.jpg\",\n" +
-                "    \"imgUrls\": \"http://opdpjh63a.bkt.clouddn.com/mac_computer.jpg\",\n" +
+                "    \"authorImg\": \"http://opeuvb611.bkt.clouddn.com/sort_avater_cluo.jpg\",\n" +
+                "    \"imgUrls\": \"http://opeuvb611.bkt.clouddn.com/mac_computer.jpg\",\n" +
                 "    \"authorName\": \"tom\",\n" +
                 "    \"nowPrice\": 5000,\n" +
+                "    \"originalPrice\": 14000,\n" +
                 "    \"status\": 0,\n" +
                 "    \"title\": \"苹果电脑\"\n" +
                 "  },\n" +
                 "  {\n" +
                 "    \"id\": \"0005\",\n" +
-                "    \"authorImg\": \"http://opdpjh63a.bkt.clouddn.com/sort_clothes.jpeg\",\n" +
-                "    \"imgUrls\": \"http://opdpjh63a.bkt.clouddn.com/table_lamp.jpeg\",\n" +
+                "    \"authorImg\": \"http://opeuvb611.bkt.clouddn.com/sort_clothes.jpeg\",\n" +
+                "    \"imgUrls\": \"http://opeuvb611.bkt.clouddn.com/table_lamp.jpeg\",\n" +
                 "    \"authorName\": \"nice\",\n" +
                 "    \"nowPrice\": 30,\n" +
+                "    \"originalPrice\": 100,\n" +
                 "    \"status\": 0,\n" +
                 "    \"title\": \"台灯\"\n" +
                 "  }\n" +

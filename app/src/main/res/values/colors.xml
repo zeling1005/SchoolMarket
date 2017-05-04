@@ -6,6 +6,13 @@
     <color name="colorPrimaryDark">#9e9e9e</color>
     <color name="colorAccent">#000000</color>
 
+    <!--自定义-->
+    <color name="colorNormalBackground">#e0e0e0</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="material_login_login_color">#ffffff</color>
+    <color name="material_login_register_color">#000000</color>
+
     <color name="theme_primary">#fafafa</color>
     <color name="theme_primaryDark">#9e9e9e</color>
     <color name="theme_accent">#FF4081</color>
@@ -18,10 +25,4 @@
     <color name="divider_grey">#eeeeee</color>
 
     <color name="deal_page_bg">#e6e6e6</color>
-
-    <color name="material_login_login_color">#ffffff</color>
-    <color name="material_login_register_color">#000000</color>
-
-    <color name="black">#000000</color>
-    <color name="white">#ffffff</color>
 </resources>

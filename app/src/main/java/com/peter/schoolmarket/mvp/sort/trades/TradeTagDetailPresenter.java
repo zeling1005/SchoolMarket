@@ -14,6 +14,7 @@ import com.peter.schoolmarket.adapter.recycler.RecyclerCommonAdapter;
 import com.peter.schoolmarket.adapter.recycler.RecyclerViewHolder;
 import com.peter.schoolmarket.data.dto.Result;
 import com.peter.schoolmarket.data.pojo.Trade;
+import com.peter.schoolmarket.mvp.trade.detail.TradeDetailActivity;
 import com.peter.schoolmarket.util.ResultInterceptor;
 
 import java.util.List;
@@ -70,6 +71,7 @@ public class TradeTagDetailPresenter implements ITradeTagDetailPresenter, ITrade
 
     @Override
     public void getTradeListByTag(String tagName) {
+        view.showProgress();
         model.tradesDataReq(this, tagName, 1);
     }
 
@@ -87,6 +89,7 @@ public class TradeTagDetailPresenter implements ITradeTagDetailPresenter, ITrade
                 viewHolder.setText(R.id.trade_tag_detail_original_price, "原价 ￥" + item.getOriginalPrice());
             }
         };
+        view.hideProgress();
         view.loadDataSuccess(adapter);
         adapter.setClickListener(new RecyclerCommonAdapter.OnItemClickListener() {
             @Override
@@ -94,7 +97,7 @@ public class TradeTagDetailPresenter implements ITradeTagDetailPresenter, ITrade
                 Trade item=result.getData().get(position);
 
                 //跳转到商品详情页面
-                Toast.makeText(context, "jump", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "jumpTradeDetail", Toast.LENGTH_LONG).show();
                 /*Intent intent=new Intent(context,TradeDetailActivity.class);
                 intent.putExtra("tradeId",item.getId());
                 intent.putExtra("userId",item.getAuthorId());

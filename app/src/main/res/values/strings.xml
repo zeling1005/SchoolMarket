@@ -44,4 +44,9 @@
     <string name="main_header_username">用户名</string>
     <string name="main_header_phone">手机号码</string>
 
+    <!--trade tag detail item-->
+    <string name="trade_tag_item_name">name</string>
+    <string name="trade_tag_item_new_price">now price</string>
+    <string name="trade_tag_item_original_price">original price</string>
+
 </resources>
