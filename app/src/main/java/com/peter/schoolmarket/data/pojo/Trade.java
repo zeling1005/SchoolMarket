@@ -12,7 +12,7 @@ import io.realm.annotations.PrimaryKey;
 
 public class Trade extends RealmObject implements Serializable {
     @PrimaryKey
-    private String id;//商品ID
+    private String id;//商品ID T001
     private String title;//商品名字
     //private User author;//商品所属者
     private String authorName;

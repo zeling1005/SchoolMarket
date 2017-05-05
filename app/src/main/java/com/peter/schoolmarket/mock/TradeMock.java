@@ -13,7 +13,7 @@ import java.util.List;
  * Created by PetterChen on 2017/4/29.
  */
 
-public class TradeTagMock {
+public class TradeMock {
 
     /**
      *
@@ -34,7 +34,7 @@ public class TradeTagMock {
     public Result<List<Trade>> getTrades(){
         String jsonStr="[\n" +
                 "  {\n" +
-                "    \"id\": \"0001\",\n" +
+                "    \"id\": \"T001\",\n" +
                 "    \"authorImg\": \"http://opeuvb611.bkt.clouddn.com/sort_avater_cluo.jpg\",\n" +
                 "    \"imgUrls\": \"http://opeuvb611.bkt.clouddn.com/apple_phone.jpg\",\n" +
                 "    \"authorName\": \"tom\",\n" +
@@ -45,7 +45,7 @@ public class TradeTagMock {
                 "    \"title\": \"苹果手机\"\n" +
                 "  },\n" +
                 "  {\n" +
-                "    \"id\": \"0002\",\n" +
+                "    \"id\": \"T002\",\n" +
                 "    \"authorImg\": \"http://opeuvb611.bkt.clouddn.com/sort_clothes.jpeg\",\n" +
                 "    \"imgUrls\": \"http://opeuvb611.bkt.clouddn.com/battledore.jpg\",\n" +
                 "    \"authorName\": \"peter\",\n" +
@@ -56,7 +56,7 @@ public class TradeTagMock {
                 "    \"title\": \"羽毛球拍\"\n" +
                 "  },\n" +
                 "  {\n" +
-                "    \"id\": \"0003\",\n" +
+                "    \"id\": \"T003\",\n" +
                 "    \"authorImg\": \"http://opeuvb611.bkt.clouddn.com/sort_body.jpg\",\n" +
                 "    \"imgUrls\": \"http://opeuvb611.bkt.clouddn.com/book.jpg\",\n" +
                 "    \"authorName\": \"nice\",\n" +
@@ -67,7 +67,7 @@ public class TradeTagMock {
                 "    \"title\": \"传统民谣书系\"\n" +
                 "  },\n" +
                 "  {\n" +
-                "    \"id\": \"0004\",\n" +
+                "    \"id\": \"T004\",\n" +
                 "    \"authorImg\": \"http://opeuvb611.bkt.clouddn.com/sort_avater_cluo.jpg\",\n" +
                 "    \"imgUrls\": \"http://opeuvb611.bkt.clouddn.com/mac_computer.jpg\",\n" +
                 "    \"authorName\": \"tom\",\n" +
@@ -78,7 +78,7 @@ public class TradeTagMock {
                 "    \"title\": \"苹果电脑\"\n" +
                 "  },\n" +
                 "  {\n" +
-                "    \"id\": \"0005\",\n" +
+                "    \"id\": \"T005\",\n" +
                 "    \"authorImg\": \"http://opeuvb611.bkt.clouddn.com/sort_clothes.jpeg\",\n" +
                 "    \"imgUrls\": \"http://opeuvb611.bkt.clouddn.com/table_lamp.jpeg\",\n" +
                 "    \"authorName\": \"nice\",\n" +
@@ -99,29 +99,7 @@ public class TradeTagMock {
 
     public Result<String> getReleaseTradeResult() {
         String json="{\"code\":100,\"msg\":\"操作成功\"}";
-        return new Gson().fromJson(json,  new TypeToken<Result<String>>() {}.getType());
+        return new Gson().fromJson(json,  new TypeToken<Result<String>>(){}.getType());
     }
 
-    public Result<Trade> getTradeDetail(){
-        Trade trade=new Trade();
-        trade.setTitle("Mac 电脑");
-        /*User user=new User();
-        user.setId("002");
-        user.setUsername("admin");
-        user.setAvatarUrl("https://jcalaz.github.io/img/sort_rent.jpg");
-        trade.setAuthor(user);*/
-        trade.setAuthorId("002");
-        trade.setAuthorName("admin2");
-        trade.setAuthorImg("https://jcalaz.github.io/img/sort_rent.jpg");
-        trade.setDescribe("2014年在京东购买，还在保修期，I7CPU，独立显卡，8成新");
-        trade.setNowPrice(3000);
-        trade.setOriginalPrice(8000);
-        trade.setCreateTime(System.currentTimeMillis());
-        trade.setImgUrls("https://jcalaz.github.io/img/sort_computer.jpg");
-        Result<Trade> result=new Result<>();
-        result.setCode(100);
-        result.setMsg("");
-        result.setData(trade);
-        return result;
-    }
 }

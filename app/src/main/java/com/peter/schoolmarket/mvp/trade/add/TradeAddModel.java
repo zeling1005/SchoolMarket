@@ -2,11 +2,9 @@ package com.peter.schoolmarket.mvp.trade.add;
 
 import com.peter.schoolmarket.application.AppConf;
 import com.peter.schoolmarket.data.dto.Result;
-import com.peter.schoolmarket.mock.TradeTagMock;
+import com.peter.schoolmarket.mock.TradeMock;
 import com.peter.schoolmarket.network.NetReturn;
 import com.peter.schoolmarket.network.ReqExecutor;
-
-import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -22,7 +20,7 @@ public class TradeAddModel implements ITradeAddModel {
     @Override
     public void addTradeReq(final RequestBody tradeJson, final MultipartBody.Part pic, final ITradeAddListener listener) {
         if (AppConf.useMock){
-            listener.addTradeResult(new TradeTagMock().getReleaseTradeResult());
+            listener.addTradeResult(new TradeMock().getReleaseTradeResult());
             return;
         }
 

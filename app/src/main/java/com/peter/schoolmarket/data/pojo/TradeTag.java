@@ -2,6 +2,7 @@ package com.peter.schoolmarket.data.pojo;
 
 import com.peter.schoolmarket.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import io.realm.annotations.PrimaryKey;
  * Created by PetterChen on 2017/4/29.
  */
 
-public class TradeTag {
+public class TradeTag implements Serializable {
     private int rId;//分类的id
     private String name;//分类的名称
 

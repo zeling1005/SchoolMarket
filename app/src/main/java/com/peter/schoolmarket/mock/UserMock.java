@@ -13,20 +13,20 @@ import java.util.List;
 
 public class UserMock {
     public Result<String> register(){
-        String json="{\"code\":100,\"msg\":\"操作成功\",\"data\":\"001\"}";
+        String json="{\"code\":100,\"msg\":\"操作成功\",\"data\":\"U001\"}";
         return new Gson().fromJson(json,  new TypeToken<Result<String>>() {}.getType());
     }
 
     public Result<User> loginOrRegisterNext(){
-        String json="{\"code\":100,\"msg\":\"操作成功\",\"data\":{\"id\":\"001\",\"username\":\"admin\",\"password\":" +
-                "\"admin\",\"phone\":\"18202429136\",\"avatarUrl\":\"asset:///mock_ing/sort_clothes.jpeg\"}}";//"null"表示传值为String = "null";
+        String json="{\"code\":100,\"msg\":\"操作成功\",\"data\":{\"id\":\"U001\",\"username\":\"admin\",\"password\":" +
+                "\"admin\",\"phone\":\"18202429136\",\"avatarUrl\":\"http://opeuvb611.bkt.clouddn.com/sort_clothes.jpeg\"}}";//"null"表示传值为String = "null";
         //Gson g = new GsonBuilder().serializeNulls().create();字段为空
         return new Gson().fromJson(json,  new TypeToken<Result<User>>() {}.getType());
     }
 
     public Result<User> getUserInfo(){
-        String json="{\"code\":100,\"msg\":\"操作成功\",\"data\":{\"id\":\"002\",\"username\":" +
-                "\"admin\",\"phone\":\"18202429136\",\"avatarUrl\":\"asset:///mock_ing/sort_clothes.jpeg\"}}";//"null"表示传值为String = "null";
+        String json="{\"code\":100,\"msg\":\"操作成功\",\"data\":{\"id\":\"U002\",\"username\":" +
+                "\"admin\",\"phone\":\"18202429136\",\"avatarUrl\":\"http://opeuvb611.bkt.clouddn.com/sort_clothes.jpeg\"}}";//"null"表示传值为String = "null";
         //Gson g = new GsonBuilder().serializeNulls().create();字段为空
         return new Gson().fromJson(json,  new TypeToken<Result<User>>() {}.getType());
     }

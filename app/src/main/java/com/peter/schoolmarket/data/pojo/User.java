@@ -1,5 +1,7 @@
 package com.peter.schoolmarket.data.pojo;
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
@@ -8,9 +10,9 @@ import io.realm.annotations.Required;
  * Created by PetterChen on 2017/4/10.
  */
 
-public class User extends RealmObject {
+public class User extends RealmObject implements Serializable {
     @PrimaryKey
-    private String id;
+    private String id;//U001
     private String username;//用户名
     private String password;//用户密码
     private String phone;//手机号

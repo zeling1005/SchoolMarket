@@ -1,5 +1,7 @@
 package com.peter.schoolmarket.data.pojo;
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
@@ -10,10 +12,10 @@ import io.realm.annotations.Required;
  * 后期可以考虑加上图片消息
  */
 
-public class Msg extends RealmObject{
+public class Msg extends RealmObject implements Serializable {
 
     @PrimaryKey
-    private String id;//消息主键，一个编号
+    private String id;//消息主键，一个编号M001
     @Required
     private String receiveMsgId;//接收者id
     @Required

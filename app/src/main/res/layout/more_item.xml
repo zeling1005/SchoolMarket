@@ -2,39 +2,45 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/message_item"
     android:layout_width="match_parent"
-    android:layout_marginLeft="10dp"
-    android:layout_marginStart="10dp"
+    android:layout_marginLeft="6dp"
+    android:layout_marginStart="6dp"
+    android:layout_marginEnd="6dp"
+    android:layout_marginRight="6dp"
+    android:layout_marginTop="6dp"
     android:layout_height="120dp"
     android:orientation="vertical"
-    android:background="#efefef">
+    android:background="@color/white">
 
     <TextView
-        android:id="@+id/more_name_item"
-        android:layout_width="wrap_content"
+        android:id="@+id/more_item_name"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:textColor="#d01716"
-        android:text="我是标题"
-        android:maxEms="12"
+        android:textColor="@color/md_red_500"
+        android:text="@string/more_item_msg_title"
         android:maxLines="1"
-        android:textSize="25sp" />
+        android:textSize="@dimen/font_size_catalog" />
 
     <TextView
-        android:id="@+id/more_content_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="我是文章主体是打发打发打发的反对犯得上反对法地方大师傅打发打发打法当时发的发射点法大使"
+        android:id="@+id/more_item_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/more_item_msg_content"
         android:ellipsize="end"
-        android:textColor="#000000"
-        android:maxEms="18"
+        android:textColor="@color/text_color"
         android:maxLines="3"
-        android:textSize="16sp" />
+        android:textSize="@dimen/font_size_normal" />
 
     <TextView
-        android:id="@+id/time_msg_item"
-        android:layout_width="wrap_content"
+        android:id="@+id/more_item_time"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="2017年10月25日"
-        android:textSize="16sp" />
+        android:layout_gravity="bottom"
+        android:textColor="#757575"
+        android:text="@string/more_item_msg_time"
+        android:textSize="@dimen/font_size_normal" />
 
 </LinearLayout>
