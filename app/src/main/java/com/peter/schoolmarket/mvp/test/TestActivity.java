@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.peter.schoolmarket.R;
+import com.peter.schoolmarket.data.pojo.Trade;
 import com.peter.schoolmarket.mvp.base.BaseActivity;
 
 /**
@@ -16,14 +17,12 @@ import com.peter.schoolmarket.mvp.base.BaseActivity;
  */
 
 public class TestActivity extends BaseActivity {
-    Toolbar toolbar;
     TextView text;
     TextView title;
     ImageView back;
     @Override
     protected void initViews(Bundle savedInstanceState) {
         setContentView(R.layout.test_activity);
-        //supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
 
         //设置标题栏
         //toolbar = (Toolbar) findViewById(R.id.test_toolbar);
@@ -35,7 +34,8 @@ public class TestActivity extends BaseActivity {
         back = (ImageView) findViewById(R.id.test_toolbar_back);
         Intent intent=getIntent();
         Bundle bundle=intent.getExtras();
-        text.setText(bundle.getString("textString", "null"));
+        Trade trade = (Trade) bundle.getSerializable("trade");
+        text.setText(trade.getAuthorName());
         /*Intent intent = new Intent(this, TwoActivity.class);
         intent.putExtra("key", "value");
         startActivity(intent);*/

@@ -1,5 +1,6 @@
 package com.peter.schoolmarket.mvp.trade.detail;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -60,9 +61,11 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
         presenter = new TradeDetailPresenter(this, this);
 
         Intent intent=getIntent();
-        trade = (Trade) intent.getSerializableExtra("trade");
+        Bundle bundle=intent.getExtras();
+        trade = (Trade) bundle.getSerializable("trade");
 
         presenter.loadTradeData(trade);
+
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,22 +85,23 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
             @Override
             public void onClick(View v) {
                 String myId= LoginInfoExecutor.getUser(TradeDetailActivity.this).getId();
-                if (!(trade.getAuthorId()).equals(myId)){
-                    new MaterialDialog.Builder(TradeDetailActivity.this)
-                            .title("确认下单？")
-                            .content("请在确认下单之后联系卖家！")
-                            .positiveText("确定")
-                            .negativeText("取消")
-                            .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                @Override
-                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                    //执行下单操作
-                                    //presenter.placeOrder(trade.getId());
-                                    Toast.makeText(TradeDetailActivity.this, "submit", Toast.LENGTH_SHORT).show();
-                                }
-                            })
-                            .show();
-                }
+                /*if (!(trade.getAuthorId()).equals(myId)){
+                    //下单操作
+                }*/
+                new MaterialDialog.Builder(TradeDetailActivity.this)
+                        .title("确认下单？")
+                        .content("请在确认下单之后联系卖家！")
+                        .positiveText("确定")
+                        .negativeText("取消")
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                //执行下单操作
+                                //presenter.placeOrder(trade.getId());
+                                Toast.makeText(TradeDetailActivity.this, "submit", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .show();
             }
         });
         phone.setOnClickListener(new View.OnClickListener() {
@@ -131,18 +135,22 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
         nowPrice.setText(temp);
         temp = getResources().getString(R.string.trade_detail_original_price) + trade.getOriginalPrice();
         originalPrice.setText(temp);
-        temp = getResources().getString(R.string.trade_detail_describe) + trade.getDescribe();
         phone.setText(trade.getAuthorPhone());
+        temp = getResources().getString(R.string.trade_detail_describe) + trade.getDescribe();
         describe.setText(temp);
     }
 
     @Override
     public void showProgress() {
-        progress.show();
+        if (!progress.isShowing()) {
+            progress.show();
+        }
     }
 
     @Override
     public void hideProgress() {
-        progress.dismiss();
+        if (progress.isShowing()) {
+            progress.dismiss();
+        }
     }
 }
