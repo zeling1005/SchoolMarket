@@ -73,6 +73,11 @@
     <string name="more_item_msg_content">内容</string>
     <string name="more_item_msg_time">时间</string>
     <string name="more_item_msg_name">陈必得</string>
+    
+    <!--msg fragment-->
+    <string name="msg_item_name">用户名</string>
+    <string name="msg_item_content">内容</string>
+    <string name="msg_item_time">时间</string>
 
 
 </resources>

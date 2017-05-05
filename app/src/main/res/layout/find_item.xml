@@ -17,6 +17,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="2dp"
             fresco:roundBottomLeft="true"
             fresco:roundBottomRight="true"
@@ -62,8 +63,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
                     android:gravity="center"
                     android:text=""
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
 
