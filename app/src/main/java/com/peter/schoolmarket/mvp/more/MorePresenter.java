@@ -61,7 +61,8 @@ public class MorePresenter implements IMorePresenter, IMoreListener {
         RecyclerCommonAdapter<?> adapter=new RecyclerCommonAdapter<Notice>(context,notices, R.layout.more_item) {
             @Override
             public void convert(RecyclerViewHolder holder, Notice item) {
-                holder.setText(R.id.more_item_name,item.getTitle());
+                holder.setText(R.id.more_item_title,item.getTitle());
+                holder.setText(R.id.more_item_name,item.getAuthorName());
                 holder.setText(R.id.more_item_content,item.getContent());
                 holder.setText(R.id.more_item_time,item.getCreateTime());
             }

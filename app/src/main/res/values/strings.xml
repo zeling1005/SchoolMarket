@@ -72,6 +72,7 @@
     <string name="more_item_msg_title">标题</string>
     <string name="more_item_msg_content">内容</string>
     <string name="more_item_msg_time">时间</string>
+    <string name="more_item_msg_name">陈必得</string>
 
 
 </resources>

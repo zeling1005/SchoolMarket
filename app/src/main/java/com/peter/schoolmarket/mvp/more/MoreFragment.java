@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.peter.schoolmarket.R;
+import com.peter.schoolmarket.adapter.recycler.DividerItemNormalDecoration;
 import com.peter.schoolmarket.adapter.recycler.RecyclerCommonAdapter;
 import com.peter.schoolmarket.mvp.base.BaseFragment;
 
@@ -36,7 +37,7 @@ public class MoreFragment extends BaseFragment implements IMoreView {
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
         initVariate(view);
-        onClickVariate();
+        manageVariate();
         presenter.init(realm);
     }
 
@@ -48,6 +49,8 @@ public class MoreFragment extends BaseFragment implements IMoreView {
         recyclerView = (RecyclerView) view.findViewById(R.id.more_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new DividerItemNormalDecoration(getActivity(),
+                DividerItemNormalDecoration.VERTICAL_LIST));
         noticePlus = (FloatingActionButton) view.findViewById(R.id.more_plus);
         progress = new MaterialDialog.Builder(getActivity())
                 .content("正在加载...")
@@ -58,10 +61,10 @@ public class MoreFragment extends BaseFragment implements IMoreView {
         realm=Realm.getDefaultInstance();
     }
 
-    private void onClickVariate() {
-        refreshLayout.setOnClickListener(new View.OnClickListener() {
+    private void manageVariate() {
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onClick(View v) {
+            public void onRefresh() {
                 presenter.refresh(realm);
             }
         });
