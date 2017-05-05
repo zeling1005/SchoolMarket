@@ -29,25 +29,25 @@ public interface TradeReq {
 
 
     /**
-     * 注册下一步，设置学校和手机号
+     *
      */
     @POST(RetrofitConf.get_author_info)
     @FormUrlEncoded
     Observable<Result<User>> getAuthorInfo(
             @Field("authorId") String authorId);
 
-
-    //----------我是分割线-------------------//
-
-
     /**
-     * 根据学校名称获取本校在售商品列表
+     * 获取在售商品列表
      */
     @GET(RetrofitConf.get_school_trades)
     Observable<Result<List<Trade>>> getFindTrades(
             @Query("page") int page,
             @Query("size") int size
     );
+
+
+    //----------我是分割线-------------------//
+
 
     /**
      * 根据分类获取在售商品列表

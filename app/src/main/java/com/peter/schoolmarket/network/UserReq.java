@@ -42,7 +42,7 @@ public interface UserReq {
             @Field("password")  String password);
 
     /**
-     * 注册下一步，设置学校和手机号
+     * 注册下一步，设置手机号
      */
     @PUT(RetrofitConf.register_next)
     @FormUrlEncoded
@@ -50,13 +50,6 @@ public interface UserReq {
             @Path("userId")  String user_id,
             @Field("phone")  String phone);
 
-    /**
-     * 注册下一步，设置学校和手机号
-     */
-    /*@POST(RetrofitConf.get_user_info)
-    @FormUrlEncoded
-    Observable<Result<User>> getUserInfo(
-            @Field("userId") String userId);*/
 
     /*---------------------------我是分割线---------------------------------*/
 

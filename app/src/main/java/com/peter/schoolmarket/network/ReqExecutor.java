@@ -22,6 +22,7 @@ import static com.peter.schoolmarket.network.RetrofitConf.DEFAULT_TIMEOUT;
 public class ReqExecutor {
     private UserReq userReq;
     private TradeReq tradeReq;
+    private NoticeReq noticeReq;
 
 
     private ReqExecutor(){}
@@ -70,5 +71,12 @@ public class ReqExecutor {
             tradeReq=getGsonRetrofit().create(TradeReq.class);
         }
         return tradeReq;
+    }
+
+    public NoticeReq noticeReq() {
+        if (noticeReq==null){
+            noticeReq=getGsonRetrofit().create(NoticeReq.class);
+        }
+        return noticeReq;
     }
 }

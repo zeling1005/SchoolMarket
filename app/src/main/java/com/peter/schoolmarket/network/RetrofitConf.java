@@ -17,6 +17,9 @@ public interface RetrofitConf {
     String get_user_trades="";//获取用户在售，已卖，已买，待确认的商品列表
     String get_user_messages="";//获取用户交易信息
 
+    //----------------------------notice----------------------------
+    String get_notices_data = "";//获取notice 数据
+
 
     //----------------------------商品相关----------------------------
     String get_tag_trades="api/v1/trades/tag/{tagName}/get";//获取该分类下所有商品列表

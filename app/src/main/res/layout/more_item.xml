@@ -42,5 +42,9 @@
         android:textColor="#757575"
         android:text="@string/more_item_msg_time"
         android:textSize="@dimen/font_size_normal" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorNormalBackground"/>
 
 </LinearLayout>
