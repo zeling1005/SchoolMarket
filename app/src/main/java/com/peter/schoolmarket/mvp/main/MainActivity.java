@@ -32,11 +32,11 @@ import java.util.ArrayList;
 
 import io.realm.Realm;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements IMainView{
     IMainPresenter presenter;
     DrawerLayout drawer;
     Toolbar toolbar;
-    MaterialSearchView searchView;
+    //MaterialSearchView searchView;
     //private Realm realm;
 
     @Override
@@ -51,7 +51,7 @@ public class MainActivity extends BaseActivity {
 
         //realm=Realm.getDefaultInstance();
         //presenter = new MainPresenter(this, realm);
-        presenter = new MainPresenter(this);
+        presenter = new MainPresenter(this, this);
 
         //设置侧滑栏
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -74,18 +74,19 @@ public class MainActivity extends BaseActivity {
                 return true;
             }
         });
-        searchView = (MaterialSearchView) findViewById(R.id.search_view);
+        //searchView = (MaterialSearchView) findViewById(R.id.search_view);
         View headerLayout= navigationView.inflateHeaderView(R.layout.main_nav_header);
-        presenter.initMain(searchView, headerLayout);
+        presenter.initMain(headerLayout);
+        //searchView.setVisibility(View.INVISIBLE);
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_search_item, menu);
         MenuItem item = menu.findItem(R.id.action_search);
         searchView.setMenuItem(item);
         return true;
-    }
+    }*/
 
     /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -98,7 +99,7 @@ public class MainActivity extends BaseActivity {
     }*/
 
     //MaterialSearchView处理返回结果
-    @Override
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == MaterialSearchView.REQUEST_VOICE && resultCode == RESULT_OK) {
             ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
@@ -112,14 +113,14 @@ public class MainActivity extends BaseActivity {
             return;
         }
         super.onActivityResult(requestCode, resultCode, data);
-    }
+    }*/
 
     public void onBackPressed()
     {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else if (searchView.isSearchOpen()) {
-            searchView.closeSearch();
+        /*} else if (searchView.isSearchOpen()) {
+            searchView.closeSearch();*/
         } else {
             super.onBackPressed();
         }
@@ -129,5 +130,12 @@ public class MainActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         //realm.close();
+    }
+
+    @Override
+    public void hideDrawer() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
     }
 }

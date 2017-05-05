@@ -33,9 +33,7 @@ public class TestActivity extends BaseActivity {
         title = (TextView) findViewById(R.id.test_toolbar_title);
         back = (ImageView) findViewById(R.id.test_toolbar_back);
         Intent intent=getIntent();
-        Bundle bundle=intent.getExtras();
-        Trade trade = (Trade) bundle.getSerializable("trade");
-        text.setText(trade.getAuthorName());
+        text.setText(intent.getStringExtra("textString"));
         /*Intent intent = new Intent(this, TwoActivity.class);
         intent.putExtra("key", "value");
         startActivity(intent);*/

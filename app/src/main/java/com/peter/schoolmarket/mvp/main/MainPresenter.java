@@ -2,11 +2,10 @@ package com.peter.schoolmarket.mvp.main;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -33,7 +32,7 @@ import io.realm.RealmResults;
  * Created by PetterChen on 2017/4/20.
  */
 
-public class MainPresenter implements IMainPresenter {
+class MainPresenter implements IMainPresenter {
 
     private AppCompatActivity context;
     private FragmentManager fm;
@@ -42,10 +41,13 @@ public class MainPresenter implements IMainPresenter {
     private TestFragment testFragment;
     private FindFragment findFragment;
     private TradeSortFragment tradeSortFragment;
+    private IMainView view;
+    //private MaterialSearchView searchView;
     //private Realm realmDefault;
 
-    public MainPresenter(AppCompatActivity context) {
+    MainPresenter(AppCompatActivity context, IMainView view) {
         this.context = context;
+        this.view = view;
         //this.realmDefault=realm;
         fm = context.getFragmentManager();
         toolbarTitle=(TextView)context.findViewById(R.id.toolbar_title);
@@ -53,10 +55,59 @@ public class MainPresenter implements IMainPresenter {
     }
 
     @Override
-    public void initMain(MaterialSearchView searchView, View header) {
-        initSearchView(searchView);
+    public void initMain(View header) {
+        //searchView = search;
+        //initSearchView();
         initHeader(header);
         initBottomMenu();
+    }
+
+    /*private void initSearchView() {
+        searchView.setVoiceSearch(false);//关闭声音搜索
+        searchView.setCursorDrawable(R.drawable.main_search_cursor);
+        searchView.setSuggestions(context.getResources().getStringArray(R.array.query_suggestions));//建议候选词
+        searchView.setVisibility(View.GONE);
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //Do some magic
+                *//*Snackbar.make(context.findViewById(R.id.toolbar_container), "Query: " + query, Snackbar.LENGTH_LONG)
+                        .show();*//*
+                Toast.makeText(context, "Query: " + query, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Do some magic
+                return false;
+            }
+        });
+        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+                //Do some magic
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                //Do some magic
+            }
+        });
+    }*/
+
+    private void initHeader(View headerLayout) {
+        User user= LoginInfoExecutor.getUser(context);
+        SimpleDraweeView avatarUrl=(SimpleDraweeView) headerLayout.findViewById(R.id.header_portrait);
+        TextView username=(TextView) headerLayout.findViewById(R.id.header_user_name);
+        TextView phone=(TextView) headerLayout.findViewById(R.id.header_phone);
+        if (AppConf.useMock){
+            avatarUrl.setImageURI("res://drawable/"+R.drawable.main_person);
+        } else {
+            avatarUrl.setImageURI(Uri.parse(AppConf.BASE_URL+user.getAvatarUrl()));
+        }
+        username.setText(user.getUsername());
+        phone.setText(user.getPhone());
     }
 
     @Override
@@ -91,60 +142,13 @@ public class MainPresenter implements IMainPresenter {
         if (type.equals("")){
             return;
         }
+        //view.hideDrawer();
         Intent tradeIntent=new Intent(context, TestActivity.class);
         tradeIntent.putExtra("textString",type);
         context.startActivity(tradeIntent);
     }
 
-    public void initSearchView(MaterialSearchView searchView) {
-        searchView.setVoiceSearch(false);//关闭声音搜索
-        searchView.setCursorDrawable(R.drawable.main_search_cursor);
-        searchView.setSuggestions(context.getResources().getStringArray(R.array.query_suggestions));//建议候选词
-        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                //Do some magic
-                /*Snackbar.make(context.findViewById(R.id.toolbar_container), "Query: " + query, Snackbar.LENGTH_LONG)
-                        .show();*/
-                Toast.makeText(context, "Query: " + query, Toast.LENGTH_SHORT).show();
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                //Do some magic
-                return false;
-            }
-        });
-
-        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
-            @Override
-            public void onSearchViewShown() {
-                //Do some magic
-            }
-
-            @Override
-            public void onSearchViewClosed() {
-                //Do some magic
-            }
-        });
-    }
-
-    public void initHeader(View headerLayout) {
-        User user= LoginInfoExecutor.getUser(context);
-        SimpleDraweeView avatarUrl=(SimpleDraweeView) headerLayout.findViewById(R.id.header_portrait);
-        TextView username=(TextView) headerLayout.findViewById(R.id.header_user_name);
-        TextView phone=(TextView) headerLayout.findViewById(R.id.header_phone);
-        if (AppConf.useMock){
-            avatarUrl.setImageURI("res://drawable/"+R.drawable.main_person);
-        } else {
-            avatarUrl.setImageURI(Uri.parse(AppConf.BASE_URL+user.getAvatarUrl()));
-        }
-        username.setText(user.getUsername());
-        phone.setText(user.getPhone());
-    }
-
-    public void initBottomMenu() {
+    private void initBottomMenu() {
         bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);//此模式显示文字
         bottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC)//点击无水波纹，可以设置为Item添加Badge
                 .addItem(new BottomNavigationItem(R.drawable.main_bottom_find, "首页"))
@@ -194,7 +198,7 @@ public class MainPresenter implements IMainPresenter {
         });
     }
 
-    public void showFragment(int position) {
+    private void showFragment(int position) {
         int type = -1;
         FragmentTransaction ft = fm.beginTransaction();
         hideAllFragment(ft);
@@ -237,7 +241,7 @@ public class MainPresenter implements IMainPresenter {
         ft.commit();
     }
 
-    public void hideAllFragment(FragmentTransaction ft) {
+    private void hideAllFragment(FragmentTransaction ft) {
         if (testFragment != null) {
             ft.hide(testFragment);
         }
