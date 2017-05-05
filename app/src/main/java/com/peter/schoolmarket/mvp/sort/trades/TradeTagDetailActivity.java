@@ -13,7 +13,8 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.peter.schoolmarket.R;
-import com.peter.schoolmarket.adapter.recycler.DividerItemDecoration;
+import com.peter.schoolmarket.adapter.recycler.DividerItemGridDecoration;
+import com.peter.schoolmarket.adapter.recycler.DividerItemNormalDecoration;
 import com.peter.schoolmarket.adapter.recycler.RecyclerCommonAdapter;
 import com.peter.schoolmarket.mvp.base.BaseActivity;
 
@@ -72,7 +73,7 @@ public class TradeTagDetailActivity extends BaseActivity implements ITradeTagDet
 
         recyclerView.setLayoutManager(new LinearLayoutManager(TradeTagDetailActivity.this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItemDecoration(this));
+        recyclerView.addItemDecoration(new DividerItemNormalDecoration(this, DividerItemNormalDecoration.VERTICAL_LIST));
         presenter.init(tagName);
     }
 

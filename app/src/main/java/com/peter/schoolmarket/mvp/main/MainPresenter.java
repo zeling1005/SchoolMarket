@@ -21,6 +21,7 @@ import com.peter.schoolmarket.data.pojo.User;
 import com.peter.schoolmarket.data.storage.LoginInfoExecutor;
 import com.peter.schoolmarket.mvp.find.FindFragment;
 import com.peter.schoolmarket.mvp.login.LoginActivity;
+import com.peter.schoolmarket.mvp.more.MoreFragment;
 import com.peter.schoolmarket.mvp.sort.TradeSortFragment;
 import com.peter.schoolmarket.mvp.test.TestActivity;
 import com.peter.schoolmarket.mvp.test.TestFragment;
@@ -40,6 +41,7 @@ class MainPresenter implements IMainPresenter {
     private BottomNavigationBar bottomNavigationBar;
     private TestFragment testFragment;
     private FindFragment findFragment;
+    private MoreFragment moreFragment;
     private TradeSortFragment tradeSortFragment;
     private IMainView view;
     //private MaterialSearchView searchView;
@@ -227,15 +229,14 @@ class MainPresenter implements IMainPresenter {
                 ft.add(R.id.frame_layout, testFragment);
             }
                 break;
-            case 3 : if (testFragment != null) {
-                ft.show(testFragment);
+            case 3 : if (moreFragment != null) {
+                ft.show(moreFragment);
             } else {
-                testFragment = new TestFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("textString", "");
-                testFragment.setArguments(bundle);
-                ft.add(R.id.frame_layout, testFragment);
+                moreFragment = new MoreFragment();
+                ft.add(R.id.frame_layout, moreFragment);
             }
+                break;
+            default:
                 break;
         }
         ft.commit();
@@ -250,6 +251,9 @@ class MainPresenter implements IMainPresenter {
         }
         if (tradeSortFragment != null) {
             ft.hide(tradeSortFragment);
+        }
+        if (moreFragment != null) {
+            ft.hide(moreFragment);
         }
     }
 

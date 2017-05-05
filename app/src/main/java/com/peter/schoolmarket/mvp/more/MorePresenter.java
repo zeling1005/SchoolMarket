@@ -2,6 +2,7 @@ package com.peter.schoolmarket.mvp.more;
 
 import android.content.Context;
 import android.net.Uri;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,6 +18,8 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
+
+import static com.peter.schoolmarket.R.color.white;
 
 /**
  * Created by PetterChen on 2017/5/5.
@@ -66,8 +69,14 @@ public class MorePresenter implements IMorePresenter, IMoreListener {
         view.loadDataSuccess(adapter);
         adapter.setClickListener(new RecyclerCommonAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void onItemClick(final View view, int position) {
                 Notice item=notices.get(position);
+                /*view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        view.setBackgroundColor(context.getResources().getColor(white));
+                    }
+                });*/
 
                 //跳转到notice详情页面
                 Toast.makeText(context, "jump to notice detail", Toast.LENGTH_SHORT).show();

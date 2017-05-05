@@ -5,17 +5,13 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
 import com.peter.schoolmarket.R;
-import com.peter.schoolmarket.adapter.recycler.DividerItemDecoration;
+import com.peter.schoolmarket.adapter.recycler.DividerItemGridDecoration;
 import com.peter.schoolmarket.adapter.recycler.RecyclerCommonAdapter;
-import com.peter.schoolmarket.data.pojo.TradeTag;
 import com.peter.schoolmarket.mvp.base.BaseFragment;
-import com.peter.schoolmarket.mvp.sort.trades.TradeTagDetailActivity;
 import com.peter.schoolmarket.mvp.trade.add.TradeAddActivity;
 
 /**
@@ -51,7 +47,7 @@ public class TradeSortFragment extends BaseFragment implements ITradeSortView {
 
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),3));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
+        recyclerView.addItemDecoration(new DividerItemGridDecoration(getActivity()));
 
         presenter.initView();
     }

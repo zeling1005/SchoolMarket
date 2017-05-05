@@ -11,7 +11,7 @@ import java.util.List;
  */
 
 public class TradeTagUtils {
-    private static String[] nameList = {"学习资料", "体育用品", "生活用品", "电子产品", "电脑相关"};
+    private static String[] nameList = {"学习资料", "体育用品", "生活用品", "手机相关", "电脑相关"};
     private static int[] nameId = {R.drawable.sort_book, R.drawable.sort_esercise, R.drawable.sort_life,
             R.drawable.sort_phone, R.drawable.sort_computer};
 

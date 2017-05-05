@@ -88,9 +88,10 @@ public class MoreFragment extends BaseFragment implements IMoreView {
 
     @Override
     public void hideRefresh() {
-        if (refreshLayout.isRefreshing()) {
+        /*if (refreshLayout.isRefreshing()) {
             refreshLayout.setRefreshing(false);
-        }
+        }*/
+        refreshLayout.setRefreshing(false);
     }
 
     @Override
