@@ -1,16 +1,16 @@
 package com.peter.schoolmarket.mvp.more;
 
 import android.content.Context;
-import android.net.Uri;
-import android.view.MotionEvent;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import com.peter.schoolmarket.R;
 import com.peter.schoolmarket.adapter.recycler.RecyclerCommonAdapter;
 import com.peter.schoolmarket.adapter.recycler.RecyclerViewHolder;
 import com.peter.schoolmarket.data.dto.Result;
 import com.peter.schoolmarket.data.pojo.Notice;
+import com.peter.schoolmarket.mvp.more.notice.detail.NoticeDetailActivity;
 import com.peter.schoolmarket.util.ResultInterceptor;
 
 import java.util.List;
@@ -18,8 +18,6 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
-
-import static com.peter.schoolmarket.R.color.white;
 
 /**
  * Created by PetterChen on 2017/5/5.
@@ -74,12 +72,12 @@ public class MorePresenter implements IMorePresenter, IMoreListener {
                 Notice item=notices.get(position);
 
                 //跳转到notice详情页面
-                Toast.makeText(context, "jump to notice detail", Toast.LENGTH_SHORT).show();
-                /*Intent intent=new Intent(context,TradeDetailActivity.class);
-                intent.putExtra("tradeId",item.getId());
-                intent.putExtra("userId",item.getAuthorId());
-                context.startActivity(intent);*/
-
+                //Toast.makeText(context, "jump to notice detail", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(context, NoticeDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("notice", item);
+                intent.putExtras(bundle);
+                context.startActivity(intent);
             }
         });
     }

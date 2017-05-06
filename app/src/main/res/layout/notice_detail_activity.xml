@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true">
+    android:background="@color/colorNormalBackground">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -17,17 +18,16 @@
             android:background="?attr/colorPrimary">
 
             <!--<ImageView
-                android:id="@+id/trade_add_cancel"
+                android:id="@+id/test_toolbar_back"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/circle_pic_selector"
                 android:scaleType="center"
                 android:layout_gravity="start"
-                android:src="@drawable/ic_back"
+                android:src="@drawable/ic_arrow_left"
                 />-->
-
             <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/trade_add_cancel"
+                android:id="@+id/notice_detail_toolbar_back"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
                 android:layout_gravity="start|center"
@@ -37,42 +37,16 @@
                 fresco:placeholderImageScaleType="fitCenter"/>
 
             <TextView
-                android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:maxLines="1"
-                android:text="@string/trade_add_title"
-                android:textColor="@color/black"
-                android:textSize="@dimen/font_size_title"/>
-
-            <!--<ImageView
-                android:id="@+id/trade_add_submit"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@color/colorPrimary"
-                android:layout_gravity="end"
-                android:paddingEnd="15dp"
-                android:paddingRight="15dp"
-                android:scaleType="center"
-                android:src="@drawable/ic_submit"
-                />-->
-
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/trade_add_submit"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:layout_gravity="end|center"
-                android:layout_marginRight="15dp"
-                android:layout_marginEnd="15dp"
-                android:background="@drawable/circle_pic_selector"
-                fresco:roundAsCircle="true"
-                fresco:placeholderImage="@drawable/ic_submit"
-                fresco:placeholderImageScaleType="fitCenter"/>
-
+                android:text="@string/notice_detail_title"
+                android:textColor="@color/md_black_1000"
+                android:textSize="@dimen/font_size_normal_high"/>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/trade_add_content" />
+    <include layout="@layout/notice_detail_content"/>
 
 </LinearLayout>

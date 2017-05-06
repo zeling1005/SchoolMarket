@@ -1,11 +1,13 @@
 package com.peter.schoolmarket.mvp.find;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
@@ -14,6 +16,7 @@ import com.peter.schoolmarket.adapter.recycler.RecyclerCommonAdapter;
 import com.peter.schoolmarket.adapter.recycler.RecyclerViewHolder;
 import com.peter.schoolmarket.data.dto.Result;
 import com.peter.schoolmarket.data.pojo.Trade;
+import com.peter.schoolmarket.mvp.trade.detail.TradeDetailActivity;
 import com.peter.schoolmarket.util.ResultInterceptor;
 
 import java.io.IOException;
@@ -82,11 +85,12 @@ public class FindPresenter implements IFindPresenter, IGainListener {
                 Trade item=trades.get(position);
 
                 //跳转到分类商品详情页面
-                Toast.makeText(context, "jump", Toast.LENGTH_LONG).show();
-                /*Intent intent=new Intent(context,TradeDetailActivity.class);
-                intent.putExtra("tradeId",item.getId());
-                intent.putExtra("userId",item.getAuthorId());
-                context.startActivity(intent);*/
+                //Toast.makeText(context, "jump", Toast.LENGTH_LONG).show();
+                Intent intent=new Intent(context, TradeDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("trade", item);
+                intent.putExtras(bundle);
+                context.startActivity(intent);
 
             }
         });

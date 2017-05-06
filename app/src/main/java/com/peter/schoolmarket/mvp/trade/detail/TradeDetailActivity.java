@@ -76,7 +76,7 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
         sendMsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //跳转到信息发送
+                //跳转到信息发送,发送一条广播通知买者和卖者,建立消息入口,消息activity监听实时消息.
                 Toast.makeText(TradeDetailActivity.this, "jump send msg", Toast.LENGTH_SHORT).show();
             }
         });

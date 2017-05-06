@@ -52,7 +52,7 @@
     <string name="trade_tag_item_original_price">original price</string>
 
     <!--trade add activity-->
-    <string name="trade_add_title">发现</string>
+    <string name="trade_add_title">发布</string>
     <string name="trade_add_content_title">标题</string>
     <string name="trade_add_content_now_price">价格(元)</string>
     <string name="trade_add_content_original_price">原价(元)</string>
@@ -78,6 +78,14 @@
     <string name="msg_item_name">用户名</string>
     <string name="msg_item_content">内容</string>
     <string name="msg_item_time">时间</string>
+
+    <!--notice detail-->
+    <string name="notice_detail_title">公告详情</string>
+
+    <!--notice add-->
+    <string name="notice_add_toolbar_title">发布</string>
+    <string name="notice_add_title">标题（必填），2-40字</string>
+    <string name="notice_add_content">正文（必填），15-500字</string>
 
 
 </resources>

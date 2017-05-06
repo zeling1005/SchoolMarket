@@ -27,7 +27,6 @@ import cn.finalteam.rxgalleryfinal.rxbus.event.ImageRadioResultEvent;
  */
 
 public class TradeAddActivity extends BaseActivity implements ITradeAddView {
-
     SimpleDraweeView addImg;
     TextView selectTag;
     EditText tradeTitle;

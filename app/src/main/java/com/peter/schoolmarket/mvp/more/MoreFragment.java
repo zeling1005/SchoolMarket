@@ -1,5 +1,6 @@
 package com.peter.schoolmarket.mvp.more;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -14,6 +15,7 @@ import com.peter.schoolmarket.R;
 import com.peter.schoolmarket.adapter.recycler.DividerItemNormalDecoration;
 import com.peter.schoolmarket.adapter.recycler.RecyclerCommonAdapter;
 import com.peter.schoolmarket.mvp.base.BaseFragment;
+import com.peter.schoolmarket.mvp.more.notice.add.NoticeAddActivity;
 
 import io.realm.Realm;
 
@@ -72,7 +74,9 @@ public class MoreFragment extends BaseFragment implements IMoreView {
             @Override
             public void onClick(View v) {
                 //添加notice事件
-                Toast.makeText(MoreFragment.this.getActivity(), "notice plus", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MoreFragment.this.getActivity(), "notice plus", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), NoticeAddActivity.class);
+                getActivity().startActivity(intent);
             }
         });
     }
