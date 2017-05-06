@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -16,7 +17,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary">
 
-            <ImageView
+            <!--<ImageView
                 android:id="@+id/trade_add_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -24,7 +25,17 @@
                 android:scaleType="center"
                 android:layout_gravity="start"
                 android:src="@drawable/ic_back"
-                />
+                />-->
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/trade_add_cancel"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_gravity="start|center"
+                android:background="@drawable/circle_pic_selector"
+                fresco:roundAsCircle="true"
+                fresco:placeholderImage="@drawable/ic_arrow_left"
+                fresco:placeholderImageScaleType="fitCenter"/>
 
             <TextView
                 android:id="@+id/toolbar_title"
@@ -35,7 +46,8 @@
                 android:text="@string/trade_add_title"
                 android:textColor="@color/black"
                 android:textSize="@dimen/font_size_title"/>
-            <ImageView
+
+            <!--<ImageView
                 android:id="@+id/trade_add_submit"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -45,7 +57,20 @@
                 android:paddingRight="15dp"
                 android:scaleType="center"
                 android:src="@drawable/ic_submit"
-                />
+                />-->
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/trade_add_submit"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_gravity="end|center"
+                android:layout_marginRight="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/circle_pic_selector"
+                fresco:roundAsCircle="true"
+                fresco:placeholderImage="@drawable/ic_submit"
+                fresco:placeholderImageScaleType="fitCenter"/>
+
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 

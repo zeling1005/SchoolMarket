@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.peter.schoolmarket.R;
 import com.peter.schoolmarket.adapter.recycler.DividerItemGridDecoration;
 import com.peter.schoolmarket.adapter.recycler.DividerItemNormalDecoration;
@@ -26,7 +27,7 @@ public class TradeTagDetailActivity extends BaseActivity implements ITradeTagDet
 
     protected RecyclerView recyclerView;
     TradeTagDetailPresenter presenter;
-    private ImageView back;
+    private SimpleDraweeView back;
     SwipeRefreshLayout refreshLayout;
     MaterialDialog progress;
     TextView title;
@@ -43,7 +44,7 @@ public class TradeTagDetailActivity extends BaseActivity implements ITradeTagDet
         recyclerView = (RecyclerView) findViewById(R.id.trade_tag_detail_list);
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.trade_tag_detail_refresh);
         presenter = new TradeTagDetailPresenter(this, this);
-        back = (ImageView) findViewById(R.id.trade_tag_back);
+        back = (SimpleDraweeView) findViewById(R.id.trade_tag_back);
         title = (TextView) findViewById(R.id.trade_tag_title);
 
         title.setText(tagName);

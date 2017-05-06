@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true" >
@@ -15,7 +16,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary">
 
-            <ImageView
+            <!--<ImageView
                 android:id="@+id/trade_tag_back"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -23,7 +24,16 @@
                 android:scaleType="center"
                 android:layout_gravity="start"
                 android:src="@drawable/ic_arrow_left"
-                />
+                />-->
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/trade_tag_back"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_gravity="start|center"
+                android:background="@drawable/circle_pic_selector"
+                fresco:roundAsCircle="true"
+                fresco:placeholderImage="@drawable/ic_arrow_left"
+                fresco:placeholderImageScaleType="fitCenter"/>
 
             <TextView
                 android:id="@+id/trade_tag_title"

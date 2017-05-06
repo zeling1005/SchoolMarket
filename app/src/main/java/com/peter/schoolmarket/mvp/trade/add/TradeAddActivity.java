@@ -34,8 +34,8 @@ public class TradeAddActivity extends BaseActivity implements ITradeAddView {
     EditText tradeNowPrice;
     EditText tradeOriginalPrice;
     EditText tradeDesc;
-    ImageView cancel;
-    ImageView submit;
+    SimpleDraweeView cancel;
+    SimpleDraweeView submit;
 
     MaterialDialog progress;
     TradeAddPresenter presenter;
@@ -53,8 +53,8 @@ public class TradeAddActivity extends BaseActivity implements ITradeAddView {
         tradeNowPrice = (EditText) findViewById(R.id.trade_add_now_price_content);
         tradeOriginalPrice = (EditText) findViewById(R.id.trade_add_original_price_content);
         tradeDesc = (EditText) findViewById(R.id.trade_add_describe_content);
-        cancel = (ImageView) findViewById(R.id.trade_add_cancel);
-        submit = (ImageView) findViewById(R.id.trade_add_submit);
+        cancel = (SimpleDraweeView) findViewById(R.id.trade_add_cancel);
+        submit = (SimpleDraweeView) findViewById(R.id.trade_add_submit);
 
         progress = new MaterialDialog.Builder(TradeAddActivity.this)
                 .content("正在处理...")

@@ -22,8 +22,8 @@ import com.peter.schoolmarket.mvp.base.BaseActivity;
  */
 
 public class TradeDetailActivity extends BaseActivity implements ITradeDetailView {
-    private ImageView goBack;
-    private ImageView sendMsg;
+    private SimpleDraweeView goBack;
+    private SimpleDraweeView sendMsg;
     private SimpleDraweeView authorImg;
     private TextView authorName;
     private SimpleDraweeView img;
@@ -41,8 +41,8 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
     protected void initViews(Bundle savedInstanceState) {
         setContentView(R.layout.trade_detail_activity);
 
-        goBack = (ImageView) findViewById(R.id.trade_detail_toolbar_back);
-        sendMsg = (ImageView) findViewById(R.id.trade_detail_send_msg);
+        goBack = (SimpleDraweeView) findViewById(R.id.trade_detail_toolbar_back);
+        sendMsg = (SimpleDraweeView) findViewById(R.id.trade_detail_send_msg);
         authorImg = (SimpleDraweeView) findViewById(R.id.trade_detail_author_img);
         authorName = (TextView) findViewById(R.id.trade_detail_author_name);
         img = (SimpleDraweeView) findViewById(R.id.trade_detail_img);
@@ -102,13 +102,6 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
                             }
                         })
                         .show();
-            }
-        });
-        phone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //跳转到拨号界面
-                Toast.makeText(TradeDetailActivity.this, "jump to call up", Toast.LENGTH_SHORT).show();
             }
         });
     }
