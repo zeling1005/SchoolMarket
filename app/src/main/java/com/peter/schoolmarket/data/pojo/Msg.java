@@ -16,16 +16,27 @@ public class Msg extends RealmObject implements Serializable {
 
     @PrimaryKey
     private String id;//消息主键，一个编号M001
-    @Required
     private String receiveMsgId;//接收者id
-    @Required
     private String sendMsgId;//发送者id
-    @Required
+    private String sendName;
+    private String sendImg;
     private String sendMsgTime;//信息发送时间
     private String msgWords;//文字信息
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setSendName(String sendName) {
+        this.sendName = sendName;
+    }
+
+    public void setSendImg(String sendImg) {
+        this.sendImg = sendImg;
+    }
+
+    public void setSendMsgTime(String sendMsgTime) {
+        this.sendMsgTime = sendMsgTime;
     }
 
     public void setReceiveMsgId(String receiveMsgId) {
@@ -52,6 +63,14 @@ public class Msg extends RealmObject implements Serializable {
 
     public String getId() {
         return id;
+    }
+
+    public String getSendName() {
+        return sendName;
+    }
+
+    public String getSendImg() {
+        return sendImg;
     }
 
     public String getReceiveMsgId() {

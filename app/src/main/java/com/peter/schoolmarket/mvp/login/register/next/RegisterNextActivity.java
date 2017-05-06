@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.telephony.SmsManager;
 import android.util.Log;
@@ -15,11 +16,13 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.peter.schoolmarket.R;
 import com.peter.schoolmarket.di.components.DaggerRegisterNextComponent;
 import com.peter.schoolmarket.di.modules.RegisterNextModule;
 import com.peter.schoolmarket.mvp.base.BaseActivity;
+import com.peter.schoolmarket.mvp.login.LoginActivity;
 import com.peter.schoolmarket.mvp.main.MainActivity;
 
 import javax.inject.Inject;
@@ -228,5 +231,23 @@ public class RegisterNextActivity extends BaseActivity implements IRegisterNextV
     @Override
     public void addFailed() {
         Toast.makeText(this, "网络异常或者系统错误", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        new MaterialDialog.Builder(this)
+                .title("放弃注册？")
+                .content("您正在注册，离开界面会导致注册失败！确定离开？")
+                .positiveText("确定")
+                .negativeText("取消")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        Intent intent = new Intent(RegisterNextActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                })
+                .show();
     }
 }

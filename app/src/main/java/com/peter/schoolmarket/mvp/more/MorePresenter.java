@@ -39,7 +39,7 @@ public class MorePresenter implements IMorePresenter, IMoreListener {
 
     @Override
     public void refresh(Realm realm) {
-        //view.showProgress();本来就有刷新出现
+        //本来就有刷新出现
         model.noticeDataReq(this, 0, realm);
     }
 
@@ -72,12 +72,6 @@ public class MorePresenter implements IMorePresenter, IMoreListener {
             @Override
             public void onItemClick(final View view, int position) {
                 Notice item=notices.get(position);
-                /*view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        view.setBackgroundColor(context.getResources().getColor(white));
-                    }
-                });*/
 
                 //跳转到notice详情页面
                 Toast.makeText(context, "jump to notice detail", Toast.LENGTH_SHORT).show();

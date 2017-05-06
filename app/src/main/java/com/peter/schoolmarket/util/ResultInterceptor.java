@@ -15,10 +15,10 @@ public enum ResultInterceptor {
         }
 
         switch (result.getCode()) {
-            case 100:
-                return true;
             case 99:
                 return false;
+            case 100:
+                return true;
             default:
                 return false;
         }
