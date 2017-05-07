@@ -3,10 +3,13 @@ package com.peter.schoolmarket.mvp.main;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +28,8 @@ import com.peter.schoolmarket.mvp.more.MoreFragment;
 import com.peter.schoolmarket.mvp.sort.TradeSortFragment;
 import com.peter.schoolmarket.mvp.test.TestActivity;
 import com.peter.schoolmarket.mvp.test.TestFragment;
+
+import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -130,7 +135,18 @@ class MainPresenter implements IMainPresenter {
                 type = "已卖";
                 break;
             case R.id.nav_share:
-                type = "分享给朋友";
+                Intent textIntent = new Intent(Intent.ACTION_SEND);
+                textIntent.setType("text/plain");
+                /*textIntent.setPackage("com.tencent.mobileqq");
+                textIntent.setPackage("com.tencent.mm");
+                textIntent.setClassName("com.tencent.mm", "com.tencent.mm.ui.tools.ShareImgUI");//微信朋友
+                textIntent.setClassName("com.tencent.mobileqq", "cooperation.qqfav.widget.QfavJumpActivity");//保存到QQ收藏
+                textIntent.setClassName("com.tencent.mobileqq", "cooperation.qlink.QlinkShareJumpActivity");//QQ面对面快传
+                textIntent.setClassName("com.tencent.mobileqq", "com.tencent.mobileqq.activity.qfileJumpActivity");//传给我的电脑
+                textIntent.setClassName("com.tencent.mobileqq", "com.tencent.mobileqq.activity.JumpActivity");//QQ好友或QQ群
+                textIntent.setClassName("com.tencent.mm", "com.tencent.mm.ui.tools.ShareToTimeLineUI");//微信朋友圈，仅支持分享图片*/
+                textIntent.putExtra(Intent.EXTRA_TEXT, "这里以后替换成app下载地址");
+                context.startActivity(Intent.createChooser(textIntent, "分享"));
                 break;
             case R.id.nav_setting:
                 type = "设置";

@@ -8,10 +8,12 @@ import android.view.View;
 import com.peter.schoolmarket.R;
 import com.peter.schoolmarket.adapter.recycler.RecyclerCommonAdapter;
 import com.peter.schoolmarket.adapter.recycler.RecyclerViewHolder;
+import com.peter.schoolmarket.application.AppConf;
 import com.peter.schoolmarket.data.dto.Result;
 import com.peter.schoolmarket.data.pojo.Notice;
 import com.peter.schoolmarket.mvp.more.notice.detail.NoticeDetailActivity;
 import com.peter.schoolmarket.util.ResultInterceptor;
+import com.peter.schoolmarket.util.TimeUtils;
 
 import java.util.List;
 
@@ -62,7 +64,12 @@ public class MorePresenter implements IMorePresenter, IMoreListener {
                 holder.setText(R.id.more_item_title,item.getTitle());
                 holder.setText(R.id.more_item_name,item.getAuthorName());
                 holder.setText(R.id.more_item_content,item.getContent());
-                holder.setText(R.id.more_item_time,item.getCreateTime());
+                if (AppConf.useMock) {
+                    holder.setText(R.id.more_item_time,"2017-04-12");
+                } else {
+                    String tem = TimeUtils.getDate(item.getCreateTime());
+                    holder.setText(R.id.more_item_time,tem);
+                }
             }
         };
         view.loadDataSuccess(adapter);

@@ -45,7 +45,7 @@ class TradeAddPresenter implements ITradeAddPresenter, ITradeAddListener {
     @Override
     public void releaseTrade(String picUploadUrl, EditText titleContent, EditText nowPrice,
                              EditText originalPrice, EditText descContent, TextView tag) {
-        Trade trade=checkForm(picUploadUrl,titleContent,nowPrice,originalPrice,descContent,tag);
+        Trade trade = checkForm(picUploadUrl,titleContent,nowPrice,originalPrice,descContent,tag);
 
         if (!trade.isReleaseCheck()){
             return;
@@ -114,6 +114,7 @@ class TradeAddPresenter implements ITradeAddPresenter, ITradeAddListener {
         trade.setAuthorId(authorOld.getId());
         trade.setAuthorName(authorOld.getUsername());
         trade.setAuthorImg(authorOld.getAvatarUrl());
+        trade.setAuthorPhone(authorOld.getPhone());
 
         trade.setReleaseCheck(true);
         return trade;

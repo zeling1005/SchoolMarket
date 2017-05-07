@@ -7,8 +7,10 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.peter.schoolmarket.R;
+import com.peter.schoolmarket.application.AppConf;
 import com.peter.schoolmarket.data.pojo.Notice;
 import com.peter.schoolmarket.mvp.base.BaseActivity;
+import com.peter.schoolmarket.util.TimeUtils;
 
 /**
  * Created by PetterChen on 2017/5/6.
@@ -49,7 +51,12 @@ public class NoticeDetailActivity extends BaseActivity {
         });
         title.setText(notice.getTitle());
         name.setText(notice.getAuthorName());
-        time.setText(notice.getCreateTime());
+        if (AppConf.useMock) {
+            time.setText("2017-04-12");
+        } else {
+            String tem = TimeUtils.getDate(notice.getCreateTime());
+            time.setText(tem);
+        }
         content.setText(notice.getContent());
     }
 }

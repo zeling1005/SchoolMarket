@@ -45,6 +45,15 @@ public interface TradeReq {
             @Query("size") int size
     );
 
+    /**
+     * 发布商品
+     */
+    @Multipart
+    @POST(RetrofitConf.create_trade)
+    Observable<Result<String>> addTrade(
+            @Part("trade") RequestBody trade,
+            @Part MultipartBody.Part part);
+
 
     //----------我是分割线-------------------//
 
@@ -68,15 +77,6 @@ public interface TradeReq {
             @Field("fromAvatar") String fromAvatar,
             @Field("tradeId") String tradeId
     );
-
-    /**
-     * 发布商品
-     */
-    @Multipart
-    @POST(RetrofitConf.create_trade)
-    Observable<Result<String>> addTrade(
-            @Part("trade") RequestBody trade,
-            @Part MultipartBody.Part part);
 
     /**
      * 获取分类列表请求(List<TradeTag>)

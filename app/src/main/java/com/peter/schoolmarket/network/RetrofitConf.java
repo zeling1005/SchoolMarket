@@ -19,6 +19,7 @@ public interface RetrofitConf {
 
     //----------------------------notice----------------------------
     String get_notices_data = "";//获取notice 数据
+    String create_notice = ""; //添加notice
 
 
     //----------------------------商品相关----------------------------

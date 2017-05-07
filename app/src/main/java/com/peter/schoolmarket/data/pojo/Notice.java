@@ -16,14 +16,19 @@ public class Notice extends RealmObject implements Serializable {
     private String authorName;
     private String authorImg;
     private String authorId;
+    private String authorPhone;
     private String title;
     private String content;
-    private String createTime;
+    private long createTime;
     @Ignore
     private boolean releaseCheck;//为了在发布时方便检查数据完整性，不存储在数据库中
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setAuthorPhone(String authorPhone) {
+        this.authorPhone = authorPhone;
     }
 
     public void setAuthorName(String authorName) {
@@ -46,7 +51,7 @@ public class Notice extends RealmObject implements Serializable {
         this.content = content;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(long createTime) {
         this.createTime = createTime;
     }
 
@@ -56,6 +61,10 @@ public class Notice extends RealmObject implements Serializable {
 
     public String getId() {
         return id;
+    }
+
+    public String getAuthorPhone() {
+        return authorPhone;
     }
 
     public String getAuthorName() {
@@ -78,7 +87,7 @@ public class Notice extends RealmObject implements Serializable {
         return content;
     }
 
-    public String getCreateTime() {
+    public long getCreateTime() {
         return createTime;
     }
 

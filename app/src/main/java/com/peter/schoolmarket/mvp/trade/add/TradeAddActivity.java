@@ -1,12 +1,15 @@
 package com.peter.schoolmarket.mvp.trade.add;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.peter.schoolmarket.R;
@@ -87,7 +90,18 @@ public class TradeAddActivity extends BaseActivity implements ITradeAddView {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                (TradeAddActivity.this).finish();
+                new MaterialDialog.Builder(TradeAddActivity.this)
+                        .title("放弃发布？")
+                        .content("您正在发布商品，离开界面会导致发布失败！确定离开？")
+                        .positiveText("确定")
+                        .negativeText("取消")
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                (TradeAddActivity.this).finish();
+                            }
+                        })
+                        .show();
             }
         });
         submit.setOnClickListener(new View.OnClickListener() {
@@ -114,11 +128,12 @@ public class TradeAddActivity extends BaseActivity implements ITradeAddView {
                                 String path=imageRadioResultEvent.getResult().getCropPath();
                                 picUrl = "file://"+path;
                                 picUploadUrl = "" + path;
-                                //Log.d("TradeAdd", picUploadUrl);
+                                Log.d("TradeAdd", "limain" + picUploadUrl);
                                 addImg.setImageURI(picUrl);
                             }
                         })
                         .openGallery();
+                Log.d("TradeAdd", "kai shi" + picUploadUrl);
             }
         });
     }
@@ -153,5 +168,21 @@ public class TradeAddActivity extends BaseActivity implements ITradeAddView {
         if (progress.isShowing()) {
             progress.dismiss();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        new MaterialDialog.Builder(TradeAddActivity.this)
+                .title("放弃发布？")
+                .content("您正在发布商品，离开界面会导致发布失败！确定离开？")
+                .positiveText("确定")
+                .negativeText("取消")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        (TradeAddActivity.this).finish();
+                    }
+                })
+                .show();
     }
 }
