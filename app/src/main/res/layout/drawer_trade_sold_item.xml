@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sold_item_show_detail"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/square_pic_selector"
+    android:orientation="horizontal">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sold_item_img"
+            android:layout_width="140dp"
+            android:layout_height="140dp" />
+
+        <ImageView
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:alpha="0.6"
+            android:background="@drawable/sort_pic_selector" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|start"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/sold_item_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/trade_tag_item_name"
+                android:textColor="@color/md_grey_800"
+                android:textSize="@dimen/font_size_normal" />
+
+            <TextView
+                android:id="@+id/sold_item_now_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/trade_tag_item_new_price"
+                android:textColor="@color/md_red_500"
+                android:textSize="@dimen/font_size_normal" />
+
+            <TextView
+                android:id="@+id/sold_item_original_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/trade_tag_item_original_price"
+                android:textColor="@color/md_grey_800"
+                android:textSize="@dimen/font_size_normal" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

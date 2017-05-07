@@ -87,5 +87,10 @@
     <string name="notice_add_title">标题（必填），2-40字</string>
     <string name="notice_add_content">正文（必填），15-500字</string>
 
+    <!--setting-->
+    <string name="setting_toolbar_title">设置</string>
+    <string name="setting_person">个人资料</string>
+    <string name="setting_about">关于闲货</string>
+
 
 </resources>

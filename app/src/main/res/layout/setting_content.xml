@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/colorNormalBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <LinearLayout
+        android:id="@+id/setting_person"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/square_pic_selector">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:layout_weight="1"
+            android:text="@string/setting_person"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/font_size_normal"/>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_right_enter" />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <LinearLayout
+        android:id="@+id/setting_about"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/square_pic_selector">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:layout_weight="1"
+            android:text="@string/setting_about"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/font_size_normal"/>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_right_enter" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

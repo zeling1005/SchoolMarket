@@ -24,6 +24,8 @@ import com.peter.schoolmarket.data.pojo.User;
 import com.peter.schoolmarket.data.storage.LoginInfoExecutor;
 import com.peter.schoolmarket.mvp.find.FindFragment;
 import com.peter.schoolmarket.mvp.login.LoginActivity;
+import com.peter.schoolmarket.mvp.main.setting.SettingActivity;
+import com.peter.schoolmarket.mvp.main.trade.DrawerTradeActivity;
 import com.peter.schoolmarket.mvp.more.MoreFragment;
 import com.peter.schoolmarket.mvp.sort.TradeSortFragment;
 import com.peter.schoolmarket.mvp.test.TestActivity;
@@ -149,7 +151,8 @@ class MainPresenter implements IMainPresenter {
                 context.startActivity(Intent.createChooser(textIntent, "分享"));
                 break;
             case R.id.nav_setting:
-                type = "设置";
+                Intent intent = new Intent(context, SettingActivity.class);
+                context.startActivity(intent);
                 break;
             case R.id.nav_exit:
                 logout();
@@ -157,13 +160,11 @@ class MainPresenter implements IMainPresenter {
             default:
                 break;
         }
-        if (type.equals("")){
-            return;
+        if (!type.equals("")){
+            Intent tradeIntent=new Intent(context, DrawerTradeActivity.class);
+            tradeIntent.putExtra("title",type);
+            context.startActivity(tradeIntent);
         }
-        //view.hideDrawer();
-        Intent tradeIntent=new Intent(context, TestActivity.class);
-        tradeIntent.putExtra("textString",type);
-        context.startActivity(tradeIntent);
     }
 
     private void initBottomMenu() {

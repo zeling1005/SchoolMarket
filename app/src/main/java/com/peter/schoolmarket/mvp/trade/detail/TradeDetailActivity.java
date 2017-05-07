@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,14 +34,20 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
     private TextView phone;
     private TextView describe;
     private TextView submit;
+    private FrameLayout submitParentLayout;
     private MaterialDialog progress;
     private TradeDetailPresenter presenter;
     private Trade trade;
+    private boolean isShow = true;
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
         setContentView(R.layout.trade_detail_activity);
+        initVariate();
+        manageVariate();
+    }
 
+    private void initVariate() {
         goBack = (SimpleDraweeView) findViewById(R.id.trade_detail_toolbar_back);
         sendMsg = (SimpleDraweeView) findViewById(R.id.trade_detail_send_msg);
         authorImg = (SimpleDraweeView) findViewById(R.id.trade_detail_author_img);
@@ -52,6 +59,7 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
         phone = (TextView) findViewById(R.id.trade_detail_phone);
         describe = (TextView) findViewById(R.id.trade_detail_describe);
         submit = (TextView) findViewById(R.id.trade_detail_submit);
+        submitParentLayout = (FrameLayout) findViewById(R.id.trade_detail_submit_layout);
         progress = new MaterialDialog.Builder(TradeDetailActivity.this)
                 .content("正在下单...")
                 .progress(true, 0)
@@ -59,13 +67,13 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
                 .title("请稍等")
                 .build();
         presenter = new TradeDetailPresenter(this, this);
-
         Intent intent=getIntent();
         Bundle bundle=intent.getExtras();
         trade = (Trade) bundle.getSerializable("trade");
+        isShow = bundle.getBoolean("isShow", true);
+    }
 
-        presenter.loadTradeData(trade);
-
+    private void manageVariate() {
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +88,6 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
                 Toast.makeText(TradeDetailActivity.this, "jump send msg", Toast.LENGTH_SHORT).show();
             }
         });
-
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,6 +111,10 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
                         .show();
             }
         });
+        presenter.loadTradeData(trade);
+        if (!isShow) {
+            submitParentLayout.setVisibility(View.GONE);
+        }
     }
 
     @Override
