@@ -113,7 +113,7 @@ class MainPresenter implements IMainPresenter {
         if (AppConf.useMock){
             avatarUrl.setImageURI("res://drawable/"+R.drawable.main_person);
         } else {
-            avatarUrl.setImageURI(Uri.parse(AppConf.BASE_URL+user.getAvatarUrl()));
+            avatarUrl.setImageURI(Uri.parse(user.getAvatarUrl()));
         }
         username.setText(user.getUsername());
         phone.setText(user.getPhone());

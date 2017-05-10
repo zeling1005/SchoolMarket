@@ -27,10 +27,10 @@ public class UserModel implements IUserModel {
     //登录业务
     @Override
     public void login(final String userName, final String password, final OnLoginListener loginListener) {
-        if (AppConf.useMock){
+        /*if (AppConf.useMock){
             loginListener.loginResult(new UserMock().loginOrRegisterNext());
             return;
-        }
+        }*/
 
         final Result<User> result=new Result<User>().result(NetReturn.SERVER_ERROR);
 
