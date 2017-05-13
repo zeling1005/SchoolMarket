@@ -51,7 +51,6 @@ class MainPresenter implements IMainPresenter {
     private MoreFragment moreFragment;
     private TradeSortFragment tradeSortFragment;
     private IMainView view;
-    //private MaterialSearchView searchView;
     //private Realm realmDefault;
 
     MainPresenter(AppCompatActivity context, IMainView view) {
@@ -59,58 +58,23 @@ class MainPresenter implements IMainPresenter {
         this.view = view;
         //this.realmDefault=realm;
         fm = context.getFragmentManager();
-        toolbarTitle=(TextView)context.findViewById(R.id.toolbar_title);
-        bottomNavigationBar=(BottomNavigationBar)context.findViewById(R.id.bottom_navigation_bar);
+        toolbarTitle = (TextView)context.findViewById(R.id.toolbar_title);
+        bottomNavigationBar = (BottomNavigationBar)context.findViewById(R.id.bottom_navigation_bar);
     }
 
     @Override
     public void initMain(View header) {
-        //searchView = search;
-        //initSearchView();
         initHeader(header);
         initBottomMenu();
     }
-
-    /*private void initSearchView() {
-        searchView.setVoiceSearch(false);//关闭声音搜索
-        searchView.setCursorDrawable(R.drawable.main_search_cursor);
-        searchView.setSuggestions(context.getResources().getStringArray(R.array.query_suggestions));//建议候选词
-        searchView.setVisibility(View.GONE);
-        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                //Do some magic
-                *//*Snackbar.make(context.findViewById(R.id.toolbar_container), "Query: " + query, Snackbar.LENGTH_LONG)
-                        .show();*//*
-                Toast.makeText(context, "Query: " + query, Toast.LENGTH_SHORT).show();
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                //Do some magic
-                return false;
-            }
-        });
-        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
-            @Override
-            public void onSearchViewShown() {
-                //Do some magic
-            }
-
-            @Override
-            public void onSearchViewClosed() {
-                //Do some magic
-            }
-        });
-    }*/
 
     private void initHeader(View headerLayout) {
         User user= LoginInfoExecutor.getUser(context);
         SimpleDraweeView avatarUrl=(SimpleDraweeView) headerLayout.findViewById(R.id.header_portrait);
         TextView username=(TextView) headerLayout.findViewById(R.id.header_user_name);
         TextView phone=(TextView) headerLayout.findViewById(R.id.header_phone);
-        if (AppConf.useMock){
+
+        if (user.getAvatarUrl().isEmpty()){
             avatarUrl.setImageURI("res://drawable/"+R.drawable.main_person);
         } else {
             avatarUrl.setImageURI(Uri.parse(user.getAvatarUrl()));
@@ -161,9 +125,12 @@ class MainPresenter implements IMainPresenter {
                 break;
         }
         if (!type.equals("")){
-            Intent tradeIntent=new Intent(context, DrawerTradeActivity.class);
+            /*Intent tradeIntent=new Intent(context, DrawerTradeActivity.class);
             tradeIntent.putExtra("title",type);
-            context.startActivity(tradeIntent);
+            context.startActivity(tradeIntent);*/
+            Intent intent=new Intent(context, TestActivity.class);
+            intent.putExtra("textString",type);
+            context.startActivity(intent);
         }
     }
 
@@ -222,19 +189,37 @@ class MainPresenter implements IMainPresenter {
         FragmentTransaction ft = fm.beginTransaction();
         hideAllFragment(ft);
         switch (position) {
-            case 0 : if (findFragment != null) {
+            case 0 : /*if (findFragment != null) {
                 ft.show(findFragment);
             } else {
                 findFragment = new FindFragment();
                 ft.add(R.id.frame_layout, findFragment);
-            }
+            }*/
+                if (testFragment != null) {
+                    ft.show(testFragment);
+                } else {
+                    testFragment = new TestFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("textString", "");
+                    testFragment.setArguments(bundle);
+                    ft.add(R.id.frame_layout, testFragment);
+                }
                 break;
-            case 1 : if (tradeSortFragment != null) {
+            case 1 : /*if (tradeSortFragment != null) {
                 ft.show(tradeSortFragment);
             } else {
                 tradeSortFragment = new TradeSortFragment();
                 ft.add(R.id.frame_layout, tradeSortFragment);
-            }
+            }*/
+                if (testFragment != null) {
+                    ft.show(testFragment);
+                } else {
+                    testFragment = new TestFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("textString", "");
+                    testFragment.setArguments(bundle);
+                    ft.add(R.id.frame_layout, testFragment);
+                }
                 break;
             case 2 : if (testFragment != null) {
                 ft.show(testFragment);
@@ -246,12 +231,21 @@ class MainPresenter implements IMainPresenter {
                 ft.add(R.id.frame_layout, testFragment);
             }
                 break;
-            case 3 : if (moreFragment != null) {
+            case 3 : /*if (moreFragment != null) {
                 ft.show(moreFragment);
             } else {
                 moreFragment = new MoreFragment();
                 ft.add(R.id.frame_layout, moreFragment);
-            }
+            }*/
+                if (testFragment != null) {
+                    ft.show(testFragment);
+                } else {
+                    testFragment = new TestFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("textString", "");
+                    testFragment.setArguments(bundle);
+                    ft.add(R.id.frame_layout, testFragment);
+                }
                 break;
             default:
                 break;

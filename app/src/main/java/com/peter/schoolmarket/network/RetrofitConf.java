@@ -8,9 +8,11 @@ public interface RetrofitConf {
     int DEFAULT_TIMEOUT = 5;
     //-----------------------------用户相关---------------------------
     String login="SchoolMarketServer/LoginServlet";//用户登录+
+    String register="SchoolMarketServer/RegisterServlet";//用户注册+
+    String register_next="SchoolMarketServer/RegisterNextServlet";//用户注册下一步，设置学校，手机号+
+    //-----------------------我是分割线------------------------------
+
     String get_author_info = "";//获得所有者信息
-    String register="";//用户注册+
-    String register_next="";//用户注册下一步，设置学校，手机号+
     String update_user_pass="";//修改用户密码
     String update_user_avatar="";//修改用户头像
     String get_user_team="";//获取用户志愿队

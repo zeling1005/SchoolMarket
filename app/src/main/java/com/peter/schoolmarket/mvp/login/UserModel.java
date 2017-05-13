@@ -1,7 +1,5 @@
 package com.peter.schoolmarket.mvp.login;
 
-import android.widget.Toast;
-
 import com.peter.schoolmarket.application.AppConf;
 import com.peter.schoolmarket.data.dto.Result;
 import com.peter.schoolmarket.data.pojo.User;
@@ -9,11 +7,7 @@ import com.peter.schoolmarket.mock.UserMock;
 import com.peter.schoolmarket.network.NetReturn;
 import com.peter.schoolmarket.network.ReqExecutor;
 
-import java.io.IOException;
-
-import okhttp3.ResponseBody;
 import rx.Subscriber;
-import rx.android.MainThreadSubscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -66,10 +60,10 @@ public class UserModel implements IUserModel {
     //注册业务
     @Override
     public void register(final String userName, final String password, final OnRegisterListener registerListener) {
-        if (AppConf.useMock){
+        /*if (AppConf.useMock){
             registerListener.registerResult(new UserMock().register());
             return;
-        }
+        }*/
 
         final Result<String> result = new Result<String>().result(NetReturn.SERVER_ERROR);
 
@@ -94,7 +88,6 @@ public class UserModel implements IUserModel {
                     public void onNext(Result<String> stringResult) {
                         result.setCode(stringResult.getCode());
                         result.setMsg(stringResult.getMsg());
-                        result.setData(stringResult.getData());
                     }
                 });
 

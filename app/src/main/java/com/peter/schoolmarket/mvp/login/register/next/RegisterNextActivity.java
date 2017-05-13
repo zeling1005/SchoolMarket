@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.peter.schoolmarket.R;
+import com.peter.schoolmarket.data.pojo.User;
 import com.peter.schoolmarket.di.components.DaggerRegisterNextComponent;
 import com.peter.schoolmarket.di.modules.RegisterNextModule;
 import com.peter.schoolmarket.mvp.base.BaseActivity;
@@ -40,17 +41,18 @@ public class RegisterNextActivity extends BaseActivity implements IRegisterNextV
     MaterialDialog registerNextProgress;
 
     TextInputLayout phoneLayout;
-    //EditText phoneText;
     TextView registerNextSub;
     TextView getCode;
     TextInputLayout code;
     private String oldCode;
-    private String userId;
+    private String username;
+    private String password;
     private String phone;
     private String oldPhone;
+
+    //发送验证码
     private static int timeCount = 60;
     private Handler timerClock;
-    //发送验证码
     BroadcastReceiver sendBroadcastReceiver;
     BroadcastReceiver deliveryBroadcastReceiver;
     private String SENT = "SMS_SENT";
@@ -60,23 +62,27 @@ public class RegisterNextActivity extends BaseActivity implements IRegisterNextV
     @Override
     protected void initViews(Bundle savedInstanceState) {
         setContentView(R.layout.register_next_activity);
-        initValiable();
+        initVariate();
+        manageVariate();
     }
 
-    private void initValiable() {
+    private void initVariate() {
         DaggerRegisterNextComponent
                 .builder()
                 .registerNextModule(new RegisterNextModule(this, this))
                 .build()
                 .inject(this);
         phoneLayout = (TextInputLayout) findViewById(R.id.register_next_phone);
-        //phoneText = (EditText) findViewById(R.id.register_next_phone_text);
         registerNextSub = (TextView) findViewById(R.id.register_next_sub);
         getCode = (TextView) findViewById(R.id.register_next_get_code);
         code = (TextInputLayout) findViewById(R.id.register_next_security_code);
         timerClock = new Handler();
         Intent intent=getIntent();
-        userId=intent.getStringExtra("userId");
+        username = intent.getStringExtra("username");
+        password = intent.getStringExtra("password");
+    }
+
+    private void manageVariate() {
         registerNextSub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,7 +95,7 @@ public class RegisterNextActivity extends BaseActivity implements IRegisterNextV
                     String newCode = code.getEditText().getText().toString().trim();
                     if (!(newCode.isEmpty()) && newCode.equals(oldCode) && phone.equals(oldPhone)) {
                         code.setErrorEnabled(false);
-                        iRegisterNextPresenter.addPhoneNum(phone, userId);
+                        iRegisterNextPresenter.addPhoneNum(phone, username, password);
                     } else {
                         code.setErrorEnabled(true);
                         code.setError("请输入正确的验证码");
@@ -110,7 +116,6 @@ public class RegisterNextActivity extends BaseActivity implements IRegisterNextV
                 }
             }
         });
-
         //发送验证码
         sendBroadcastReceiver = new BroadcastReceiver()
         {
@@ -154,7 +159,6 @@ public class RegisterNextActivity extends BaseActivity implements IRegisterNextV
         };
         registerReceiver(deliveryBroadcastReceiver, new IntentFilter(DELIVERED));
         registerReceiver(sendBroadcastReceiver , new IntentFilter(SENT));
-
     }
 
     private void sendSMS(String phoneNumber){

@@ -36,7 +36,7 @@ public class DrawerTradeActivity extends BaseActivity implements IDrawerTradeVie
         setContentView(R.layout.drawer_trade_activity);
         initVariate();
         manageVariate();
-
+        presenter.init(typeId);
     }
 
     private void initVariate() {
@@ -75,7 +75,6 @@ public class DrawerTradeActivity extends BaseActivity implements IDrawerTradeVie
         recyclerView.setLayoutManager(new LinearLayoutManager(DrawerTradeActivity.this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemNormalDecoration(this, DividerItemNormalDecoration.VERTICAL_LIST));
-        presenter.init(typeId);
     }
 
     private int getTypeId(String text) {

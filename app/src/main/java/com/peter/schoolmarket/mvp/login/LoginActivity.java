@@ -26,37 +26,39 @@ import shem.com.materiallogin.MaterialLoginView;
  */
 
 public class LoginActivity extends BaseActivity implements ILoginRegisterView {
-
     @Inject
     ILoginRegisterPresenter iLoginRegisterPresenter;
-
     @LoginProgress
     @Inject
     MaterialDialog loginProgress;
-
     @RegisterProgress
     @Inject
     MaterialDialog registerProgress;
+    MaterialLoginView loginRegister;
+
+    private String username = "";
+    private String password = "";
 
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
         setContentView(R.layout.login_activity);
-        initVariables();
+        initVariate();
+        manageVariate();
     }
 
-    //初始化变量
-    protected void initVariables() {
+    private void initVariate() {
         //使用依赖注入
         DaggerLoginRegisterComponent
                 .builder()
                 .loginRegisterModule(new LoginRegisterModule(this, this))
                 .build()
                 .inject(this);
-
         //登录-注册界面设置
-        final MaterialLoginView loginRegister = (MaterialLoginView) findViewById(R.id.login_activity);
+        loginRegister = (MaterialLoginView) findViewById(R.id.login_activity);
+    }
 
+    private void manageVariate() {
         //登录界面
         ((DefaultLoginView)loginRegister.getLoginView()).setListener(new DefaultLoginView.DefaultLoginViewListener() {
             @Override
@@ -77,7 +79,6 @@ public class LoginActivity extends BaseActivity implements ILoginRegisterView {
                 }
             }
         });
-
         //注册界面
         ((DefaultRegisterView)loginRegister.getRegisterView()).setListener(new DefaultRegisterView.DefaultRegisterViewListener() {
             @Override
@@ -106,6 +107,8 @@ public class LoginActivity extends BaseActivity implements ILoginRegisterView {
                     registerUser.setErrorEnabled(false);
                     registerPass.setErrorEnabled(false);
                     registerPassRep.setErrorEnabled(false);
+                    username = name;
+                    password = pass;
                     iLoginRegisterPresenter.register(name,pass);
                 }
             }
@@ -146,9 +149,9 @@ public class LoginActivity extends BaseActivity implements ILoginRegisterView {
 
     @Override
     public void registerSuccess(String userId) {
-        //用离线数据时，userId =  001;
         Intent intent=new Intent(LoginActivity.this, RegisterNextActivity.class);
-        intent.putExtra("userId",userId);
+        intent.putExtra("username", username);
+        intent.putExtra("password", password);
         startActivity(intent);
         finish();
     }

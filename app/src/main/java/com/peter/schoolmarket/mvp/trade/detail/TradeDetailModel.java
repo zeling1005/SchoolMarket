@@ -21,7 +21,7 @@ public class TradeDetailModel implements ITradeDetailModel {
         }*/
 
         final Result<String> result =new Result<String>().result(NetReturn.SERVER_ERROR);
-        ReqExecutor
+        /*ReqExecutor
                 .INSTANCE()
                 .tradeReq()
                 .createDeal(user.getId(),user.getUsername(),user.getAvatarUrl(),tradeId)
@@ -42,6 +42,6 @@ public class TradeDetailModel implements ITradeDetailModel {
                         result.setCode(tradeResult.getCode());
                         result.setMsg(tradeResult.getMsg());
                     }
-                });
+                });*/
     }
 }

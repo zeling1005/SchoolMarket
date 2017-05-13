@@ -12,7 +12,7 @@ import io.realm.annotations.PrimaryKey;
 
 public class Notice extends RealmObject implements Serializable {
     @PrimaryKey
-    private String id;//N001
+    private int id;//N001
     private String authorName;
     private String authorImg;
     private String authorId;
@@ -23,7 +23,7 @@ public class Notice extends RealmObject implements Serializable {
     @Ignore
     private boolean releaseCheck;//为了在发布时方便检查数据完整性，不存储在数据库中
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -59,7 +59,7 @@ public class Notice extends RealmObject implements Serializable {
         this.releaseCheck = releaseCheck;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 

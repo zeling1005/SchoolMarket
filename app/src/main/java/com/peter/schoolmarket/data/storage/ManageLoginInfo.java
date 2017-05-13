@@ -35,8 +35,8 @@ public class ManageLoginInfo {
     public void saveUser(final Context context, final User user){
         SharedPreferences sp = context.getSharedPreferences(SP, MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        if (user.getId()!=null){
-            editor.putString("userId",user.getId());
+        if (user.getId()!=0){
+            editor.putInt("userId",user.getId());
         }
         if (user.getUsername()!=null){
             editor.putString("username",user.getUsername());
@@ -63,12 +63,12 @@ public class ManageLoginInfo {
     public User getUser(final Context context){
         SharedPreferences sp = context.getSharedPreferences(SP, MODE_PRIVATE);
         final User user=new User();
-        user.setId(sp.getString("userId",""));
+        user.setId(sp.getInt("userId",0));
         user.setUsername(sp.getString("username",""));
         user.setPassword(sp.getString("password",""));
         user.setPhone(sp.getString("phone",""));
         user.setAvatarUrl(sp.getString("avatarUrl",""));
-        if (user.getId().equals("")) {
+        if (user.getId() == 0) {
             return null;
         }
         return user;

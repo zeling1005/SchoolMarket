@@ -17,19 +17,18 @@ import rx.schedulers.Schedulers;
 
 public class RegisterNextModel implements IRegisterNextModel {
     @Override
-    public void addPhoneNumber(String phoneNumber, final String userId, final OnRegisterNextListener onRegisterNextListener) {
-        if (AppConf.useMock){
+    public void addPhoneNumber(String phoneNumber, final String username, final String password, final OnRegisterNextListener onRegisterNextListener) {
+        /*if (AppConf.useMock){
             onRegisterNextListener.registerNextResult(new UserMock().loginOrRegisterNext());
             return;
-        }
+        }*/
 
         final Result<User> result=new Result<User>().result(NetReturn.SERVER_ERROR);
-
         //此网络请求等服务器搭好再调整
         ReqExecutor
                 .INSTANCE()
                 .userReq()
-                .registerNext(userId, phoneNumber)
+                .registerNext(username, password, phoneNumber)
                 .subscribeOn(Schedulers.io())//在工作线程请求网络
                 .observeOn(AndroidSchedulers.mainThread())//在主线程处理结果
                 .subscribe(new Subscriber<Result<User>>() {

@@ -34,16 +34,20 @@ public class SplashActivity extends BaseActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.splash_activity);
         splashAction();
-        initVariables();
+        initVariate();
     }
 
-    protected void initVariables() {
+    private void initVariate() {
         view = (SimpleDraweeView) findViewById(R.id.loading_gif);
         DraweeController builder = Fresco.newDraweeControllerBuilder()
                 .setAutoPlayAnimations(true)
                 .setUri(Uri.parse("res://drawable/" + R.drawable.phone_splash))
                 .build();
         view.setController(builder);
+    }
+
+    private void manageVariate() {
+
     }
 
     private void splashAction() {

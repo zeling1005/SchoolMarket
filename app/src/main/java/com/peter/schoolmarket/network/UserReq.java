@@ -44,10 +44,11 @@ public interface UserReq {
     /**
      * 注册下一步，设置手机号
      */
-    @PUT(RetrofitConf.register_next)
+    @POST(RetrofitConf.register_next)
     @FormUrlEncoded
     Observable<Result<User>> registerNext(
-            @Path("userId")  String user_id,
+            @Field("username")  String username,
+            @Field("password")  String password,
             @Field("phone")  String phone);
 
 

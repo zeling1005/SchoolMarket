@@ -15,7 +15,7 @@ import io.realm.annotations.Required;
 public class Msg extends RealmObject implements Serializable {
 
     @PrimaryKey
-    private String id;//消息主键，一个编号M001
+    private int id;//消息主键，一个编号M001
     private String receiveMsgId;//接收者id
     private String sendMsgId;//发送者id
     private String sendName;
@@ -23,7 +23,7 @@ public class Msg extends RealmObject implements Serializable {
     private String sendMsgTime;//信息发送时间
     private String msgWords;//文字信息
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -61,7 +61,7 @@ public class Msg extends RealmObject implements Serializable {
         return sendMsgId;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -85,7 +85,7 @@ public class Msg extends RealmObject implements Serializable {
         this.sendMsgTime = "sendMsgTime";
     }
 
-    public Msg(String id, String receiveMsgId, String sendMsgId, String msgWords) {
+    public Msg(int id, String receiveMsgId, String sendMsgId, String msgWords) {
         this.id = id;
         this.receiveMsgId = receiveMsgId;
         this.sendMsgId = sendMsgId;

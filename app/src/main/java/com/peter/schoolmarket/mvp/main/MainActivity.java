@@ -36,32 +36,36 @@ public class MainActivity extends BaseActivity implements IMainView{
     IMainPresenter presenter;
     DrawerLayout drawer;
     Toolbar toolbar;
-    //MaterialSearchView searchView;
+    NavigationView navigationView;
+    View headerLayout;
     //private Realm realm;
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
         setContentView(R.layout.main_activity);
+        initVariate();
+        manageVariate();
+        presenter.initMain(headerLayout);
+    }
 
-        //设置标题栏
+    private void initVariate() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //toolbar.setTitle(this.getResources().getString(R.string.main_title));
+        presenter = new MainPresenter(this, this);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        headerLayout= navigationView.inflateHeaderView(R.layout.main_nav_header);
+        //realm=Realm.getDefaultInstance();
+    }
+
+    private void manageVariate() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        //realm=Realm.getDefaultInstance();
-        //presenter = new MainPresenter(this, realm);
-        presenter = new MainPresenter(this, this);
-
-        //设置侧滑栏
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        //设置侧滑菜单栏
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             //侧滑菜单点击事件
@@ -74,10 +78,6 @@ public class MainActivity extends BaseActivity implements IMainView{
                 return true;
             }
         });
-        //searchView = (MaterialSearchView) findViewById(R.id.search_view);
-        View headerLayout= navigationView.inflateHeaderView(R.layout.main_nav_header);
-        presenter.initMain(headerLayout);
-        //searchView.setVisibility(View.INVISIBLE);
     }
 
     /*@Override
@@ -94,33 +94,13 @@ public class MainActivity extends BaseActivity implements IMainView{
         if (id == R.id.action_search) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
-    }*/
-
-    //MaterialSearchView处理返回结果
-    /*@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == MaterialSearchView.REQUEST_VOICE && resultCode == RESULT_OK) {
-            ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-            if (matches != null && matches.size() > 0) {
-                String searchWrd = matches.get(0);
-                if (!TextUtils.isEmpty(searchWrd)) {
-                    searchView.setQuery(searchWrd, false);
-                }
-            }
-
-            return;
-        }
-        super.onActivityResult(requestCode, resultCode, data);
     }*/
 
     public void onBackPressed()
     {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        /*} else if (searchView.isSearchOpen()) {
-            searchView.closeSearch();*/
         } else {
             super.onBackPressed();
         }

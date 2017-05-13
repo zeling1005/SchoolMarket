@@ -12,7 +12,7 @@ import io.realm.annotations.Required;
 
 public class User extends RealmObject implements Serializable {
     @PrimaryKey
-    private String id;//U001
+    private int id;//U001
     private String username;//用户名
     private String password;//用户密码
     private String phone;//手机号
@@ -22,7 +22,7 @@ public class User extends RealmObject implements Serializable {
         //
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -42,7 +42,7 @@ public class User extends RealmObject implements Serializable {
         this.avatarUrl = avatarUrl;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 

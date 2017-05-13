@@ -91,7 +91,7 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String myId= LoginInfoExecutor.getUser(TradeDetailActivity.this).getId();
+                //String myId= LoginInfoExecutor.getUser(TradeDetailActivity.this).getId();
                 /*if (!(trade.getAuthorId()).equals(myId)){
                     //下单操作
                 }*/

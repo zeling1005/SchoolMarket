@@ -108,10 +108,10 @@ class TradeAddPresenter implements ITradeAddPresenter, ITradeAddListener {
         trade.setImgUrls(picUploadUrl);
 
         User authorOld= LoginInfoExecutor.getUser(context);
-        if (authorOld==null || authorOld.getId()==null){
+        /*if (authorOld==null || authorOld.getId()==null){
             return trade;
         }
-        trade.setAuthorId(authorOld.getId());
+        trade.setAuthorId(authorOld.getId());*/
         trade.setAuthorName(authorOld.getUsername());
         trade.setAuthorImg(authorOld.getAvatarUrl());
         trade.setAuthorPhone(authorOld.getPhone());

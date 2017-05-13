@@ -1,6 +1,7 @@
 package com.peter.schoolmarket.mvp.login.register.next;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.peter.schoolmarket.data.dto.Result;
 import com.peter.schoolmarket.data.pojo.User;
@@ -16,10 +17,6 @@ public class RegisterNextPresenter implements IRegisterNextPresenter, OnRegister
     private Context context;
     private IRegisterNextView iRegisterNextView;
 
-    private RegisterNextPresenter() {
-
-    }
-
     public RegisterNextPresenter(Context context, IRegisterNextView iRegisterNextView) {
         iRegisterNextModel = new RegisterNextModel();
         this.context = context;
@@ -27,9 +24,9 @@ public class RegisterNextPresenter implements IRegisterNextPresenter, OnRegister
     }
 
     @Override
-    public void addPhoneNum(String phoneNumber, String userId) {
+    public void addPhoneNum(String phoneNumber, String username, String password) {
         iRegisterNextView.showLoading();
-        iRegisterNextModel.addPhoneNumber(phoneNumber, userId, this);
+        iRegisterNextModel.addPhoneNumber(phoneNumber, username, password, this);
     }
 
     @Override

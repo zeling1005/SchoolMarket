@@ -49,7 +49,7 @@ public class LoginRegisterModule {
     @Singleton @Provides
     public MaterialDialog provideRegisterProgress() {
         return new MaterialDialog.Builder(context)
-                .content("正在登录...")
+                .content("正在注册...")
                 .progress(true, 0)
                 .progressIndeterminateStyle(false)//是否水平放置
                 .title("请稍等")
