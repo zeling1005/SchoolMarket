@@ -62,7 +62,7 @@ public class MorePresenter implements IMorePresenter, IMoreListener {
             @Override
             public void convert(RecyclerViewHolder holder, Notice item) {
                 holder.setText(R.id.more_item_title,item.getTitle());
-                holder.setText(R.id.more_item_name,item.getAuthorName());
+                //holder.setText(R.id.more_item_name,item.getAuthorName());
                 holder.setText(R.id.more_item_content,item.getContent());
                 if (AppConf.useMock) {
                     holder.setText(R.id.more_item_time,"2017-04-12");

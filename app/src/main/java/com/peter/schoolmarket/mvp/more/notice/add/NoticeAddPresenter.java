@@ -76,9 +76,9 @@ class NoticeAddPresenter implements INoticeAddPresenter, INoticeAddListener {
             return notice;
         }
         notice.setAuthorId(authorOld.getId());*/
-        notice.setAuthorName(authorOld.getUsername());
-        notice.setAuthorImg(authorOld.getAvatarUrl());
-        notice.setAuthorPhone(authorOld.getPhone());
+        //notice.setAuthorName(authorOld.getUsername());
+        //notice.setAuthorImg(authorOld.getAvatarUrl());
+        //notice.setAuthorPhone(authorOld.getPhone());
 
         notice.setReleaseCheck(true);
         return notice;

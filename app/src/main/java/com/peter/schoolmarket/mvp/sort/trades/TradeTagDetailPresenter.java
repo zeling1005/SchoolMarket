@@ -60,7 +60,7 @@ class TradeTagDetailPresenter implements ITradeTagDetailPresenter, ITradeTagDeta
         RecyclerCommonAdapter<?> adapter=new RecyclerCommonAdapter<Trade>(context,result.getData(), R.layout.trade_tag_detail_item) {
             @Override
             public void convert(RecyclerViewHolder viewHolder, Trade item) {
-                viewHolder.setFrescoImg(R.id.trade_tag_detail_img, Uri.parse(item.getImgUrls()));
+                //viewHolder.setFrescoImg(R.id.trade_tag_detail_img, Uri.parse(item.getImgUrls()));
                 viewHolder.setText(R.id.trade_tag_detail_name, item.getTitle());
                 viewHolder.setText(R.id.trade_tag_detail_now_price, "友情价 ￥" + item.getNowPrice());
                 viewHolder.setText(R.id.trade_tag_detail_original_price, "原价 ￥" + item.getOriginalPrice());

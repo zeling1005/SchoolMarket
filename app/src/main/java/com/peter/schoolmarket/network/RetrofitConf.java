@@ -6,10 +6,12 @@ package com.peter.schoolmarket.network;
 
 public interface RetrofitConf {
     int DEFAULT_TIMEOUT = 5;
+
+    String base_img = "SchoolMarketServer/images/";
     //-----------------------------用户相关---------------------------
-    String login="SchoolMarketServer/LoginServlet";//用户登录+
-    String register="SchoolMarketServer/RegisterServlet";//用户注册+
-    String register_next="SchoolMarketServer/RegisterNextServlet";//用户注册下一步，设置学校，手机号+
+    String login="SchoolMarketServer/Login";//用户登录+
+    String register="SchoolMarketServer/Register";//用户注册+
+    String register_next="SchoolMarketServer/RegisterNext";//用户注册下一步，设置学校，手机号+
     //-----------------------我是分割线------------------------------
 
     String get_author_info = "";//获得所有者信息
@@ -25,12 +27,15 @@ public interface RetrofitConf {
 
 
     //----------------------------商品相关----------------------------
+    String create_trade="SchoolMarketServer/AddTrade";//发布商品
+    //-----------------------我是分割线------------------------------
+
     String get_drawer_trades = "";//
     String get_tag_trades="api/v1/trades/tag/{tagName}/get";//获取该分类下所有商品列表
     String get_school_trades="api/v1/trades/school/{schoolName}/get";//获取该学校的商品列表
     String get_team_trades="api/v1/trades/team/{teamName}/get";
     String get_trade="api/v1/trades/{tradeId}/get";//通过id获取商品的详细信息
-    String create_trade="api/v1/trades/create";//发布商品
+
 
 
     //------------------------Hybrid 志愿队相关------------------------

@@ -10,6 +10,6 @@ import okhttp3.RequestBody;
  */
 
 public interface ITradeAddModel {
-    void addTradeReq(RequestBody tradeJson,
-                            MultipartBody.Part pic, ITradeAddListener listener);
+    void addTradeReq(final RequestBody tradeBody, final RequestBody photoBody,
+                     ITradeAddListener listener);
 }

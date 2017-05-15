@@ -59,7 +59,7 @@ public class UserModel implements IUserModel {
 
     //注册业务
     @Override
-    public void register(final String userName, final String password, final OnRegisterListener registerListener) {
+    public void register(final String username, final String password, final OnRegisterListener registerListener) {
         /*if (AppConf.useMock){
             registerListener.registerResult(new UserMock().register());
             return;
@@ -70,7 +70,7 @@ public class UserModel implements IUserModel {
         ReqExecutor
                 .INSTANCE()
                 .userReq()
-                .register(userName, password)
+                .register(username, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Result<String>>() {

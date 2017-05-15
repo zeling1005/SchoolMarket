@@ -53,10 +53,10 @@ class TradeAddPresenter implements ITradeAddPresenter, ITradeAddListener {
         view.showProgress();
         trade.setStatus(0);//状态,0代表商品待售
         trade.setCreateTime(System.currentTimeMillis());//设置商品发布时间
-        MultipartBody.Part part= RetrofitUtils.fileToMultipartBodyPart(picUploadUrl);
         String tradeJsonStr=new Gson().toJson(trade);
-        RequestBody tradeJson=RetrofitUtils.createPartFromString(tradeJsonStr);
-        model.addTradeReq(tradeJson,part,this);
+        RequestBody tradeBody = RetrofitUtils.stringToRequestBody(tradeJsonStr);
+        RequestBody photoBody = RetrofitUtils.fileToRequestBody(picUploadUrl);
+        model.addTradeReq(tradeBody, photoBody, this);
     }
 
     private Trade checkForm(String picUploadUrl, EditText title, EditText nowPrice,
@@ -85,7 +85,7 @@ class TradeAddPresenter implements ITradeAddPresenter, ITradeAddListener {
             return trade;
         }
         long originalPriceValue=Long.parseLong(originalPriceData);
-        trade.setNowPrice(originalPriceValue);
+        trade.setOriginalPrice(originalPriceValue);
 
         String descData=desc.getText().toString().trim();
         if (descData.isEmpty()){
@@ -105,16 +105,13 @@ class TradeAddPresenter implements ITradeAddPresenter, ITradeAddListener {
             view.whenFail("请选择配图");
             return trade;
         }
-        trade.setImgUrls(picUploadUrl);
+        trade.setImgUrl(picUploadUrl);
 
         User authorOld= LoginInfoExecutor.getUser(context);
-        /*if (authorOld==null || authorOld.getId()==null){
+        if (authorOld == null || authorOld.getId() == 0){
             return trade;
         }
-        trade.setAuthorId(authorOld.getId());*/
-        trade.setAuthorName(authorOld.getUsername());
-        trade.setAuthorImg(authorOld.getAvatarUrl());
-        trade.setAuthorPhone(authorOld.getPhone());
+        trade.setAuthorId(authorOld.getId());
 
         trade.setReleaseCheck(true);
         return trade;

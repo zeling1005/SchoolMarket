@@ -128,12 +128,12 @@ public class TradeAddActivity extends BaseActivity implements ITradeAddView {
                                 String path=imageRadioResultEvent.getResult().getCropPath();
                                 picUrl = "file://"+path;
                                 picUploadUrl = "" + path;
-                                Log.d("TradeAdd", "limain" + picUploadUrl);
+                                //Log.d("TradeAdd", "limain" + picUploadUrl);
                                 addImg.setImageURI(picUrl);
                             }
                         })
                         .openGallery();
-                Log.d("TradeAdd", "kai shi" + picUploadUrl);
+                //Log.d("TradeAdd", "kai shi" + picUploadUrl);
             }
         });
     }

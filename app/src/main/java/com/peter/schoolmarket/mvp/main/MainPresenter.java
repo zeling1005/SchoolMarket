@@ -30,6 +30,7 @@ import com.peter.schoolmarket.mvp.more.MoreFragment;
 import com.peter.schoolmarket.mvp.sort.TradeSortFragment;
 import com.peter.schoolmarket.mvp.test.TestActivity;
 import com.peter.schoolmarket.mvp.test.TestFragment;
+import com.peter.schoolmarket.network.RetrofitConf;
 
 import java.util.List;
 
@@ -73,11 +74,8 @@ class MainPresenter implements IMainPresenter {
         SimpleDraweeView avatarUrl=(SimpleDraweeView) headerLayout.findViewById(R.id.header_portrait);
         TextView username=(TextView) headerLayout.findViewById(R.id.header_user_name);
         TextView phone=(TextView) headerLayout.findViewById(R.id.header_phone);
-
-        if (user.getAvatarUrl().isEmpty()){
-            avatarUrl.setImageURI("res://drawable/"+R.drawable.main_person);
-        } else {
-            avatarUrl.setImageURI(Uri.parse(user.getAvatarUrl()));
+        if (!(user.getAvatarUrl().isEmpty())){
+            avatarUrl.setImageURI(Uri.parse(AppConf.BASE_URL + RetrofitConf.base_img + user.getAvatarUrl()));
         }
         username.setText(user.getUsername());
         phone.setText(user.getPhone());
@@ -205,13 +203,13 @@ class MainPresenter implements IMainPresenter {
                     ft.add(R.id.frame_layout, testFragment);
                 }
                 break;
-            case 1 : /*if (tradeSortFragment != null) {
+            case 1 : if (tradeSortFragment != null) {
                 ft.show(tradeSortFragment);
             } else {
                 tradeSortFragment = new TradeSortFragment();
                 ft.add(R.id.frame_layout, tradeSortFragment);
-            }*/
-                if (testFragment != null) {
+            }
+                /*if (testFragment != null) {
                     ft.show(testFragment);
                 } else {
                     testFragment = new TestFragment();
@@ -219,7 +217,7 @@ class MainPresenter implements IMainPresenter {
                     bundle.putString("textString", "");
                     testFragment.setArguments(bundle);
                     ft.add(R.id.frame_layout, testFragment);
-                }
+                }*/
                 break;
             case 2 : if (testFragment != null) {
                 ft.show(testFragment);

@@ -50,7 +50,7 @@ public class NoticeDetailActivity extends BaseActivity {
             }
         });
         title.setText(notice.getTitle());
-        name.setText(notice.getAuthorName());
+        //name.setText(notice.getAuthorName());
         if (AppConf.useMock) {
             time.setText("2017-04-12");
         } else {

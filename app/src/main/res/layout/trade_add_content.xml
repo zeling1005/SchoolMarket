@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/trade_add_content_now_price"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:maxLength="8"
                 android:maxLines="1" />
         </android.support.design.widget.TextInputLayout>
@@ -61,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/trade_add_content_original_price"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:maxLength="8"
                 android:maxLines="1" />
         </android.support.design.widget.TextInputLayout>

@@ -28,6 +28,20 @@ import okhttp3.RequestBody;
 public class RetrofitUtils {
 
 
+    public static RequestBody fileToRequestBody(String filePath) {
+        File file=new File(filePath);
+        if (!file.exists()){
+            return null;
+        }
+        return RequestBody.create(MediaType.parse("image/png"), file);
+    }
+
+    public static RequestBody stringToRequestBody(String data) {
+        return RequestBody.create(
+                MediaType.parse("application/json; charset=utf-8"), data);
+    }
+
+
     /**
      * 根据多个文件生成retrofit多文件上传所需的MultipartBody.Part列表
      */

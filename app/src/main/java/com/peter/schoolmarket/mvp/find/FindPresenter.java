@@ -72,9 +72,9 @@ public class FindPresenter implements IFindPresenter, IGainListener {
             @Override
             public void convert(RecyclerViewHolder holder, Trade item) {
                 holder.setText(R.id.deal_title,item.getTitle());
-                holder.setFrescoImg(R.id.deal_img, Uri.parse(item.getImgUrls()));
-                holder.setFrescoImg(R.id.author_img,Uri.parse(item.getAuthorImg()));
-                holder.setText(R.id.author_name,item.getAuthorName());
+                //holder.setFrescoImg(R.id.deal_img, Uri.parse(item.getImgUrls()));
+                //holder.setFrescoImg(R.id.author_img,Uri.parse(item.getAuthorImg()));
+                //holder.setText(R.id.author_name,item.getAuthorName());
                 holder.setText(R.id.deal_price,"￥ "+item.getNowPrice());
             }
         };

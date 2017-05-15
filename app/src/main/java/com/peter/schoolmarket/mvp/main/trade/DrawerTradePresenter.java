@@ -72,7 +72,7 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
         RecyclerCommonAdapter<?> adapter=new RecyclerCommonAdapter<Trade>(context,result.getData(), R.layout.drawer_trade_buying_item) {
             @Override
             public void convert(RecyclerViewHolder viewHolder, final Trade item) {
-                viewHolder.setFrescoImg(R.id.buying_item_img, Uri.parse(item.getImgUrls()));
+                //viewHolder.setFrescoImg(R.id.buying_item_img, Uri.parse(item.getImgUrls()));
                 viewHolder.setText(R.id.buying_item_name, item.getTitle());
                 viewHolder.setText(R.id.buying_item_now_price, "友情价 ￥" + item.getNowPrice());
                 viewHolder.setText(R.id.buying_item_original_price, "原价 ￥" + item.getOriginalPrice());
@@ -109,7 +109,7 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
         RecyclerCommonAdapter<?> adapter=new RecyclerCommonAdapter<Trade>(context,result.getData(), R.layout.drawer_trade_bought_item) {
             @Override
             public void convert(RecyclerViewHolder viewHolder, Trade item) {
-                viewHolder.setFrescoImg(R.id.bought_item_img, Uri.parse(item.getImgUrls()));
+                //viewHolder.setFrescoImg(R.id.bought_item_img, Uri.parse(item.getImgUrls()));
                 viewHolder.setText(R.id.bought_item_name, item.getTitle());
                 viewHolder.setText(R.id.bought_item_now_price, "友情价 ￥" + item.getNowPrice());
                 viewHolder.setText(R.id.bought_item_original_price, "原价 ￥" + item.getOriginalPrice());
@@ -138,7 +138,7 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
         RecyclerCommonAdapter<?> adapter=new RecyclerCommonAdapter<Trade>(context,result.getData(), R.layout.drawer_trade_selling_item) {
             @Override
             public void convert(RecyclerViewHolder viewHolder, final Trade item) {
-                viewHolder.setFrescoImg(R.id.selling_item_img, Uri.parse(item.getImgUrls()));
+                //viewHolder.setFrescoImg(R.id.selling_item_img, Uri.parse(item.getImgUrls()));
                 viewHolder.setText(R.id.selling_item_name, item.getTitle());
                 viewHolder.setText(R.id.selling_item_now_price, "友情价 ￥" + item.getNowPrice());
                 viewHolder.setText(R.id.selling_item_original_price, "原价 ￥" + item.getOriginalPrice());
@@ -175,7 +175,7 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
         RecyclerCommonAdapter<?> adapter=new RecyclerCommonAdapter<Trade>(context,result.getData(), R.layout.drawer_trade_sold_item) {
             @Override
             public void convert(RecyclerViewHolder viewHolder, Trade item) {
-                viewHolder.setFrescoImg(R.id.sold_item_img, Uri.parse(item.getImgUrls()));
+                //viewHolder.setFrescoImg(R.id.sold_item_img, Uri.parse(item.getImgUrls()));
                 viewHolder.setText(R.id.sold_item_name, item.getTitle());
                 viewHolder.setText(R.id.sold_item_now_price, "友情价 ￥" + item.getNowPrice());
                 viewHolder.setText(R.id.sold_item_original_price, "原价 ￥" + item.getOriginalPrice());

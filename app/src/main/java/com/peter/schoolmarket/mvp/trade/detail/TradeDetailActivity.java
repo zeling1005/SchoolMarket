@@ -130,16 +130,16 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
     @Override
     public void loadTradeSuccess(Trade trade) {
         String temp = "";
-        authorImg.setImageURI(trade.getAuthorImg());
-        authorName.setText(trade.getAuthorName());
-        img.setImageURI(trade.getImgUrls());
+        //authorImg.setImageURI(trade.getAuthorImg());
+        //authorName.setText(trade.getAuthorName());
+        //img.setImageURI(trade.getImgUrls());
         temp = getResources().getString(R.string.trade_detail_name) + trade.getTitle();
         name.setText(temp);
         temp = getResources().getString(R.string.trade_detail_now_price) + trade.getNowPrice();
         nowPrice.setText(temp);
         temp = getResources().getString(R.string.trade_detail_original_price) + trade.getOriginalPrice();
         originalPrice.setText(temp);
-        phone.setText(trade.getAuthorPhone());
+        //phone.setText(trade.getAuthorPhone());
         temp = getResources().getString(R.string.trade_detail_describe) + trade.getDescribe();
         describe.setText(temp);
     }

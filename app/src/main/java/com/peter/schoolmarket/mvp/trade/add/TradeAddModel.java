@@ -18,17 +18,17 @@ import rx.schedulers.Schedulers;
 
 public class TradeAddModel implements ITradeAddModel {
     @Override
-    public void addTradeReq(final RequestBody tradeJson, final MultipartBody.Part pic, final ITradeAddListener listener) {
-        if (AppConf.useMock){
+    public void addTradeReq(final RequestBody tradeBody, final RequestBody photoBody, final ITradeAddListener listener) {
+        /*if (AppConf.useMock){
             listener.addTradeResult(new TradeMock().getReleaseTradeResult());
             return;
-        }
+        }*/
 
         final Result<String> result= new Result<String>().result(NetReturn.SERVER_ERROR);
         ReqExecutor
                 .INSTANCE()
                 .tradeReq()
-                .addTrade(tradeJson,pic)
+                .addTrade(tradeBody,photoBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Result<String>>() {
