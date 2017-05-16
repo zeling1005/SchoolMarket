@@ -15,6 +15,7 @@ public class Trade extends RealmObject implements Serializable {
     private int id;//商品ID T001
     private String title;//商品名字
     private int authorId;
+    private int payId;
     private double originalPrice;//商品原价格
     private double nowPrice;//二手商品价格
     private String tagName;//商品类别
@@ -24,6 +25,14 @@ public class Trade extends RealmObject implements Serializable {
     private int status;//商品状态。0:在售，1:售出
     @Ignore
     private boolean releaseCheck;//为了在发布时方便检查数据完整性，不存储在数据库中
+
+    public int getPayId() {
+        return payId;
+    }
+
+    public void setPayId(int payId) {
+        this.payId = payId;
+    }
 
     public int getId() {
         return id;

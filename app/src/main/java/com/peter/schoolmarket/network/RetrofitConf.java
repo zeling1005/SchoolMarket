@@ -23,17 +23,16 @@ public interface RetrofitConf {
     String get_user_messages="";//获取用户交易信息
 
     //----------------------------notice----------------------------
-    String get_notices_data = "";//获取notice 数据
-    String create_notice = ""; //添加notice
+    String get_notices_data = "SchoolMarketServer/GetNotices";//获取notice 数据
+    String create_notice = "SchoolMarketServer/AddNotice"; //添加notice
 
 
     //----------------------------商品相关----------------------------
     String create_trade="SchoolMarketServer/AddTrade";//发布商品
     String get_trades="SchoolMarketServer/GetTrades";//获取该学校的商品列表
     String get_tag_trades="SchoolMarketServer/GetTagTrades";//获取该分类下所有商品列表
+    String get_drawer_trades = "SchoolMarketServer/GetDrawerTrades";
     //-----------------------我是分割线------------------------------
-
-    String get_drawer_trades = "";//
     String get_school_trades="api/v1/trades/school/{schoolName}/get";//获取该学校的商品列表
     String get_team_trades="api/v1/trades/team/{teamName}/get";
     String get_trade="api/v1/trades/{tradeId}/get";//通过id获取商品的详细信息

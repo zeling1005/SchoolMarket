@@ -72,13 +72,10 @@ class NoticeAddPresenter implements INoticeAddPresenter, INoticeAddListener {
         notice.setCreateTime(System.currentTimeMillis());//设置商品发布时间
 
         User authorOld= LoginInfoExecutor.getUser(context);
-        /*if (authorOld==null || authorOld.getId()==null){
+        if (authorOld == null || authorOld.getId() == 0 ){
             return notice;
         }
-        notice.setAuthorId(authorOld.getId());*/
-        //notice.setAuthorName(authorOld.getUsername());
-        //notice.setAuthorImg(authorOld.getAvatarUrl());
-        //notice.setAuthorPhone(authorOld.getPhone());
+        notice.setAuthorId(authorOld.getId());
 
         notice.setReleaseCheck(true);
         return notice;

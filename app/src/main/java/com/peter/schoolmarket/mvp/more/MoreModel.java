@@ -22,10 +22,11 @@ public class MoreModel implements IMoreModel {
     @Override
     public void noticeDataReq(final IMoreListener listener,final int page,final Realm realm) {
         //添加一个测试代码，测试代码是否正确
-        if (AppConf.useMock){
+        /*if (AppConf.useMock){
             listener.onReqComplete(new NoticeMock().getNotices(), realm);
             return;
-        }
+        }*/
+
         final Result<List<Notice>> result = new Result<List<Notice>>().result(NetReturn.SERVER_ERROR);
         ReqExecutor
                 .INSTANCE()

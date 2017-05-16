@@ -82,7 +82,7 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
-        <activity android:name=".mvp.main.setting.SettingActivity"
+        <activity android:name=".mvp.main.about.AboutActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 

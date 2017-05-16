@@ -27,7 +27,7 @@
                 android:src="@drawable/ic_arrow_left"
                 />-->
             <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/setting_toolbar_back"
+                android:id="@+id/about_toolbar_back"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
                 android:layout_gravity="start|center"
@@ -42,12 +42,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:maxLines="1"
-                android:text="@string/setting_toolbar_title"
+                android:text="@string/about_toolbar_title"
                 android:textColor="@color/md_black_1000"
                 android:textSize="@dimen/font_size_title"/>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/setting_content"/>
+    <include layout="@layout/about_content"/>
 
 </LinearLayout>

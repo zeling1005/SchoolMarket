@@ -15,6 +15,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
+        android:background="@drawable/circle_pic_selector"
         fresco:roundAsCircle="true"
         fresco:placeholderImage="@drawable/main_person"
         fresco:placeholderImageScaleType="fitCenter" />

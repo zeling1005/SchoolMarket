@@ -57,6 +57,18 @@ public interface TradeReq {
             @Field("size") int size
     );
 
+    /**
+     * 获取商品列表
+     */
+    @POST(RetrofitConf.get_drawer_trades)
+    @FormUrlEncoded
+    Observable<Result<List<Trade>>> getDrawerTrades(
+            @Field("typeId") int typeId,
+            @Field("page") int page,
+            @Field("size") int size,
+            @Field("myId") int myId
+    );
+
     //-------------我是分割线----------------------
 
 
@@ -69,16 +81,6 @@ public interface TradeReq {
     @FormUrlEncoded
     Observable<Result<User>> getAuthorInfo(
             @Field("authorId") String authorId);
-
-
-    /**
-     * 根据分类获取在售商品列表
-     */
-    @GET(RetrofitConf.get_drawer_trades)
-    Observable<Result<List<Trade>>> getDrawerTrades(
-            @Query("typeId") int typeId,
-            @Query("size") int size
-    );
 
 
     //----------我是分割线-------------------//

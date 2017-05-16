@@ -72,7 +72,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -119,6 +119,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:background="@color/colorNormalBackground"/>
+        android:background="@color/colorNormalBackground"/>-->
 
 </LinearLayout>

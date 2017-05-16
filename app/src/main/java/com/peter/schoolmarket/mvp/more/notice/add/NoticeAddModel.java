@@ -19,10 +19,10 @@ import rx.schedulers.Schedulers;
 public class NoticeAddModel implements INoticeAddModel {
     @Override
     public void addNoticeReq(final RequestBody noticeJson, final INoticeAddListener listener) {
-        if (AppConf.useMock){
+        /*if (AppConf.useMock){
             listener.addNoticeResult(new NoticeMock().getReleaseNoticeResult());
             return;
-        }
+        }*/
 
         final Result<String> result= new Result<String>().result(NetReturn.SERVER_ERROR);
         ReqExecutor
@@ -39,7 +39,6 @@ public class NoticeAddModel implements INoticeAddModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        result.setCode(NetReturn.SERVER_ERROR.code());
                         listener.addNoticeResult(result);
                     }
 

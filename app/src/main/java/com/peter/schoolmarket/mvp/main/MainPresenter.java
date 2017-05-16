@@ -3,22 +3,16 @@ package com.peter.schoolmarket.mvp.main;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
-import com.bumptech.glide.load.model.ModelCache;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.peter.schoolmarket.R;
 import com.peter.schoolmarket.application.AppConf;
 import com.peter.schoolmarket.data.dto.Result;
@@ -26,11 +20,10 @@ import com.peter.schoolmarket.data.pojo.User;
 import com.peter.schoolmarket.data.storage.LoginInfoExecutor;
 import com.peter.schoolmarket.mvp.find.FindFragment;
 import com.peter.schoolmarket.mvp.login.LoginActivity;
-import com.peter.schoolmarket.mvp.main.setting.SettingActivity;
+import com.peter.schoolmarket.mvp.main.about.AboutActivity;
 import com.peter.schoolmarket.mvp.main.trade.DrawerTradeActivity;
 import com.peter.schoolmarket.mvp.more.MoreFragment;
 import com.peter.schoolmarket.mvp.sort.TradeSortFragment;
-import com.peter.schoolmarket.mvp.test.TestActivity;
 import com.peter.schoolmarket.mvp.test.TestFragment;
 import com.peter.schoolmarket.network.RetrofitConf;
 import com.peter.schoolmarket.util.ResultInterceptor;
@@ -87,6 +80,12 @@ class MainPresenter implements IMainPresenter, IMainListener {
         if (!(user.getImgUrl().isEmpty())){
             avatarUrl.setImageURI(Uri.parse(AppConf.BASE_URL + RetrofitConf.base_img + user.getImgUrl()));
         }
+        avatarUrl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "修改资料", Toast.LENGTH_SHORT).show();
+            }
+        });
         username.setText(user.getUsername());
         phone.setText(user.getPhone());
     }
@@ -122,8 +121,8 @@ class MainPresenter implements IMainPresenter, IMainListener {
                 textIntent.putExtra(Intent.EXTRA_TEXT, "这里以后替换成app下载地址");
                 context.startActivity(Intent.createChooser(textIntent, "分享"));
                 break;
-            case R.id.nav_setting:
-                Intent intent = new Intent(context, SettingActivity.class);
+            case R.id.nav_about:
+                Intent intent = new Intent(context, AboutActivity.class);
                 context.startActivity(intent);
                 break;
             case R.id.nav_exit:
@@ -133,12 +132,12 @@ class MainPresenter implements IMainPresenter, IMainListener {
                 break;
         }
         if (!type.equals("")){
-            /*Intent tradeIntent=new Intent(context, DrawerTradeActivity.class);
+            Intent tradeIntent=new Intent(context, DrawerTradeActivity.class);
             tradeIntent.putExtra("title",type);
-            context.startActivity(tradeIntent);*/
-            Intent intent=new Intent(context, TestActivity.class);
+            context.startActivity(tradeIntent);
+            /*Intent intent=new Intent(context, TestActivity.class);
             intent.putExtra("textString",type);
-            context.startActivity(intent);
+            context.startActivity(intent);*/
         }
     }
 
@@ -210,15 +209,6 @@ class MainPresenter implements IMainPresenter, IMainListener {
                 tradeSortFragment = new TradeSortFragment();
                 ft.add(R.id.frame_layout, tradeSortFragment);
             }
-                /*if (testFragment != null) {
-                    ft.show(testFragment);
-                } else {
-                    testFragment = new TestFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("textString", "");
-                    testFragment.setArguments(bundle);
-                    ft.add(R.id.frame_layout, testFragment);
-                }*/
                 break;
             case 2 : if (testFragment != null) {
                 ft.show(testFragment);
@@ -230,21 +220,12 @@ class MainPresenter implements IMainPresenter, IMainListener {
                 ft.add(R.id.frame_layout, testFragment);
             }
                 break;
-            case 3 : /*if (moreFragment != null) {
+            case 3 : if (moreFragment != null) {
                 ft.show(moreFragment);
             } else {
                 moreFragment = new MoreFragment();
                 ft.add(R.id.frame_layout, moreFragment);
-            }*/
-                if (testFragment != null) {
-                    ft.show(testFragment);
-                } else {
-                    testFragment = new TestFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("textString", "");
-                    testFragment.setArguments(bundle);
-                    ft.add(R.id.frame_layout, testFragment);
-                }
+            }
                 break;
             default:
                 break;

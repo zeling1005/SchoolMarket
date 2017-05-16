@@ -113,6 +113,8 @@ class TradeAddPresenter implements ITradeAddPresenter, ITradeAddListener {
         }
         trade.setAuthorId(authorOld.getId());
 
+        trade.setPayId(0);
+
         trade.setReleaseCheck(true);
         return trade;
     }

@@ -10,9 +10,13 @@ import android.widget.Toast;
 import com.peter.schoolmarket.R;
 import com.peter.schoolmarket.adapter.recycler.RecyclerCommonAdapter;
 import com.peter.schoolmarket.adapter.recycler.RecyclerViewHolder;
+import com.peter.schoolmarket.application.AppConf;
 import com.peter.schoolmarket.data.dto.Result;
 import com.peter.schoolmarket.data.pojo.Trade;
+import com.peter.schoolmarket.data.pojo.User;
+import com.peter.schoolmarket.data.storage.LoginInfoExecutor;
 import com.peter.schoolmarket.mvp.trade.detail.TradeDetailActivity;
+import com.peter.schoolmarket.network.RetrofitConf;
 import com.peter.schoolmarket.util.ResultInterceptor;
 
 import java.util.List;
@@ -26,6 +30,8 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
     private IDrawerTradeView view;
     private IDrawerTradeModel model;
     private int typeId = -1;
+    private static int page = 1;
+    private int myId;
 
     DrawerTradePresenter(Context context, IDrawerTradeView view) {
         this.context = context;
@@ -36,13 +42,15 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
     @Override
     public void init(int typeId) {
         this.typeId = typeId;
+        User user = LoginInfoExecutor.getUser(context);
+        myId = user.getId();
         view.showProgress();
-        model.drawerTradeDataReq(this, typeId, 0);
+        model.drawerTradeDataReq(this, typeId, page, myId);
     }
 
     @Override
     public void refresh() {
-        model.drawerTradeDataReq(this, typeId, 0);
+        model.drawerTradeDataReq(this, typeId, page, myId);
     }
 
     @Override
@@ -72,7 +80,8 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
         RecyclerCommonAdapter<?> adapter=new RecyclerCommonAdapter<Trade>(context,result.getData(), R.layout.drawer_trade_buying_item) {
             @Override
             public void convert(RecyclerViewHolder viewHolder, final Trade item) {
-                //viewHolder.setFrescoImg(R.id.buying_item_img, Uri.parse(item.getImgUrls()));
+                viewHolder.setFrescoImg(R.id.buying_item_img, Uri.parse(AppConf.BASE_URL +
+                        RetrofitConf.base_img + item.getImgUrl()));
                 viewHolder.setText(R.id.buying_item_name, item.getTitle());
                 viewHolder.setText(R.id.buying_item_now_price, "友情价 ￥" + item.getNowPrice());
                 viewHolder.setText(R.id.buying_item_original_price, "原价 ￥" + item.getOriginalPrice());
@@ -87,18 +96,35 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
                         context.startActivity(intent);
                     }
                 });
-                viewHolder.setOnClickListener(R.id.buying_item_confirm, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(context, "confirm", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                viewHolder.setOnClickListener(R.id.buying_item_cancel, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(context, "cancel", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                if (item.getAuthorId() == myId) {
+                    viewHolder.setText(R.id.buying_item_confirm, "确认收款");
+                    viewHolder.setOnClickListener(R.id.buying_item_confirm, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(context, "确认收款", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    viewHolder.setOnClickListener(R.id.buying_item_cancel, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(context, "cancel", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    viewHolder.setText(R.id.buying_item_confirm, "确认收货");
+                    viewHolder.setOnClickListener(R.id.buying_item_confirm, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(context, "确认收货", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    viewHolder.setOnClickListener(R.id.buying_item_cancel, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(context, "cancel", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         };
         view.hideProgress();
@@ -109,7 +135,8 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
         RecyclerCommonAdapter<?> adapter=new RecyclerCommonAdapter<Trade>(context,result.getData(), R.layout.drawer_trade_bought_item) {
             @Override
             public void convert(RecyclerViewHolder viewHolder, Trade item) {
-                //viewHolder.setFrescoImg(R.id.bought_item_img, Uri.parse(item.getImgUrls()));
+                viewHolder.setFrescoImg(R.id.bought_item_img, Uri.parse(AppConf.BASE_URL +
+                        RetrofitConf.base_img + item.getImgUrl()));
                 viewHolder.setText(R.id.bought_item_name, item.getTitle());
                 viewHolder.setText(R.id.bought_item_now_price, "友情价 ￥" + item.getNowPrice());
                 viewHolder.setText(R.id.bought_item_original_price, "原价 ￥" + item.getOriginalPrice());
@@ -138,7 +165,8 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
         RecyclerCommonAdapter<?> adapter=new RecyclerCommonAdapter<Trade>(context,result.getData(), R.layout.drawer_trade_selling_item) {
             @Override
             public void convert(RecyclerViewHolder viewHolder, final Trade item) {
-                //viewHolder.setFrescoImg(R.id.selling_item_img, Uri.parse(item.getImgUrls()));
+                viewHolder.setFrescoImg(R.id.selling_item_img, Uri.parse(AppConf.BASE_URL +
+                        RetrofitConf.base_img + item.getImgUrl()));
                 viewHolder.setText(R.id.selling_item_name, item.getTitle());
                 viewHolder.setText(R.id.selling_item_now_price, "友情价 ￥" + item.getNowPrice());
                 viewHolder.setText(R.id.selling_item_original_price, "原价 ￥" + item.getOriginalPrice());
@@ -153,18 +181,6 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
                         context.startActivity(intent);
                     }
                 });
-                viewHolder.setOnClickListener(R.id.selling_item_confirm, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(context, "confirm", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                viewHolder.setOnClickListener(R.id.selling_item_cancel, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(context, "cancel", Toast.LENGTH_SHORT).show();
-                    }
-                });
             }
         };
         view.hideProgress();
@@ -175,7 +191,8 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
         RecyclerCommonAdapter<?> adapter=new RecyclerCommonAdapter<Trade>(context,result.getData(), R.layout.drawer_trade_sold_item) {
             @Override
             public void convert(RecyclerViewHolder viewHolder, Trade item) {
-                //viewHolder.setFrescoImg(R.id.sold_item_img, Uri.parse(item.getImgUrls()));
+                viewHolder.setFrescoImg(R.id.sold_item_img, Uri.parse(AppConf.BASE_URL +
+                        RetrofitConf.base_img + item.getImgUrl()));
                 viewHolder.setText(R.id.sold_item_name, item.getTitle());
                 viewHolder.setText(R.id.sold_item_now_price, "友情价 ￥" + item.getNowPrice());
                 viewHolder.setText(R.id.sold_item_original_price, "原价 ￥" + item.getOriginalPrice());

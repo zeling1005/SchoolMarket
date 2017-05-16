@@ -3,6 +3,8 @@ package com.peter.schoolmarket.mvp.main.trade;
 import com.peter.schoolmarket.application.AppConf;
 import com.peter.schoolmarket.data.dto.Result;
 import com.peter.schoolmarket.data.pojo.Trade;
+import com.peter.schoolmarket.data.pojo.User;
+import com.peter.schoolmarket.data.storage.LoginInfoExecutor;
 import com.peter.schoolmarket.mock.TradeMock;
 import com.peter.schoolmarket.network.NetReturn;
 import com.peter.schoolmarket.network.ReqExecutor;
@@ -20,18 +22,16 @@ import rx.schedulers.Schedulers;
 public class DrawerTradeModel implements IDrawerTradeModel {
 
     @Override
-    public void drawerTradeDataReq(final IDrawerTradeListener listener, int typeId, int page) {
-        if (AppConf.useMock){
+    public void drawerTradeDataReq(final IDrawerTradeListener listener, int typeId, int page, int myId) {
+        /*if (AppConf.useMock){
             listener.onComplete(new TradeMock().getTrades());
             return;
-        }
-        //请求
-
+        }*/
         final Result<List<Trade>> result = new Result<List<Trade>>().result(NetReturn.SERVER_ERROR);
         ReqExecutor
                 .INSTANCE()
                 .tradeReq()
-                .getDrawerTrades(typeId, AppConf.size)
+                .getDrawerTrades(typeId, page, AppConf.size, myId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Result<List<Trade>>>() {

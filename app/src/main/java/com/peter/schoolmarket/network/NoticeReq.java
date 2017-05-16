@@ -20,7 +20,7 @@ import rx.Observable;
 
 public interface NoticeReq {
     /**
-     * 获取在售商品列表
+     * 获取列表
      */
     @GET(RetrofitConf.get_notices_data)
     Observable<Result<List<Notice>>> getNoticesData(
@@ -29,8 +29,9 @@ public interface NoticeReq {
     );
 
     /**
-     * 发布商品
+     * 发布
      */
+    @Multipart
     @POST(RetrofitConf.create_notice)
     Observable<Result<String>> addNotice(
             @Part("notice") RequestBody notice);

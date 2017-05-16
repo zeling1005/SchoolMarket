@@ -38,10 +38,14 @@
                         android:id="@+id/nav_share"
                         android:icon="@drawable/main_share"
                         android:title="@string/nav_share" />
-                    <item
+                    <!--<item
                         android:id="@+id/nav_setting"
                         android:icon="@drawable/main_setting"
-                        android:title="@string/nav_setting" />
+                        android:title="@string/nav_setting" />-->
+                    <item
+                        android:id="@+id/nav_about"
+                        android:icon="@drawable/main_about"
+                        android:title="@string/nav_about" />
                     <!--<item
                         android:id="@+id/nav_personal_info"
                         android:icon="@drawable/main_author"

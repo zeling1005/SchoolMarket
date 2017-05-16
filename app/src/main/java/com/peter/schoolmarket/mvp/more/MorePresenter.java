@@ -2,8 +2,10 @@ package com.peter.schoolmarket.mvp.more;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.peter.schoolmarket.R;
 import com.peter.schoolmarket.adapter.recycler.RecyclerCommonAdapter;
@@ -11,7 +13,9 @@ import com.peter.schoolmarket.adapter.recycler.RecyclerViewHolder;
 import com.peter.schoolmarket.application.AppConf;
 import com.peter.schoolmarket.data.dto.Result;
 import com.peter.schoolmarket.data.pojo.Notice;
+import com.peter.schoolmarket.data.pojo.User;
 import com.peter.schoolmarket.mvp.more.notice.detail.NoticeDetailActivity;
+import com.peter.schoolmarket.network.RetrofitConf;
 import com.peter.schoolmarket.util.ResultInterceptor;
 import com.peter.schoolmarket.util.TimeUtils;
 
@@ -29,6 +33,8 @@ public class MorePresenter implements IMorePresenter, IMoreListener {
     private IMoreView view;
     private Context context;
     private IMoreModel model;
+    private static int page = 1;
+    private Realm realm;
 
     public MorePresenter(Context context,IMoreView view) {
         this.context = context;
@@ -40,11 +46,12 @@ public class MorePresenter implements IMorePresenter, IMoreListener {
     @Override
     public void refresh(Realm realm) {
         //本来就有刷新出现
-        model.noticeDataReq(this, 0, realm);
+        model.noticeDataReq(this, page, realm);
     }
 
     @Override
     public void init(Realm realm) {
+        this.realm = realm;
         RealmQuery<Notice> query =  realm.where(Notice.class);
         RealmResults<Notice> results = query.findAll();
         List<Notice> data =  realm.copyFromRealm(results);
@@ -53,7 +60,7 @@ public class MorePresenter implements IMorePresenter, IMoreListener {
         } else {
             //这里可以添加一个加载窗口
             view.showProgress();
-            model.noticeDataReq(this, 0, realm);
+            model.noticeDataReq(this, page, realm);
         }
     }
 
@@ -61,15 +68,14 @@ public class MorePresenter implements IMorePresenter, IMoreListener {
         RecyclerCommonAdapter<?> adapter=new RecyclerCommonAdapter<Notice>(context,notices, R.layout.more_item) {
             @Override
             public void convert(RecyclerViewHolder holder, Notice item) {
-                holder.setText(R.id.more_item_title,item.getTitle());
-                //holder.setText(R.id.more_item_name,item.getAuthorName());
-                holder.setText(R.id.more_item_content,item.getContent());
-                if (AppConf.useMock) {
-                    holder.setText(R.id.more_item_time,"2017-04-12");
-                } else {
-                    String tem = TimeUtils.getDate(item.getCreateTime());
-                    holder.setText(R.id.more_item_time,tem);
+                User user = realm.where(User.class).equalTo("id",item.getAuthorId()).findFirst();
+                if (user != null) {
+                    holder.setText(R.id.more_item_name,user.getUsername());
                 }
+                holder.setText(R.id.more_item_title,item.getTitle());
+                holder.setText(R.id.more_item_content,item.getContent());
+                String tem = TimeUtils.getDate(item.getCreateTime());
+                holder.setText(R.id.more_item_time,tem);
             }
         };
         view.loadDataSuccess(adapter);

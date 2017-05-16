@@ -38,6 +38,7 @@
     <string name="nav_msg">消息</string>
     <string name="nav_share">推荐给朋友</string>
     <string name="nav_setting">设置</string>
+    <string name="nav_about">关于闲货</string>
     <string name="nav_exit">退出</string>
     <string name="nav_other">其它</string>
 
@@ -91,6 +92,9 @@
     <string name="setting_toolbar_title">设置</string>
     <string name="setting_person">个人资料</string>
     <string name="setting_about">关于闲货</string>
+
+    <!--about-->
+    <string name="about_toolbar_title">关于闲货</string>
 
 
 </resources>
