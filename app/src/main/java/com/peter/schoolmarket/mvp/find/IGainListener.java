@@ -13,5 +13,5 @@ import io.realm.Realm;
  */
 
 public interface IGainListener {
-    void onReqComplete(Result<List<Trade>> result, Realm realm);//从服务器中得到数据后的操作
+    void onReqComplete(Result<List<Trade>> result);//从服务器中得到数据后的操作
 }

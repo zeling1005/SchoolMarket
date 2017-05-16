@@ -10,10 +10,12 @@ import android.widget.Toast;
 import com.peter.schoolmarket.R;
 import com.peter.schoolmarket.adapter.recycler.RecyclerCommonAdapter;
 import com.peter.schoolmarket.adapter.recycler.RecyclerViewHolder;
+import com.peter.schoolmarket.application.AppConf;
 import com.peter.schoolmarket.data.dto.Result;
 import com.peter.schoolmarket.data.pojo.Trade;
 import com.peter.schoolmarket.mvp.test.TestActivity;
 import com.peter.schoolmarket.mvp.trade.detail.TradeDetailActivity;
+import com.peter.schoolmarket.network.RetrofitConf;
 import com.peter.schoolmarket.util.ResultInterceptor;
 
 import java.util.List;
@@ -28,6 +30,7 @@ class TradeTagDetailPresenter implements ITradeTagDetailPresenter, ITradeTagDeta
     private ITradeTagDetailView view;
     private ITradeTagDetailModel model;
     private String tagName;
+    private static int page = 1;
 
     TradeTagDetailPresenter(Context context, ITradeTagDetailView view) {
         this.context = context;
@@ -43,7 +46,7 @@ class TradeTagDetailPresenter implements ITradeTagDetailPresenter, ITradeTagDeta
 
     @Override
     public void refresh() {
-        getTradeListByTag();
+        model.tradesDataReq(this, tagName, 1);
     }
 
     private void getTradeListByTag() {
@@ -60,7 +63,8 @@ class TradeTagDetailPresenter implements ITradeTagDetailPresenter, ITradeTagDeta
         RecyclerCommonAdapter<?> adapter=new RecyclerCommonAdapter<Trade>(context,result.getData(), R.layout.trade_tag_detail_item) {
             @Override
             public void convert(RecyclerViewHolder viewHolder, Trade item) {
-                //viewHolder.setFrescoImg(R.id.trade_tag_detail_img, Uri.parse(item.getImgUrls()));
+                viewHolder.setFrescoImg(R.id.trade_tag_detail_img, Uri.parse(AppConf.BASE_URL +
+                        RetrofitConf.base_img + item.getImgUrl()));
                 viewHolder.setText(R.id.trade_tag_detail_name, item.getTitle());
                 viewHolder.setText(R.id.trade_tag_detail_now_price, "友情价 ￥" + item.getNowPrice());
                 viewHolder.setText(R.id.trade_tag_detail_original_price, "原价 ￥" + item.getOriginalPrice());

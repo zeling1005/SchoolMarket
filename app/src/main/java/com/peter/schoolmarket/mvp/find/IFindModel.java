@@ -9,5 +9,5 @@ import io.realm.Realm;
  */
 
 public interface IFindModel {
-    void tradesDataReq(final IGainListener listener,final int page,final Realm realm);
+    void tradesDataReq(final IGainListener listener,final int page);
 }

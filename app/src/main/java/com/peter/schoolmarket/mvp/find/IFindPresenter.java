@@ -10,5 +10,5 @@ public interface IFindPresenter {
 
     void initView(Realm realm);
 
-    void refreshView(Realm realm);
+    void refreshView();
 }

@@ -70,7 +70,7 @@ public class FindFragment extends BaseFragment implements IFindView {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.refreshView(realm);
+                presenter.refreshView();
             }
         });
         presenter.initView(realm);
@@ -83,34 +83,21 @@ public class FindFragment extends BaseFragment implements IFindView {
 
     @Override
     public void hideRefresh() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //延迟1秒
-                if (refreshLayout.isRefreshing()) {
-                    refreshLayout.setRefreshing(false);
-                }
-            }
-        }, 2500);
-        /*if (refreshLayout.isRefreshing()) {
+        if (refreshLayout.isRefreshing()) {
             refreshLayout.setRefreshing(false);
-        }*/
+        }
 
     }
 
     @Override
     public void showProgress() {
-        progress.show();
+        if (!progress.isShowing()) {
+            progress.show();
+        }
     }
 
     @Override
     public void hideProgress() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //延迟1秒
-            }
-        }, 1500);
         if (progress.isShowing()) {
             progress.dismiss();
         }

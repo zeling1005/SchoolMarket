@@ -37,6 +37,26 @@ public interface TradeReq {
             @Part("trade") RequestBody trade,
             @Part("photo") RequestBody photo);
 
+    /**
+     * 获取在售商品列表
+     */
+    @GET(RetrofitConf.get_trades)
+    Observable<Result<List<Trade>>> getFindTrades(
+            @Query("page") int page,
+            @Query("size") int size
+    );
+
+    /**
+     * 根据分类获取在售商品列表
+     */
+    @POST(RetrofitConf.get_tag_trades)
+    @FormUrlEncoded
+    Observable<Result<List<Trade>>> getTrades(
+            @Field("tagName")  String tagName,
+            @Field("page") int page,
+            @Field("size") int size
+    );
+
     //-------------我是分割线----------------------
 
 
@@ -50,14 +70,6 @@ public interface TradeReq {
     Observable<Result<User>> getAuthorInfo(
             @Field("authorId") String authorId);
 
-    /**
-     * 获取在售商品列表
-     */
-    @GET(RetrofitConf.get_school_trades)
-    Observable<Result<List<Trade>>> getFindTrades(
-            @Query("page") int page,
-            @Query("size") int size
-    );
 
     /**
      * 根据分类获取在售商品列表
@@ -70,17 +82,6 @@ public interface TradeReq {
 
 
     //----------我是分割线-------------------//
-
-
-    /**
-     * 根据分类获取在售商品列表
-     */
-    @GET(RetrofitConf.get_tag_trades)
-    Observable<Result<List<Trade>>> getTrades(
-            @Path("tagName")  String tagName,
-            @Query("page") int page,
-            @Query("size") int size
-    );
 
     //创建交易(发起购买商品请求)
     @POST(RetrofitConf.create_deal)

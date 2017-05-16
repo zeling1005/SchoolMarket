@@ -76,7 +76,7 @@ class TradeAddPresenter implements ITradeAddPresenter, ITradeAddListener {
             view.whenFail("价格不可以为空");
             return trade;
         }
-        long nowPriceValue=Long.parseLong(nowPriceData);
+        double nowPriceValue = Double.parseDouble(nowPriceData);
         trade.setNowPrice(nowPriceValue);
 
         String originalPriceData=originalPrice.getText().toString().trim();
@@ -84,7 +84,7 @@ class TradeAddPresenter implements ITradeAddPresenter, ITradeAddListener {
             view.whenFail("原价不可以为空");
             return trade;
         }
-        long originalPriceValue=Long.parseLong(originalPriceData);
+        double originalPriceValue = Double.parseDouble(originalPriceData);
         trade.setOriginalPrice(originalPriceValue);
 
         String descData=desc.getText().toString().trim();

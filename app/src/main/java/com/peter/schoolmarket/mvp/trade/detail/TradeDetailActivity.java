@@ -14,9 +14,14 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.peter.schoolmarket.R;
+import com.peter.schoolmarket.application.AppConf;
 import com.peter.schoolmarket.data.pojo.Trade;
+import com.peter.schoolmarket.data.pojo.User;
 import com.peter.schoolmarket.data.storage.LoginInfoExecutor;
 import com.peter.schoolmarket.mvp.base.BaseActivity;
+import com.peter.schoolmarket.network.RetrofitConf;
+
+import io.realm.Realm;
 
 /**
  * Created by PetterChen on 2017/4/30.
@@ -39,6 +44,7 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
     private TradeDetailPresenter presenter;
     private Trade trade;
     private boolean isShow = true;
+    Realm realm;
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
@@ -71,6 +77,7 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
         Bundle bundle=intent.getExtras();
         trade = (Trade) bundle.getSerializable("trade");
         isShow = bundle.getBoolean("isShow", true);
+        realm = Realm.getDefaultInstance();
     }
 
     private void manageVariate() {
@@ -129,17 +136,20 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
 
     @Override
     public void loadTradeSuccess(Trade trade) {
+        User user = realm.where(User.class).equalTo("id",trade.getAuthorId()).findFirst();
         String temp = "";
-        //authorImg.setImageURI(trade.getAuthorImg());
-        //authorName.setText(trade.getAuthorName());
-        //img.setImageURI(trade.getImgUrls());
+        if (user != null) {
+            authorImg.setImageURI(AppConf.BASE_URL + RetrofitConf.base_img + user.getImgUrl());
+            authorName.setText(user.getUsername());
+            phone.setText(user.getPhone());
+        }
+        img.setImageURI(AppConf.BASE_URL + RetrofitConf.base_img + trade.getImgUrl());
         temp = getResources().getString(R.string.trade_detail_name) + trade.getTitle();
         name.setText(temp);
         temp = getResources().getString(R.string.trade_detail_now_price) + trade.getNowPrice();
         nowPrice.setText(temp);
         temp = getResources().getString(R.string.trade_detail_original_price) + trade.getOriginalPrice();
         originalPrice.setText(temp);
-        //phone.setText(trade.getAuthorPhone());
         temp = getResources().getString(R.string.trade_detail_describe) + trade.getDescribe();
         describe.setText(temp);
     }
@@ -156,5 +166,11 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
         if (progress.isShowing()) {
             progress.dismiss();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        realm.close();
     }
 }

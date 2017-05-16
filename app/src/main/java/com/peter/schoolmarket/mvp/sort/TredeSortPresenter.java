@@ -35,8 +35,8 @@ public class TredeSortPresenter implements ITradeSortPresenter {
 
     @Override
     public void initView() {
-        /*initData();
-        initList(tagList);*/
+        initData();
+        initList(tagList);
     }
 
     private void initData() {
@@ -58,10 +58,10 @@ public class TredeSortPresenter implements ITradeSortPresenter {
                 TradeTag item=tags.get(position);
                 String tagName = item.getName();
                 //跳转到分类商品详情页面
-                Toast.makeText(context, "jump to " + tagName, Toast.LENGTH_SHORT).show();
-                /*Intent intent=new Intent(context,TradeTagDetailActivity.class);
+                //Toast.makeText(context, "jump to " + tagName, Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(context,TradeTagDetailActivity.class);
                 intent.putExtra("tagName", tagName);
-                context.startActivity(intent);*/
+                context.startActivity(intent);
             }
         });
     }

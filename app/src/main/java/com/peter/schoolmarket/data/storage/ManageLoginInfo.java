@@ -47,8 +47,8 @@ public class ManageLoginInfo {
         if (user.getPhone()!=null){
             editor.putString("phone",user.getPhone());
         }
-        if (user.getAvatarUrl()!=null){
-            editor.putString("avatarUrl",user.getAvatarUrl());
+        if (user.getImgUrl()!=null){
+            editor.putString("avatarUrl",user.getImgUrl());
         }
         editor.apply();
     }
@@ -67,7 +67,7 @@ public class ManageLoginInfo {
         user.setUsername(sp.getString("username",""));
         user.setPassword(sp.getString("password",""));
         user.setPhone(sp.getString("phone",""));
-        user.setAvatarUrl(sp.getString("avatarUrl",""));
+        user.setImgUrl(sp.getString("avatarUrl",""));
         if (user.getId() == 0) {
             return null;
         }

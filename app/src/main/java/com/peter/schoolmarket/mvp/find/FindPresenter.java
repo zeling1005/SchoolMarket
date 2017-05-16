@@ -14,9 +14,12 @@ import android.widget.Toast;
 import com.peter.schoolmarket.R;
 import com.peter.schoolmarket.adapter.recycler.RecyclerCommonAdapter;
 import com.peter.schoolmarket.adapter.recycler.RecyclerViewHolder;
+import com.peter.schoolmarket.application.AppConf;
 import com.peter.schoolmarket.data.dto.Result;
 import com.peter.schoolmarket.data.pojo.Trade;
+import com.peter.schoolmarket.data.pojo.User;
 import com.peter.schoolmarket.mvp.trade.detail.TradeDetailActivity;
+import com.peter.schoolmarket.network.RetrofitConf;
 import com.peter.schoolmarket.util.ResultInterceptor;
 
 import java.io.IOException;
@@ -37,6 +40,8 @@ public class FindPresenter implements IFindPresenter, IGainListener {
     private IFindModel model;
     private IFindView view;
     private Context context;
+    private static int page = 1;
+    private Realm realm;
 
     public FindPresenter(Context context,IFindView view) {
         this.context = context;
@@ -46,7 +51,7 @@ public class FindPresenter implements IFindPresenter, IGainListener {
 
     @Override
     public void initView(Realm realm) {
-
+        this.realm = realm;
         RealmQuery<Trade> query =  realm.where(Trade.class);
         RealmResults<Trade> results = query.findAll();
         List<Trade> data =  realm.copyFromRealm(results);
@@ -56,25 +61,30 @@ public class FindPresenter implements IFindPresenter, IGainListener {
         }else {
             //这里可以添加一个加载窗口
             view.showProgress();
-            model.tradesDataReq(this, 0, realm);
+            model.tradesDataReq(this, page);
         }
     }
 
     @Override
-    public void refreshView(Realm realm) {
+    public void refreshView() {
         //进行网络请求，查看是否更新数据
-        //view.showProgress();
-        model.tradesDataReq(this, 0, realm);
+        model.tradesDataReq(this, page);
     }
 
     public void initList(final List<Trade> trades) {
         RecyclerCommonAdapter<?> adapter=new RecyclerCommonAdapter<Trade>(context,trades, R.layout.find_item) {
             @Override
             public void convert(RecyclerViewHolder holder, Trade item) {
+                //Dog dog = mRealm.where(Dog.class).equalTo("id", id).findFirst();
+                User user = realm.where(User.class).equalTo("id",item.getAuthorId()).findFirst();
                 holder.setText(R.id.deal_title,item.getTitle());
-                //holder.setFrescoImg(R.id.deal_img, Uri.parse(item.getImgUrls()));
-                //holder.setFrescoImg(R.id.author_img,Uri.parse(item.getAuthorImg()));
-                //holder.setText(R.id.author_name,item.getAuthorName());
+                holder.setFrescoImg(R.id.deal_img, Uri.parse(AppConf.BASE_URL + RetrofitConf.base_img +
+                        item.getImgUrl()));
+                if (user != null) {
+                    holder.setFrescoImg(R.id.author_img,Uri.parse(AppConf.BASE_URL + RetrofitConf.base_img +
+                            user.getImgUrl()));
+                    holder.setText(R.id.author_name,user.getUsername());
+                }
                 holder.setText(R.id.deal_price,"￥ "+item.getNowPrice());
             }
         };
@@ -84,7 +94,7 @@ public class FindPresenter implements IFindPresenter, IGainListener {
             public void onItemClick(View view, int position) {
                 Trade item=trades.get(position);
 
-                //跳转到分类商品详情页面
+                //跳转到商品详情页面
                 //Toast.makeText(context, "jump", Toast.LENGTH_LONG).show();
                 Intent intent=new Intent(context, TradeDetailActivity.class);
                 Bundle bundle = new Bundle();
@@ -97,7 +107,7 @@ public class FindPresenter implements IFindPresenter, IGainListener {
     }
 
     @Override
-    public void onReqComplete(Result<List<Trade>> result, Realm realm) {
+    public void onReqComplete(Result<List<Trade>> result) {
         view.hideRefresh();
         view.hideProgress();
         if (!ResultInterceptor.instance.resultDataHandler(result)){//判断是否Result数据为空

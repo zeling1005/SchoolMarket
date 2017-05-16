@@ -12,6 +12,7 @@ public interface RetrofitConf {
     String login="SchoolMarketServer/Login";//用户登录+
     String register="SchoolMarketServer/Register";//用户注册+
     String register_next="SchoolMarketServer/RegisterNext";//用户注册下一步，设置学校，手机号+
+    String get_users="SchoolMarketServer/GetUsers";
     //-----------------------我是分割线------------------------------
 
     String get_author_info = "";//获得所有者信息
@@ -28,10 +29,11 @@ public interface RetrofitConf {
 
     //----------------------------商品相关----------------------------
     String create_trade="SchoolMarketServer/AddTrade";//发布商品
+    String get_trades="SchoolMarketServer/GetTrades";//获取该学校的商品列表
+    String get_tag_trades="SchoolMarketServer/GetTagTrades";//获取该分类下所有商品列表
     //-----------------------我是分割线------------------------------
 
     String get_drawer_trades = "";//
-    String get_tag_trades="api/v1/trades/tag/{tagName}/get";//获取该分类下所有商品列表
     String get_school_trades="api/v1/trades/school/{schoolName}/get";//获取该学校的商品列表
     String get_team_trades="api/v1/trades/team/{teamName}/get";
     String get_trade="api/v1/trades/{tradeId}/get";//通过id获取商品的详细信息

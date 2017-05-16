@@ -3,6 +3,7 @@ package com.peter.schoolmarket.mvp.find;
 import com.peter.schoolmarket.application.AppConf;
 import com.peter.schoolmarket.data.dto.Result;
 import com.peter.schoolmarket.data.pojo.Trade;
+import com.peter.schoolmarket.data.pojo.User;
 import com.peter.schoolmarket.mock.TradeMock;
 import com.peter.schoolmarket.network.NetReturn;
 import com.peter.schoolmarket.network.ReqExecutor;
@@ -21,12 +22,12 @@ import rx.schedulers.Schedulers;
 public class FindModel implements IFindModel {
 
     @Override
-    public void tradesDataReq(final IGainListener listener, final int page, final Realm realm) {
+    public void tradesDataReq(final IGainListener listener, final int page) {
         //添加一个测试代码，测试代码是否正确
-        if (AppConf.useMock){
+        /*if (AppConf.useMock){
             listener.onReqComplete(new TradeMock().getTrades(), realm);
             return;
-        }
+        }*/
         final Result<List<Trade>> result = new Result<List<Trade>>().result(NetReturn.SERVER_ERROR);
         ReqExecutor
                 .INSTANCE()
@@ -37,12 +38,12 @@ public class FindModel implements IFindModel {
                 .subscribe(new Subscriber<Result<List<Trade>>>() {
                     @Override
                     public void onCompleted() {
-                        listener.onReqComplete(result,realm);
+                        listener.onReqComplete(result);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        listener.onReqComplete(result,realm);
+                        listener.onReqComplete(result);
                     }
                     @Override
                     public void onNext(Result<List<Trade>> listResult) {

@@ -16,7 +16,7 @@ public class User extends RealmObject implements Serializable {
     private String username;//用户名
     private String password;//用户密码
     private String phone;//手机号
-    private String avatarUrl;//头像地址
+    private String imgUrl;//头像地址
 
     public User() {
         //
@@ -38,8 +38,8 @@ public class User extends RealmObject implements Serializable {
         this.phone = phone;
     }
 
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     public int getId() {
@@ -58,7 +58,7 @@ public class User extends RealmObject implements Serializable {
         return phone;
     }
 
-    public String getAvatarUrl() {
-        return avatarUrl;
+    public String getImgUrl() {
+        return imgUrl;
     }
 }

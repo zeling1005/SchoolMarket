@@ -38,14 +38,14 @@ public class MainActivity extends BaseActivity implements IMainView{
     Toolbar toolbar;
     NavigationView navigationView;
     View headerLayout;
-    //private Realm realm;
+    private Realm realm;
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
         setContentView(R.layout.main_activity);
         initVariate();
         manageVariate();
-        presenter.initMain(headerLayout);
+        presenter.initMain(headerLayout, realm);
     }
 
     private void initVariate() {
@@ -54,7 +54,7 @@ public class MainActivity extends BaseActivity implements IMainView{
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         headerLayout= navigationView.inflateHeaderView(R.layout.main_nav_header);
-        //realm=Realm.getDefaultInstance();
+        realm=Realm.getDefaultInstance();
     }
 
     private void manageVariate() {
@@ -109,7 +109,7 @@ public class MainActivity extends BaseActivity implements IMainView{
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //realm.close();
+        realm.close();
     }
 
     @Override

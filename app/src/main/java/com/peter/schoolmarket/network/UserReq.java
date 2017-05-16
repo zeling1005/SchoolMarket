@@ -51,6 +51,9 @@ public interface UserReq {
             @Field("password")  String password,
             @Field("phone")  String phone);
 
+    @GET(RetrofitConf.get_users)
+    Observable<Result<List<User>>> getUsers();
+
 
     /*---------------------------我是分割线---------------------------------*/
 

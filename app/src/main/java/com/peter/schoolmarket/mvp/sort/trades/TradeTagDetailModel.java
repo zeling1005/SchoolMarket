@@ -20,15 +20,15 @@ import rx.schedulers.Schedulers;
 public class TradeTagDetailModel implements ITradeTagDetailModel {
     @Override
     public void tradesDataReq(final ITradeTagDetailListener listener, final String tagName, final int page) {
-        if (AppConf.useMock){
+        /*if (AppConf.useMock){
             listener.onComplete(new TradeMock().getTrades());
             return;
-        }
+        }*/
         final Result<List<Trade>> result = new Result<List<Trade>>().result(NetReturn.SERVER_ERROR);
         ReqExecutor
                 .INSTANCE()
                 .tradeReq()
-                .getTrades(tagName,page, AppConf.size)
+                .getTrades(tagName, page, AppConf.size)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Result<List<Trade>>>() {

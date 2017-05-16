@@ -16,10 +16,12 @@ import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.bumptech.glide.load.model.ModelCache;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.peter.schoolmarket.R;
 import com.peter.schoolmarket.application.AppConf;
+import com.peter.schoolmarket.data.dto.Result;
 import com.peter.schoolmarket.data.pojo.User;
 import com.peter.schoolmarket.data.storage.LoginInfoExecutor;
 import com.peter.schoolmarket.mvp.find.FindFragment;
@@ -31,6 +33,7 @@ import com.peter.schoolmarket.mvp.sort.TradeSortFragment;
 import com.peter.schoolmarket.mvp.test.TestActivity;
 import com.peter.schoolmarket.mvp.test.TestFragment;
 import com.peter.schoolmarket.network.RetrofitConf;
+import com.peter.schoolmarket.util.ResultInterceptor;
 
 import java.util.List;
 
@@ -41,9 +44,10 @@ import io.realm.RealmResults;
  * Created by PetterChen on 2017/4/20.
  */
 
-class MainPresenter implements IMainPresenter {
+class MainPresenter implements IMainPresenter, IMainListener {
 
     private AppCompatActivity context;
+    private IMainModel model;
     private FragmentManager fm;
     private TextView toolbarTitle;
     private BottomNavigationBar bottomNavigationBar;
@@ -57,6 +61,7 @@ class MainPresenter implements IMainPresenter {
     MainPresenter(AppCompatActivity context, IMainView view) {
         this.context = context;
         this.view = view;
+        model = new MainModel();
         //this.realmDefault=realm;
         fm = context.getFragmentManager();
         toolbarTitle = (TextView)context.findViewById(R.id.toolbar_title);
@@ -64,9 +69,14 @@ class MainPresenter implements IMainPresenter {
     }
 
     @Override
-    public void initMain(View header) {
+    public void initMain(View header, Realm realm) {
         initHeader(header);
         initBottomMenu();
+        initUsers(realm);
+    }
+
+    private void initUsers(Realm realm) {
+        model.getUsers(this, realm);
     }
 
     private void initHeader(View headerLayout) {
@@ -74,8 +84,8 @@ class MainPresenter implements IMainPresenter {
         SimpleDraweeView avatarUrl=(SimpleDraweeView) headerLayout.findViewById(R.id.header_portrait);
         TextView username=(TextView) headerLayout.findViewById(R.id.header_user_name);
         TextView phone=(TextView) headerLayout.findViewById(R.id.header_phone);
-        if (!(user.getAvatarUrl().isEmpty())){
-            avatarUrl.setImageURI(Uri.parse(AppConf.BASE_URL + RetrofitConf.base_img + user.getAvatarUrl()));
+        if (!(user.getImgUrl().isEmpty())){
+            avatarUrl.setImageURI(Uri.parse(AppConf.BASE_URL + RetrofitConf.base_img + user.getImgUrl()));
         }
         username.setText(user.getUsername());
         phone.setText(user.getPhone());
@@ -187,21 +197,12 @@ class MainPresenter implements IMainPresenter {
         FragmentTransaction ft = fm.beginTransaction();
         hideAllFragment(ft);
         switch (position) {
-            case 0 : /*if (findFragment != null) {
+            case 0 : if (findFragment != null) {
                 ft.show(findFragment);
             } else {
                 findFragment = new FindFragment();
                 ft.add(R.id.frame_layout, findFragment);
-            }*/
-                if (testFragment != null) {
-                    ft.show(testFragment);
-                } else {
-                    testFragment = new TestFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("textString", "");
-                    testFragment.setArguments(bundle);
-                    ft.add(R.id.frame_layout, testFragment);
-                }
+            }
                 break;
             case 1 : if (tradeSortFragment != null) {
                 ft.show(tradeSortFragment);
@@ -271,5 +272,26 @@ class MainPresenter implements IMainPresenter {
         Intent loginIntent=new Intent(context, LoginActivity.class);
         context.startActivity(loginIntent);
         context.finish();
+    }
+
+    @Override
+    public void onUsersReqComplete(Result<List<User>> result, Realm realm) {
+        if (!ResultInterceptor.instance.resultDataHandler(result)){//判断是否Result数据为空
+            return;
+        }
+        final List<User> userList = result.getData();
+        final RealmResults<User> results = realm.where(User.class).findAll();
+        realm.executeTransaction(new Realm.Transaction() {//清空数据
+            @Override
+            public void execute(Realm realm) {
+                results.deleteAllFromRealm();
+            }
+        });
+        realm.executeTransactionAsync(new Realm.Transaction() {//重新加载数据
+            @Override
+            public void execute(Realm realm) {
+                realm.copyToRealm(userList);
+            }
+        });
     }
 }
