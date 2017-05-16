@@ -56,6 +56,8 @@ class TradeTagDetailPresenter implements ITradeTagDetailPresenter, ITradeTagDeta
 
     @Override
     public void onComplete(final Result<List<Trade>> result) {
+        view.hideProgress();
+        view.hideRefresh();
         if (!ResultInterceptor.instance.resultDataHandler(result)){
             return;
         }
@@ -70,8 +72,6 @@ class TradeTagDetailPresenter implements ITradeTagDetailPresenter, ITradeTagDeta
                 viewHolder.setText(R.id.trade_tag_detail_original_price, "原价 ￥" + item.getOriginalPrice());
             }
         };
-        view.hideProgress();
-        view.hideRefresh();
         view.loadDataSuccess(adapter);
         adapter.setClickListener(new RecyclerCommonAdapter.OnItemClickListener() {
             @Override

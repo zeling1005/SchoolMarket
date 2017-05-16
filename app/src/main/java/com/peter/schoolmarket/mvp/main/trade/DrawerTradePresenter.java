@@ -55,6 +55,8 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
 
     @Override
     public void onComplete(final Result<List<Trade>> result) {
+        view.hideProgress();
+        view.hideRefresh();
         if (!ResultInterceptor.instance.resultDataHandler(result)){
             return;
         }
@@ -127,8 +129,6 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
                 }
             }
         };
-        view.hideProgress();
-        view.hideRefresh();
         view.loadDataSuccess(adapter);
     }
     private void initBoughtAdapter(final Result<List<Trade>> result) {
@@ -142,8 +142,6 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
                 viewHolder.setText(R.id.bought_item_original_price, "原价 ￥" + item.getOriginalPrice());
             }
         };
-        view.hideProgress();
-        view.hideRefresh();
         view.loadDataSuccess(adapter);
         adapter.setClickListener(new RecyclerCommonAdapter.OnItemClickListener() {
             @Override
@@ -183,8 +181,6 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
                 });
             }
         };
-        view.hideProgress();
-        view.hideRefresh();
         view.loadDataSuccess(adapter);
     }
     private void initSoldAdapter(final Result<List<Trade>> result) {
@@ -198,8 +194,6 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
                 viewHolder.setText(R.id.sold_item_original_price, "原价 ￥" + item.getOriginalPrice());
             }
         };
-        view.hideProgress();
-        view.hideRefresh();
         view.loadDataSuccess(adapter);
         adapter.setClickListener(new RecyclerCommonAdapter.OnItemClickListener() {
             @Override

@@ -17,26 +17,25 @@ public class BroadUtils extends BroadcastReceiver {
         String action = intent.getAction();
         //表明发送端就是发送的是CONNECTIVITY_ACTION这个动作
         if (ConnectivityManager.CONNECTIVITY_ACTION.equals(action)) {
-            if (isWifiNetConnected(context)) {
-                Toast.makeText(context, "连接上wifi了", Toast.LENGTH_SHORT);
-            } else if (isPhoneNetConnected(context)) {
-                Toast.makeText(context, "连接上手机网络了", Toast.LENGTH_SHORT).show();
+            if (isNetConnected(context)) {
+                Toast.makeText(context, "连接上网络了", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(context, "无网络连接", Toast.LENGTH_SHORT).show();
             }
+
+
         }
     }
     public static boolean isNetConnected(Context context) {
-        boolean ret = false;
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
         if (networkInfo == null) {
-            return ret;
+            return false;
+        } else {
+            return networkInfo.isAvailable() & networkInfo.isConnected();
         }
-        ret = networkInfo.isAvailable() & networkInfo.isConnected();
-        return ret;
     }
     public static boolean isPhoneNetConnected(Context context) {
         int typeMobile = ConnectivityManager.TYPE_MOBILE;//手机网络类型
@@ -47,15 +46,15 @@ public class BroadUtils extends BroadcastReceiver {
         return isNetworkConnected(context, typeMobile);
     }
     private static boolean isNetworkConnected(Context context, int typeMobile) {
-        boolean ret = false;
         if (!isNetConnected(context)) {
-            return ret;
+            return false;
         }
         ConnectivityManager connectManger = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectManger.getNetworkInfo(typeMobile);
         if (networkInfo == null) {
-            return ret;
+            return false;
+        } else {
+            return true;
         }
-        return ret;
     }
 }

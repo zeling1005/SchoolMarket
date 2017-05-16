@@ -135,9 +135,6 @@ class MainPresenter implements IMainPresenter, IMainListener {
             Intent tradeIntent=new Intent(context, DrawerTradeActivity.class);
             tradeIntent.putExtra("title",type);
             context.startActivity(tradeIntent);
-            /*Intent intent=new Intent(context, TestActivity.class);
-            intent.putExtra("textString",type);
-            context.startActivity(intent);*/
         }
     }
 

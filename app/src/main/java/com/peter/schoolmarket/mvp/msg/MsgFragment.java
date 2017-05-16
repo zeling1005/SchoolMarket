@@ -1,34 +1,16 @@
 package com.peter.schoolmarket.mvp.msg;
 
-import android.icu.text.LocaleDisplayNames;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.AndroidCharacter;
-import android.util.AndroidException;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.peter.schoolmarket.R;
 import com.peter.schoolmarket.adapter.recycler.RecyclerCommonAdapter;
-import com.peter.schoolmarket.data.dto.Result;
-import com.peter.schoolmarket.data.pojo.Msg;
 import com.peter.schoolmarket.mvp.base.BaseFragment;
-import com.peter.schoolmarket.mvp.main.MainActivity;
-import com.peter.schoolmarket.util.ResultInterceptor;
-
-import java.lang.ref.WeakReference;
-import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
 
 import io.realm.Realm;
 

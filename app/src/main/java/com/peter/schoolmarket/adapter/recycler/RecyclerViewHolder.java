@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.peter.schoolmarket.data.pojo.Msg;
 
 /**
  * Created by PetterChen on 2017/4/28.

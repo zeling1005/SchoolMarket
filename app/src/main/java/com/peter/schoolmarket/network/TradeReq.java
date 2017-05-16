@@ -23,11 +23,6 @@ import rx.Observable;
  */
 
 public interface TradeReq {
-
-    int GET_TAG=1;
-    int GET_NAME=2;
-
-
     /**
      * 发布商品
      */
@@ -68,73 +63,4 @@ public interface TradeReq {
             @Field("size") int size,
             @Field("myId") int myId
     );
-
-    //-------------我是分割线----------------------
-
-
-
-
-    /**
-     *
-     */
-    @POST(RetrofitConf.get_author_info)
-    @FormUrlEncoded
-    Observable<Result<User>> getAuthorInfo(
-            @Field("authorId") String authorId);
-
-
-    //----------我是分割线-------------------//
-
-    //创建交易(发起购买商品请求)
-    @POST(RetrofitConf.create_deal)
-    @FormUrlEncoded
-    Observable<Result<String>> createDeal(
-            @Field("fromId") String fromId,
-            @Field("fromName") String fromName,
-            @Field("fromAvatar") String fromAvatar,
-            @Field("tradeId") String tradeId
-    );
-
-    /**
-     * 获取分类列表请求(List<TradeTag>)
-     *
-     * kind设置为1
-     */
-    /*@GET(ApiConf.get_tags)
-    Observable<Result<List<TradeTag>>> tradeTags(@Query("type") int type);*/
-
-
-    /**
-     * 获取分类名称列表请求(List<String>)
-     *
-     * kind设置为2
-     */
-    /*@GET(ApiConf.get_tags)
-    Observable<Result<List<String>>> tagNames(@Query("type") int type);*/
-
-    /**
-     * 根据商品Id获取商品详细信息
-     */
-    /*@GET(ApiConf.get_trade)
-    Observable<Result<Trade>> tradeDetail(@Path("tradeId") String tradeId);*/
-
-    /**
-     * 根据学校名称获取本校在售商品列表
-     */
-    /*@GET(ApiConf.get_school_trades)
-    Observable<Result<List<Trade>>> getSchoolTrades(
-            @Path("schoolName")  String school,
-            @Query("page") int page,
-            @Query("size") int size
-    );*/
-
-    /**
-     * 根据志愿队名称获取收到捐赠的商品列表
-     */
-    /*@GET(ApiConf.get_team_trades)
-    Observable<Result<List<Trade>>> getTeamTrades(
-            @Path("teamName")  String school,
-            @Query("page") int page,
-            @Query("size") int size
-    );*/
 }
