@@ -1,6 +1,8 @@
 package com.peter.schoolmarket.mvp.msg;
 
 import android.content.Context;
+import android.icu.text.LocaleDisplayNames;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.peter.schoolmarket.data.dto.Result;
@@ -35,43 +37,95 @@ public class MsgModel implements IMsgModel {
                     @Override
                     public void onCompleted() {
                         final List<Msg> data = result.getData();
-                        if (result.getCode() != 100 || data == null){
+                        final RealmResults<Msg> results = realm.where(Msg.class).findAll();
+                        List<Msg> msgs = realm.copyFromRealm(results);
+                        /*if (!msgs.isEmpty()) {
+                            Log.d("getMsgsmsgs", msgs.get(0).toString());
+                        }*/
+                        realm.executeTransaction(new Realm.Transaction() {//清空数据
+                            @Override
+                            public void execute(Realm realm) {
+                                results.deleteAllFromRealm();
+                            }
+                        });
+                        if (result.getCode()!=100 || data==null){
                             listener.msgReqComplete(false);
                             return;
                         }
-                        /*for (int i = 0; i < data.size(); i++) {
-                            final Msg msg = data.get(i);
-                            realm.executeTransaction(new Realm.Transaction() {
-                                @Override
-                                public void execute(Realm realm) {
-                                    int id = ManageMsgCount.getInstance().getCount(context);
-                                    msg.setId(id);
-                                    realm.copyToRealm(msg);
-                                    ManageMsgCount.getInstance().saveCount(context, id + 1);
-                                }
-                            });
-
+                        //Async
+                        realm.executeTransaction(new Realm.Transaction() {//重新加载数据
+                            @Override
+                            public void execute(Realm realm) {
+                                realm.copyToRealm(data);
+                            }
+                        });
+                        listener.msgReqComplete(true);
+                        /*if (!data.isEmpty()) {
+                            Log.d("getMsgsdata", data.get(0).toString());
                         }*/
-                        final RealmResults<Msg> results = realm.where(Msg.class).findAll();
-                        List<Msg> msgs = realm.copyFromRealm(results);
-                        if ((data.size() == msgs.size()) && msgs.containsAll(data)) {
+                        /*final List<Msg> data = result.getData();
+                        if (result.getCode()!=100 || data==null){
                             listener.msgReqComplete(false);
-                            Toast.makeText(context, "值相等", Toast.LENGTH_SHORT).show();
-                        } else {
+                            return;
+                        }
+
+                        final RealmResults<Msg> results = realm.where(Msg.class).findAll();
+                        realm.executeTransaction(new Realm.Transaction() {//清空数据
+                            @Override
+                            public void execute(Realm realm) {
+                                results.deleteAllFromRealm();
+                            }
+                        });
+                        realm.executeTransactionAsync(new Realm.Transaction() {//重新加载数据
+                            @Override
+                            public void execute(Realm realm) {
+                                realm.copyToRealm(data);
+                            }
+                        });
+                        listener.msgReqComplete(true);*/
+
+                        /*if (result.getCode() != 100) {
+                            listener.msgReqComplete(false);
+                            return;
+                        } else if (data == null) {
+                            final RealmResults<Msg> results = realm.where(Msg.class).findAll();
                             realm.executeTransaction(new Realm.Transaction() {//清空数据
                                 @Override
                                 public void execute(Realm realm) {
                                     results.deleteAllFromRealm();
                                 }
                             });
-                            realm.executeTransactionAsync(new Realm.Transaction() {//重新加载数据
-                                @Override
-                                public void execute(Realm realm) {
-                                    realm.copyToRealm(data);
+                            listener.msgReqComplete(false);
+                        } else {
+                            final RealmResults<Msg> results = realm.where(Msg.class).findAll();
+                            List<Msg> msgs = realm.copyFromRealm(results);
+                            boolean flag = true;
+                            if (msgs.size() == data.size()) {
+                                for (int i = 0; i < msgs.size(); i++) {
+                                    if (!msgs.get(i).getContent().equals(data.get(i).getContent())) {
+                                        flag = false;
+                                    }
                                 }
-                            });
-                            listener.msgReqComplete(true);
-                        }
+                            }
+
+                            if (flag) {
+                                listener.msgReqComplete(false);
+                            } else {
+                                realm.executeTransaction(new Realm.Transaction() {//清空数据
+                                    @Override
+                                    public void execute(Realm realm) {
+                                        results.deleteAllFromRealm();
+                                    }
+                                });
+                                realm.executeTransactionAsync(new Realm.Transaction() {//重新加载数据
+                                    @Override
+                                    public void execute(Realm realm) {
+                                        realm.copyToRealm(data);
+                                    }
+                                });
+                                listener.msgReqComplete(true);
+                            }
+                        }*/
                     }
 
                     @Override

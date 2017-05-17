@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -68,6 +69,10 @@ public class MsgFragment extends BaseFragment implements IMsgView {
         intentFilter = new IntentFilter();
         intentFilter.addAction(MsgFragment.MY_BROADCAST_ACTION);
         receiver = new MsgChangeReceiver();
+
+        Intent startIntent = new Intent(getActivity(), MsgService.class);
+        getActivity().startService(startIntent); // 启动服务
+
         getActivity().registerReceiver(receiver, intentFilter);
     }
 
@@ -85,11 +90,13 @@ public class MsgFragment extends BaseFragment implements IMsgView {
     }
 
     private void recyclerViewChange() {
+        //Log.d("getMsgsmsgs", "recyclerViewChange()");
         presenter.updateList();
     }
 
     @Override
     public void loadDataSuccess(RecyclerCommonAdapter<?> adapter) {
+        //Log.d("getMsgsmsgs", "loadDataSuccess()");
         recyclerView.setAdapter(adapter);
     }
 
@@ -97,6 +104,7 @@ public class MsgFragment extends BaseFragment implements IMsgView {
         @Override
         public void onReceive(Context context, Intent intent) {
             //Toast.makeText(context, "msg changes", Toast.LENGTH_SHORT).show();
+            //Log.d("getMsgsmsgs", "Presenter执行广播");
             recyclerViewChange();
         }
     }
@@ -126,6 +134,10 @@ public class MsgFragment extends BaseFragment implements IMsgView {
     public void onDestroy() {
         super.onDestroy();
         getActivity().unregisterReceiver(receiver);
+
+        Intent stopIntent = new Intent(getActivity(), MsgService.class);
+        getActivity().stopService(stopIntent); // 停止服务
+
         realm.close();
     }
 

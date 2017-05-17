@@ -12,6 +12,7 @@ import com.peter.schoolmarket.network.ReqExecutor;
 import java.util.List;
 
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -46,6 +47,90 @@ public class DrawerTradeModel implements IDrawerTradeModel {
                     }
                     @Override
                     public void onNext(Result<List<Trade>> listResult) {
+                        result.setCode(listResult.getCode());
+                        result.setMsg(listResult.getMsg());
+                        result.setData(listResult.getData());
+                    }
+                });
+    }
+
+    @Override
+    public void confirmReceiveTrade(final IDrawerTradeListener listener, int myId, int tradeId) {
+        final Result<String> result = new Result<String>().result(NetReturn.SERVER_ERROR);
+        ReqExecutor
+                .INSTANCE()
+                .tradeReq()
+                .confirmTrade(myId, tradeId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Result<String>>() {
+                    @Override
+                    public void onCompleted() {
+                        listener.confirmComplete(result);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        listener.confirmComplete(result);
+                    }
+                    @Override
+                    public void onNext(Result<String> listResult) {
+                        result.setCode(listResult.getCode());
+                        result.setMsg(listResult.getMsg());
+                        result.setData(listResult.getData());
+                    }
+                });
+    }
+
+    @Override
+    public void confirmReceiveMoney(final IDrawerTradeListener listener, int myId, int tradeId) {
+        final Result<String> result = new Result<String>().result(NetReturn.SERVER_ERROR);
+        ReqExecutor
+                .INSTANCE()
+                .tradeReq()
+                .confirmMoney(myId, tradeId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Result<String>>() {
+                    @Override
+                    public void onCompleted() {
+                        listener.confirmComplete(result);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        listener.confirmComplete(result);
+                    }
+                    @Override
+                    public void onNext(Result<String> listResult) {
+                        result.setCode(listResult.getCode());
+                        result.setMsg(listResult.getMsg());
+                        result.setData(listResult.getData());
+                    }
+                });
+    }
+
+    @Override
+    public void cancelOrder(final IDrawerTradeListener listener, int tradeId) {
+        final Result<String> result = new Result<String>().result(NetReturn.SERVER_ERROR);
+        ReqExecutor
+                .INSTANCE()
+                .tradeReq()
+                .cancelOrder(tradeId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Result<String>>() {
+                    @Override
+                    public void onCompleted() {
+                        listener.confirmComplete(result);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        listener.confirmComplete(result);
+                    }
+                    @Override
+                    public void onNext(Result<String> listResult) {
                         result.setCode(listResult.getCode());
                         result.setMsg(listResult.getMsg());
                         result.setData(listResult.getData());

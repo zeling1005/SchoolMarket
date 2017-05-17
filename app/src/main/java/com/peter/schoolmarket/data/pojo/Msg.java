@@ -12,6 +12,7 @@ import io.realm.annotations.PrimaryKey;
 public class Msg extends RealmObject implements Serializable {
     @PrimaryKey
     private int id;
+    private int tradeId;
     private int authorId;
     private String title;
     private String content;
@@ -23,6 +24,14 @@ public class Msg extends RealmObject implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getTradeId() {
+        return tradeId;
+    }
+
+    public void setTradeId(int tradeId) {
+        this.tradeId = tradeId;
     }
 
     public int getAuthorId() {
@@ -55,5 +64,16 @@ public class Msg extends RealmObject implements Serializable {
 
     public void setCreateTime(long createTime) {
         this.createTime = createTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Msg{" +
+                "id=" + id +
+                ", authorId=" + authorId +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", createTime=" + createTime +
+                '}';
     }
 }

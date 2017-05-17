@@ -6,4 +6,5 @@ package com.peter.schoolmarket.mvp.main;
 
 public interface IMainView {
     void hideDrawer();
+    void exit();
 }

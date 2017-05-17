@@ -90,6 +90,10 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
+        <activity android:name=".mvp.msg.detail.MsgDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
         <!-- 注册广播 -->
         <receiver android:name=".util.BroadUtils">
             <intent-filter>
@@ -98,9 +102,9 @@
         </receiver>
 
         <service android:name=".mvp.msg.MsgService">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="com.peter.schoolmarket.mvp.msg.MsgService"/>
-            </intent-filter>
+            </intent-filter>-->
         </service>
 
     </application>

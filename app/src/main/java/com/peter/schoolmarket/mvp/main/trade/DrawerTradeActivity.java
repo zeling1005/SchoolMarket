@@ -123,4 +123,14 @@ public class DrawerTradeActivity extends BaseActivity implements IDrawerTradeVie
             progress.dismiss();
         }
     }
+
+    @Override
+    public void confirmSuccess(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void confirmFail(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
 }

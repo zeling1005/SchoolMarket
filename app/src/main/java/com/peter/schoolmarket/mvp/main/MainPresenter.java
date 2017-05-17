@@ -257,10 +257,7 @@ class MainPresenter implements IMainPresenter, IMainListener {
     }
 
     private void logout(){
-        LoginInfoExecutor.logOut(context);
-        Intent loginIntent=new Intent(context, LoginActivity.class);
-        context.startActivity(loginIntent);
-        context.finish();
+        view.exit();
     }
 
     @Override
@@ -276,7 +273,8 @@ class MainPresenter implements IMainPresenter, IMainListener {
                 results.deleteAllFromRealm();
             }
         });
-        realm.executeTransactionAsync(new Realm.Transaction() {//重新加载数据
+        //Async
+        realm.executeTransaction(new Realm.Transaction() {//重新加载数据
             @Override
             public void execute(Realm realm) {
                 realm.copyToRealm(userList);

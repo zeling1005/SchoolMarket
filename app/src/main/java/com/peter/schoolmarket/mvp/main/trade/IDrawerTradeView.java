@@ -12,4 +12,6 @@ public interface IDrawerTradeView {
     void hideRefresh();
     void showProgress();
     void hideProgress();
+    void confirmSuccess(String msg);
+    void confirmFail(String msg);
 }

@@ -73,4 +73,24 @@ public interface TradeReq {
             @Field("userId") int userId,
             @Field("tradeId") int tradeId
     );
+
+    @POST(RetrofitConf.confirm_trade)
+    @FormUrlEncoded
+    Observable<Result<String>> confirmTrade(
+            @Field("userId") int userId,
+            @Field("tradeId") int tradeId
+    );
+
+    @POST(RetrofitConf.confirm_money)
+    @FormUrlEncoded
+    Observable<Result<String>> confirmMoney(
+            @Field("userId") int userId,
+            @Field("tradeId") int tradeId
+    );
+
+    @POST(RetrofitConf.cancel_order)
+    @FormUrlEncoded
+    Observable<Result<String>> cancelOrder(
+            @Field("tradeId") int tradeId
+    );
 }

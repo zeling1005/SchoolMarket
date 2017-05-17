@@ -78,6 +78,23 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
         }
     }
 
+    @Override
+    public void confirmComplete(Result<String> result) {
+        view.hideProgress();
+        switch (result.getCode()) {
+            case 100://操作成功
+                //loginRegisterView.loginSuccess();
+                view.confirmSuccess(result.getData());
+                break;
+            case 99://网络异常或者系统错误
+                //loginRegisterView.loginFailed(result.getMsg());
+                view.confirmFail(result.getMsg());
+                break;
+            default:
+                break;
+        }
+    }
+
     private void initBuyingAdapter(final Result<List<Trade>> result) {
         RecyclerCommonAdapter<?> adapter=new RecyclerCommonAdapter<Trade>(context,result.getData(), R.layout.drawer_trade_buying_item) {
             @Override
@@ -103,13 +120,15 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
                     viewHolder.setOnClickListener(R.id.buying_item_confirm, new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(context, "确认收款", Toast.LENGTH_SHORT).show();
+                            model.confirmReceiveMoney(DrawerTradePresenter.this, myId, item.getId());
+                            //Toast.makeText(context, "确认收款", Toast.LENGTH_SHORT).show();
                         }
                     });
                     viewHolder.setOnClickListener(R.id.buying_item_cancel, new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(context, "cancel", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(context, "cancel", Toast.LENGTH_SHORT).show();
+                            model.cancelOrder(DrawerTradePresenter.this, item.getId());
                         }
                     });
                 } else {
@@ -117,13 +136,16 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
                     viewHolder.setOnClickListener(R.id.buying_item_confirm, new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(context, "确认收货", Toast.LENGTH_SHORT).show();
+                            model.confirmReceiveTrade(DrawerTradePresenter.this, myId, item.getId());
+
+                            //Toast.makeText(context, "确认收货", Toast.LENGTH_SHORT).show();
                         }
                     });
                     viewHolder.setOnClickListener(R.id.buying_item_cancel, new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(context, "cancel", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(context, "cancel", Toast.LENGTH_SHORT).show();
+                            model.cancelOrder(DrawerTradePresenter.this, item.getId());
                         }
                     });
                 }

@@ -28,5 +28,8 @@ public interface RetrofitConf {
     String get_tag_trades="SchoolMarketServer/GetTagTrades";//获取该分类下所有商品列表
     String get_drawer_trades = "SchoolMarketServer/GetDrawerTrades";
     String place_order = "SchoolMarketServer/PlaceOrder";//下单
+    String confirm_trade = "SchoolMarketServer/ConfirmTrade";
+    String confirm_money = "SchoolMarketServer/ConfirmMoney";
+    String cancel_order = "SchoolMarketServer/CancelOrder";
 
 }

@@ -111,7 +111,8 @@ public class MorePresenter implements IMorePresenter, IMoreListener {
                 results.deleteAllFromRealm();
             }
         });
-        realm.executeTransactionAsync(new Realm.Transaction() {//重新加载数据
+        //Async
+        realm.executeTransaction(new Realm.Transaction() {//重新加载数据
             @Override
             public void execute(Realm realm) {
                 realm.copyToRealm(noticeList);
