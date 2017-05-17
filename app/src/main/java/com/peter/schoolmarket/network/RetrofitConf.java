@@ -15,6 +15,7 @@ public interface RetrofitConf {
     String register="SchoolMarketServer/Register";//用户注册+
     String register_next="SchoolMarketServer/RegisterNext";//用户注册下一步，设置学校，手机号+
     String get_users="SchoolMarketServer/GetUsers";
+    String get_msgs = "SchoolMarketServer/GetMsgs";
 
     //----------------------------notice----------------------------
     String get_notices_data = "SchoolMarketServer/GetNotices";//获取notice 数据
@@ -26,5 +27,6 @@ public interface RetrofitConf {
     String get_trades="SchoolMarketServer/GetTrades";//获取该学校的商品列表
     String get_tag_trades="SchoolMarketServer/GetTagTrades";//获取该分类下所有商品列表
     String get_drawer_trades = "SchoolMarketServer/GetDrawerTrades";
+    String place_order = "SchoolMarketServer/PlaceOrder";//下单
 
 }

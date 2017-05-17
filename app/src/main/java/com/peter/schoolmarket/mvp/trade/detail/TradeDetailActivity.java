@@ -15,10 +15,13 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.peter.schoolmarket.R;
 import com.peter.schoolmarket.application.AppConf;
+import com.peter.schoolmarket.data.pojo.Msg;
 import com.peter.schoolmarket.data.pojo.Trade;
 import com.peter.schoolmarket.data.pojo.User;
 import com.peter.schoolmarket.data.storage.LoginInfoExecutor;
 import com.peter.schoolmarket.mvp.base.BaseActivity;
+import com.peter.schoolmarket.mvp.msg.ManageMsgCount;
+import com.peter.schoolmarket.mvp.msg.MsgFragment;
 import com.peter.schoolmarket.network.RetrofitConf;
 
 import io.realm.Realm;
@@ -95,27 +98,44 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
                 Toast.makeText(TradeDetailActivity.this, "jump send msg", Toast.LENGTH_SHORT).show();
             }
         });
+        sendMsg.setVisibility(View.GONE);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //String myId= LoginInfoExecutor.getUser(TradeDetailActivity.this).getId();
-                /*if (!(trade.getAuthorId()).equals(myId)){
-                    //下单操作
-                }*/
-                new MaterialDialog.Builder(TradeDetailActivity.this)
-                        .title("确认下单？")
-                        .content("请在确认下单之后联系卖家！")
-                        .positiveText("确定")
-                        .negativeText("取消")
-                        .onPositive(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                //执行下单操作
-                                //presenter.placeOrder(trade.getId());
-                                Toast.makeText(TradeDetailActivity.this, "submit", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .show();
+                int myId= LoginInfoExecutor.getUser(TradeDetailActivity.this).getId();
+                if (trade.getAuthorId() == myId){
+                    Toast.makeText(TradeDetailActivity.this, "无法购买自己的商品！", Toast.LENGTH_SHORT).show();
+                } else {
+                    new MaterialDialog.Builder(TradeDetailActivity.this)
+                            .title("确认下单？")
+                            .content("请在确认下单之后联系卖家！")
+                            .positiveText("确定")
+                            .negativeText("取消")
+                            .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                    //执行下单操作
+                                    final Msg msg =new Msg();
+                                    msg.setTitle("下单消息");
+                                    msg.setContent("恭喜您成功下单，订单商品为：\"" + trade.getTitle() + "\"");
+                                    msg.setCreateTime(System.currentTimeMillis());
+                                    realm.executeTransaction(new Realm.Transaction() {
+                                        @Override
+                                        public void execute(Realm realm) {
+                                            int id = ManageMsgCount.getInstance().getCount(TradeDetailActivity.this);
+                                            msg.setId(id);
+                                            realm.copyToRealm(msg);
+                                            ManageMsgCount.getInstance().saveCount(TradeDetailActivity.this, id + 1);
+                                        }
+                                    });
+                                    Intent intent = new Intent(MsgFragment.MY_BROADCAST_ACTION);
+                                    sendBroadcast(intent);
+                                    presenter.placeOrder(trade.getId());
+                                    //Toast.makeText(TradeDetailActivity.this, "submit", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .show();
+                }
             }
         });
         presenter.loadTradeData(trade);

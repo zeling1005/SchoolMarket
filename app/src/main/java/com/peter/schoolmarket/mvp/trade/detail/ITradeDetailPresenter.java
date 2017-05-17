@@ -8,5 +8,5 @@ import com.peter.schoolmarket.data.pojo.Trade;
 
 public interface ITradeDetailPresenter {
     void loadTradeData(final Trade trade);
-    void placeOrder(String tradeId);
+    void placeOrder(int tradeId);
 }

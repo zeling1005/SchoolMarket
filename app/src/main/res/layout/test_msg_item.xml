@@ -5,19 +5,11 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/test_item_name"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@drawable/square_pic_selector"
-        android:orientation="vertical">
-
-
-    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="10dp">
 
         <TextView
             android:id="@+id/test_msg_title"
@@ -51,7 +43,7 @@
         android:id="@+id/test_msg_content"
         android:layout_width="match_parent"
         android:layout_height="24dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginEnd="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
@@ -64,13 +56,9 @@
         android:textColor="#616161"
         android:textSize="@dimen/font_size_normal" />
 
-    </LinearLayout>
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/colorNormalBackground" />
 
 </LinearLayout>
-
-

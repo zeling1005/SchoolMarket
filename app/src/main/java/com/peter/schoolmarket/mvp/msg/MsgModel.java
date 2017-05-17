@@ -1,69 +1,68 @@
 package com.peter.schoolmarket.mvp.msg;
 
+import android.content.Context;
+
+import com.peter.schoolmarket.data.dto.Result;
+import com.peter.schoolmarket.data.pojo.Msg;
+import com.peter.schoolmarket.data.pojo.Order;
+import com.peter.schoolmarket.network.ReqExecutor;
+
+import java.util.List;
+
+import io.realm.Realm;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
 /**
  * Created by PetterChen on 2017/5/6.
  */
 
 public class MsgModel implements IMsgModel {
-        /*new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    //在子线程中初始化Socket对象
-                    socket=new Socket(AppConf.IP, AppConf.PORT);
-                    //socket.setSoTimeout(5000);
-                    //根据clientSocket.getInputStream得到BufferedReader对象，从而从输入流中获取数据
-                    BufferedReader mReader=new BufferedReader(new InputStreamReader(socket.getInputStream(),"utf-8"));
-                    while(isReceivingMsgReady){
-                        if(mReader.ready()){
-                            Message msg = handler.obtainMessage();
-                            msg.what=2;
-                            msg.obj=mReader.readLine();
-                            handler.sendMessage(msg);
+
+    @Override
+    public void msgDataReq(final IMsgListener listener, final Realm realm, int userId, final Context context) {
+        final Result<List<Msg>> result = new Result<>();
+        ReqExecutor
+                .INSTANCE()
+                .userReq()
+                .getMsgs(userId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Result<List<Msg>>>() {
+                    @Override
+                    public void onCompleted() {
+                        List<Msg> data = result.getData();
+                        if (result.getCode() != 100 || data == null){
+                            listener.msgReqComplete(false);
+                            return;
                         }
-                        Thread.sleep(200);
+                        for (int i = 0; i < data.size(); i++) {
+                            final Msg msg = data.get(i);
+                            realm.executeTransaction(new Realm.Transaction() {
+                                @Override
+                                public void execute(Realm realm) {
+                                    int id = ManageMsgCount.getInstance().getCount(context);
+                                    msg.setId(id);
+                                    realm.copyToRealm(msg);
+                                    ManageMsgCount.getInstance().saveCount(context, id + 1);
+                                }
+                            });
+
+                        }
+                        listener.msgReqComplete(true);
                     }
-                    mReader.close();
-                    socket.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
 
-            }
-        }).start();*/
+                    @Override
+                    public void onError(Throwable e) {
 
-    /*private final MyHandler mHandler = new MyHandler((MainActivity)getActivity());
-    static class MyHandler extends Handler {
-        private final WeakReference<MainActivity> mActivity;
-
-        MyHandler(MainActivity activity) {
-            mActivity = new WeakReference<>(activity);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            MainActivity activity = mActivity.get();
-            if (activity != null) {
-                switch (msg.what) {
-                    case 1:
-                        *//*String msgContent=(String) msg.obj;
-                        sb.append("我："+msgContent+"\n");
-                        tvContent.setText(sb.toString());*//*
-                        break;
-                    case 2:
-                        String json = (String) msg.obj;
-                        Result<Msg> result = new Gson().fromJson(json, new TypeToken<Result<Msg>>(){}.getType());
-                        if (ResultInterceptor.instance.resultHandler(result)) {
-                            if (result.getCode() == 101) {
-                                Toast.makeText(activity, "服务器连接成功", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Msg msg1 = result.getData();
-                                msgs.add(msg1);
-                            }
-                        }
-                        break;
-                }
-            }
-        }
-    }*/
+                    }
+                    @Override
+                    public void onNext(Result<List<Msg>> listResult) {
+                        result.setCode(listResult.getCode());
+                        result.setMsg(listResult.getMsg());
+                        result.setData(listResult.getData());
+                    }
+                });
+    }
 }

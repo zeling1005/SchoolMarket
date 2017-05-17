@@ -23,6 +23,7 @@ import com.peter.schoolmarket.mvp.login.LoginActivity;
 import com.peter.schoolmarket.mvp.main.about.AboutActivity;
 import com.peter.schoolmarket.mvp.main.trade.DrawerTradeActivity;
 import com.peter.schoolmarket.mvp.more.MoreFragment;
+import com.peter.schoolmarket.mvp.msg.MsgFragment;
 import com.peter.schoolmarket.mvp.sort.TradeSortFragment;
 import com.peter.schoolmarket.mvp.test.TestFragment;
 import com.peter.schoolmarket.network.RetrofitConf;
@@ -47,6 +48,7 @@ class MainPresenter implements IMainPresenter, IMainListener {
     private TestFragment testFragment;
     private FindFragment findFragment;
     private MoreFragment moreFragment;
+    private MsgFragment msgFragment;
     private TradeSortFragment tradeSortFragment;
     private IMainView view;
     //private Realm realmDefault;
@@ -207,15 +209,21 @@ class MainPresenter implements IMainPresenter, IMainListener {
                 ft.add(R.id.frame_layout, tradeSortFragment);
             }
                 break;
-            case 2 : if (testFragment != null) {
+            case 2 : if (msgFragment != null) {
+                ft.show(msgFragment);
+            } else {
+                msgFragment = new MsgFragment();
+                ft.add(R.id.frame_layout, msgFragment);
+            }
+            /*if (testFragment != null) {
                 ft.show(testFragment);
             } else {
                 testFragment = new TestFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("textString", "");
+                bundle.putString("textString", "textString");
                 testFragment.setArguments(bundle);
                 ft.add(R.id.frame_layout, testFragment);
-            }
+            }*/
                 break;
             case 3 : if (moreFragment != null) {
                 ft.show(moreFragment);
@@ -242,6 +250,9 @@ class MainPresenter implements IMainPresenter, IMainListener {
         }
         if (moreFragment != null) {
             ft.hide(moreFragment);
+        }
+        if (msgFragment != null) {
+            ft.hide(msgFragment);
         }
     }
 

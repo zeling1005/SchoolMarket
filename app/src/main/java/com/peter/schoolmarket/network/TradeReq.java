@@ -63,4 +63,14 @@ public interface TradeReq {
             @Field("size") int size,
             @Field("myId") int myId
     );
+
+    /**
+     * 下单
+     */
+    @POST(RetrofitConf.place_order)
+    @FormUrlEncoded
+    Observable<Result<String>> placeOrder(
+            @Field("userId") int userId,
+            @Field("tradeId") int tradeId
+    );
 }

@@ -97,6 +97,12 @@
             </intent-filter>
         </receiver>
 
+        <service android:name=".mvp.msg.MsgService">
+            <intent-filter>
+                <action android:name="com.peter.schoolmarket.mvp.msg.MsgService"/>
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

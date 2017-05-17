@@ -1,6 +1,8 @@
 package com.peter.schoolmarket.network;
 
 import com.peter.schoolmarket.data.dto.Result;
+import com.peter.schoolmarket.data.pojo.Msg;
+import com.peter.schoolmarket.data.pojo.Order;
 import com.peter.schoolmarket.data.pojo.User;
 
 import java.util.List;
@@ -49,5 +51,11 @@ public interface UserReq {
 
     @GET(RetrofitConf.get_users)
     Observable<Result<List<User>>> getUsers();
+
+    @POST(RetrofitConf.get_msgs)
+    @FormUrlEncoded
+    Observable<Result<List<Msg>>> getMsgs(
+            @Field("userId")  int userId);
+
 
 }

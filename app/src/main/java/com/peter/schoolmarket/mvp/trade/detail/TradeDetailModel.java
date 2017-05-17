@@ -15,16 +15,16 @@ import rx.schedulers.Schedulers;
 
 public class TradeDetailModel implements ITradeDetailModel {
     @Override
-    public void placeOrderReq(final ITradeDetailListener listener, User user, String tradeId) {
+    public void placeOrderReq(final ITradeDetailListener listener, User user, int tradeId) {
         /*if (AppConf.useMock){
             return;
         }*/
 
         final Result<String> result =new Result<String>().result(NetReturn.SERVER_ERROR);
-        /*ReqExecutor
+        ReqExecutor
                 .INSTANCE()
                 .tradeReq()
-                .createDeal(user.getId(),user.getUsername(),user.getAvatarUrl(),tradeId)
+                .placeOrder(user.getId(),tradeId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Result<String>>() {
@@ -42,6 +42,6 @@ public class TradeDetailModel implements ITradeDetailModel {
                         result.setCode(tradeResult.getCode());
                         result.setMsg(tradeResult.getMsg());
                     }
-                });*/
+                });
     }
 }

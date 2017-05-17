@@ -34,7 +34,7 @@ public class TradeDetailPresenter implements ITradeDetailPresenter, ITradeDetail
     }
 
     @Override
-    public void placeOrder(String tradeId) {
+    public void placeOrder(int tradeId) {
         view.showProgress();
         User user= LoginInfoExecutor.getUser(context);
         model.placeOrderReq(this, user, tradeId);

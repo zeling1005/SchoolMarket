@@ -9,6 +9,6 @@ import com.peter.schoolmarket.adapter.recycler.RecyclerCommonAdapter;
 public interface IMsgView {
     void showProgress();
     void hideProgress();
-    void presenterInitSuccess(RecyclerCommonAdapter<?> adapter);
     void hideRefresh();
+    void loadDataSuccess(RecyclerCommonAdapter<?> adapter);
 }

@@ -8,5 +8,5 @@ import com.peter.schoolmarket.data.pojo.User;
  */
 
 public interface ITradeDetailModel {
-    void placeOrderReq(ITradeDetailListener listener, User user, String tradeId);
+    void placeOrderReq(ITradeDetailListener listener, User user, int tradeId);
 }

@@ -26,7 +26,10 @@ import android.widget.Toast;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.peter.schoolmarket.R;
+import com.peter.schoolmarket.application.AppConf;
 import com.peter.schoolmarket.mvp.base.BaseActivity;
+import com.peter.schoolmarket.mvp.msg.MsgService;
+import com.peter.schoolmarket.util.PollingUtils;
 
 import java.util.ArrayList;
 
@@ -55,6 +58,7 @@ public class MainActivity extends BaseActivity implements IMainView{
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         headerLayout= navigationView.inflateHeaderView(R.layout.main_nav_header);
         realm=Realm.getDefaultInstance();
+        PollingUtils.startPollingService(this, 5, MsgService.class, MsgService.ACTION);
     }
 
     private void manageVariate() {
@@ -109,6 +113,7 @@ public class MainActivity extends BaseActivity implements IMainView{
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        PollingUtils.stopPollingService(this, MsgService.class, MsgService.ACTION);
         realm.close();
     }
 

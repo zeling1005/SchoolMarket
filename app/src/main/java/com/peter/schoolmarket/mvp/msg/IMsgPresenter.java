@@ -9,6 +9,7 @@ import io.realm.Realm;
  */
 
 public interface IMsgPresenter {
-    void refresh(Realm realm);//刷新功能，但是好像不太需要，因为消息是实时的,断网之后重新连接还是需要的
-    void init(Realm realm);//初始化消息数据
+    void refresh();//刷新功能，但是好像不太需要，因为消息是实时的,断网之后重新连接还是需要的
+    void init();//初始化消息数据
+    void updateList();
 }

@@ -5,5 +5,5 @@ package com.peter.schoolmarket.mvp.msg;
  */
 
 public interface IMsgListener {
-
+    void msgReqComplete(boolean flag);
 }

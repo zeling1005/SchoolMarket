@@ -14,7 +14,7 @@ public interface AppConf {
 
     String BASE_URL="http://118.202.41.83:8080/";//服务器的地址及端口118.202.41.83
 
-    long Message_Interval=30L;//轮询获取消息的时间间隔.(秒)
+    long Msg_Interval=30L;//轮询获取消息的时间间隔.(秒)
 
     int size=8;//每个页面加载的数据长度
 
