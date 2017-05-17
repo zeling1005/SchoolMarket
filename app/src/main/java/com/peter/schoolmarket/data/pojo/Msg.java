@@ -12,6 +12,7 @@ import io.realm.annotations.PrimaryKey;
 public class Msg extends RealmObject implements Serializable {
     @PrimaryKey
     private int id;
+    private int authorId;
     private String title;
     private String content;
     private long createTime;
@@ -22,6 +23,14 @@ public class Msg extends RealmObject implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(int authorId) {
+        this.authorId = authorId;
     }
 
     public String getTitle() {

@@ -115,7 +115,7 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                     //执行下单操作
-                                    final Msg msg =new Msg();
+                                    /*final Msg msg =new Msg();
                                     msg.setTitle("下单消息");
                                     msg.setContent("恭喜您成功下单，订单商品为：\"" + trade.getTitle() + "\"");
                                     msg.setCreateTime(System.currentTimeMillis());
@@ -129,7 +129,7 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
                                         }
                                     });
                                     Intent intent = new Intent(MsgFragment.MY_BROADCAST_ACTION);
-                                    sendBroadcast(intent);
+                                    sendBroadcast(intent);*/
                                     presenter.placeOrder(trade.getId());
                                     //Toast.makeText(TradeDetailActivity.this, "submit", Toast.LENGTH_SHORT).show();
                                 }
