@@ -41,6 +41,7 @@ public class TradeDetailModel implements ITradeDetailModel {
                     public void onNext(Result<String> tradeResult) {
                         result.setCode(tradeResult.getCode());
                         result.setMsg(tradeResult.getMsg());
+                        result.setData(tradeResult.getData());
                     }
                 });
     }

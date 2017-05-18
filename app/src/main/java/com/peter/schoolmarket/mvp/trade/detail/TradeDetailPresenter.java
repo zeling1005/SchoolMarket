@@ -44,9 +44,9 @@ public class TradeDetailPresenter implements ITradeDetailPresenter, ITradeDetail
     public void placeOrderComplete(Result<String> result) {
         view.hideProgress();
         if (ResultInterceptor.instance.resultHandler(result)){
-            view.showPlaceOrderSuc();
+            view.showPlaceOrderReqSuc(result.getData());
         }else {
-            view.showPlaceOrderFail();
+            view.showPlaceOrderReqFail();
         }
     }
 }

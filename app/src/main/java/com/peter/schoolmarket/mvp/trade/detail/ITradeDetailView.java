@@ -7,8 +7,8 @@ import com.peter.schoolmarket.data.pojo.Trade;
  */
 
 public interface ITradeDetailView {
-    void showPlaceOrderSuc();
-    void showPlaceOrderFail();
+    void showPlaceOrderReqSuc(String msg);
+    void showPlaceOrderReqFail();
     void loadTradeSuccess(final Trade trade);
     void showProgress();
     void hideProgress();

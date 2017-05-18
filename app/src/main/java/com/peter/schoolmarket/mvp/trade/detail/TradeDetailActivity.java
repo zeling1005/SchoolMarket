@@ -145,13 +145,13 @@ public class TradeDetailActivity extends BaseActivity implements ITradeDetailVie
     }
 
     @Override
-    public void showPlaceOrderSuc() {
-        Toast.makeText(this, "下单成功", Toast.LENGTH_LONG ).show();
+    public void showPlaceOrderReqSuc(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG ).show();
     }
 
     @Override
-    public void showPlaceOrderFail() {
-        Toast.makeText(this, "下单失败", Toast.LENGTH_LONG ).show();
+    public void showPlaceOrderReqFail() {
+        Toast.makeText(this, "网络异常或者系统错误", Toast.LENGTH_LONG ).show();
     }
 
     @Override

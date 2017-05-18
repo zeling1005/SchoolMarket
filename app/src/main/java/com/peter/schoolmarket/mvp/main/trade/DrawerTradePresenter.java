@@ -85,6 +85,8 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
             case 100://操作成功
                 //loginRegisterView.loginSuccess();
                 view.confirmSuccess(result.getData());
+                view.showProgress();
+                model.drawerTradeDataReq(this, typeId, page, myId);
                 break;
             case 99://网络异常或者系统错误
                 //loginRegisterView.loginFailed(result.getMsg());
@@ -116,38 +118,50 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
                     }
                 });
                 if (item.getAuthorId() == myId) {
-                    viewHolder.setText(R.id.buying_item_confirm, "确认收款");
-                    viewHolder.setOnClickListener(R.id.buying_item_confirm, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            model.confirmReceiveMoney(DrawerTradePresenter.this, myId, item.getId());
-                            //Toast.makeText(context, "确认收款", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    viewHolder.setOnClickListener(R.id.buying_item_cancel, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            //Toast.makeText(context, "cancel", Toast.LENGTH_SHORT).show();
-                            model.cancelOrder(DrawerTradePresenter.this, item.getId());
-                        }
-                    });
+                    if (item.getStatus() == 3) {//2==确认收款成功
+                        viewHolder.getView(R.id.buying_confirm_cancel).setVisibility(View.GONE);
+                        viewHolder.getView(R.id.buying_confirm_later).setVisibility(View.VISIBLE);
+                        viewHolder.setText(R.id.buying_confirm_later_text, "等待对方确认收货");
+                    } else {
+                        viewHolder.setText(R.id.buying_item_confirm, "确认收款");
+                        viewHolder.setOnClickListener(R.id.buying_item_confirm, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                model.confirmReceiveMoney(DrawerTradePresenter.this, myId, item.getId());
+                                //Toast.makeText(context, "确认收款", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        viewHolder.setOnClickListener(R.id.buying_item_cancel, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                //Toast.makeText(context, "cancel", Toast.LENGTH_SHORT).show();
+                                model.cancelOrder(DrawerTradePresenter.this, item.getId());
+                            }
+                        });
+                    }
                 } else {
-                    viewHolder.setText(R.id.buying_item_confirm, "确认收货");
-                    viewHolder.setOnClickListener(R.id.buying_item_confirm, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            model.confirmReceiveTrade(DrawerTradePresenter.this, myId, item.getId());
+                    if (item.getStatus() == 2) {
+                        viewHolder.getView(R.id.buying_confirm_cancel).setVisibility(View.GONE);
+                        viewHolder.getView(R.id.buying_confirm_later).setVisibility(View.VISIBLE);
+                        viewHolder.setText(R.id.buying_confirm_later_text, "等待对方确认收款");
+                    } else {
+                        viewHolder.setText(R.id.buying_item_confirm, "确认收货");
+                        viewHolder.setOnClickListener(R.id.buying_item_confirm, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                model.confirmReceiveTrade(DrawerTradePresenter.this, myId, item.getId());
 
-                            //Toast.makeText(context, "确认收货", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    viewHolder.setOnClickListener(R.id.buying_item_cancel, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            //Toast.makeText(context, "cancel", Toast.LENGTH_SHORT).show();
-                            model.cancelOrder(DrawerTradePresenter.this, item.getId());
-                        }
-                    });
+                                //Toast.makeText(context, "确认收货", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        viewHolder.setOnClickListener(R.id.buying_item_cancel, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                //Toast.makeText(context, "cancel", Toast.LENGTH_SHORT).show();
+                                model.cancelOrder(DrawerTradePresenter.this, item.getId());
+                            }
+                        });
+                    }
                 }
             }
         };

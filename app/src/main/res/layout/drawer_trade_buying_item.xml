@@ -72,49 +72,84 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="40dp">
 
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/button_background">
+        <LinearLayout
+            android:id="@+id/buying_confirm_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" >
 
-            <TextView
-                android:id="@+id/buying_item_confirm"
-                style="@style/MaterialLoginTheme.SelectableItemBackground"
-                android:layout_width="match_parent"
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:padding="10dp"
-                android:text="确认收货"
-                android:textColor="@color/material_login_register_color"
-                android:textSize="@dimen/font_size_normal" />
-        </FrameLayout>
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/button_background">
 
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/button_background">
+                <TextView
+                    android:id="@+id/buying_item_confirm"
+                    style="@style/MaterialLoginTheme.SelectableItemBackground"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:text="确认收货"
+                    android:textColor="@color/material_login_register_color"
+                    android:textSize="@dimen/font_size_normal" />
+            </FrameLayout>
 
-            <TextView
-                android:id="@+id/buying_item_cancel"
-                style="@style/MaterialLoginTheme.SelectableItemBackground"
-                android:layout_width="match_parent"
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:padding="10dp"
-                android:text="取消订单"
-                android:textColor="@color/material_login_register_color"
-                android:textSize="@dimen/font_size_normal" />
-        </FrameLayout>
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/button_background">
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/buying_item_cancel"
+                    style="@style/MaterialLoginTheme.SelectableItemBackground"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:text="取消订单"
+                    android:textColor="@color/material_login_register_color"
+                    android:textSize="@dimen/font_size_normal" />
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buying_confirm_later"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/button_background">
+
+                <TextView
+                    android:id="@+id/buying_confirm_later_text"
+                    style="@style/MaterialLoginTheme.SelectableItemBackground"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:text="等待对方确认收货"
+                    android:textColor="@color/material_login_register_color"
+                    android:textSize="@dimen/font_size_normal" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
 
     <View
         android:layout_width="match_parent"

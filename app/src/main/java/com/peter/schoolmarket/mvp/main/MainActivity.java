@@ -129,6 +129,12 @@ public class MainActivity extends BaseActivity implements IMainView{
     @Override
     public void exit() {
         LoginInfoExecutor.logOut(this);
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.deleteAll();
+            }
+        });
         Intent loginIntent=new Intent(this, LoginActivity.class);
         startActivity(loginIntent);
         finish();
