@@ -137,4 +137,33 @@ public class DrawerTradeModel implements IDrawerTradeModel {
                     }
                 });
     }
+
+    @Override
+    public void cancelTradeReq(final IDrawerTradeListener listener, final int tradeId) {
+        final Result<String> result = new Result<String>().result(NetReturn.SERVER_ERROR);
+        ReqExecutor
+                .INSTANCE()
+                .tradeReq()
+                .cancelTrade(tradeId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Result<String>>() {
+                    @Override
+                    public void onCompleted() {
+                        listener.cancelTradeComplete(result);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        listener.cancelTradeComplete(result);
+                    }
+
+                    @Override
+                    public void onNext(Result<String> result1) {
+                        result.setCode(result1.getCode());
+                        result.setMsg(result1.getMsg());
+                        result.setData(result1.getData());
+                    }
+                });
+    }
 }

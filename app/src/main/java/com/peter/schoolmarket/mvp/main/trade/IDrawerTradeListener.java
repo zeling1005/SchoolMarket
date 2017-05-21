@@ -12,6 +12,7 @@ import java.util.List;
 public interface IDrawerTradeListener {
     void onComplete(Result<List<Trade>> result);
     void confirmComplete(Result<String> result);
+    void cancelTradeComplete(Result<String> result);
     /*void onSellingComplete(Result<List<Trade>> result);
     void onBoughtComplete(Result<List<Trade>> result);
     void onSoldComplete(Result<List<Trade>> result);*/

@@ -11,6 +11,7 @@ public interface IDrawerTradeModel {
     void confirmReceiveTrade(final IDrawerTradeListener listener, final int myId, final int tradeId);
     void confirmReceiveMoney(final IDrawerTradeListener listener, final int myId, final int tradeId);
     void cancelOrder(final IDrawerTradeListener listener, final int tradeId);
+    void cancelTradeReq(final IDrawerTradeListener listener, final int tradeId);
     /*void sellingDataReq(final IDrawerTradeListener listener, final String tagName, final int page);
     void boughtDataReq(final IDrawerTradeListener listener, final String tagName, final int page);
     void soldDataReq(final IDrawerTradeListener listener, final String tagName, final int page);*/

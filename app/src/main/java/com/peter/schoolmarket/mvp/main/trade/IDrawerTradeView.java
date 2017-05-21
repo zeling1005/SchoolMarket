@@ -9,9 +9,10 @@ import com.peter.schoolmarket.adapter.recycler.RecyclerCommonAdapter;
 public interface IDrawerTradeView {
     void loadDataSuccess(RecyclerCommonAdapter<?> adapter);//当数据获取成功
     void loadDataFail(String errorMsg);//当数据获取失败
+    void showRefresh();
     void hideRefresh();
     void showProgress();
     void hideProgress();
-    void confirmSuccess(String msg);
-    void confirmFail(String msg);
+    void onSuccess(String msg);
+    void onFail(String msg);
 }

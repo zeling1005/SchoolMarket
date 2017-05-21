@@ -111,6 +111,13 @@ public class DrawerTradeActivity extends BaseActivity implements IDrawerTradeVie
     }
 
     @Override
+    public void showRefresh() {
+        if (!refreshLayout.isRefreshing()) {
+            refreshLayout.setRefreshing(true);
+        }
+    }
+
+    @Override
     public void hideRefresh() {
         if (refreshLayout.isRefreshing()) {
             refreshLayout.setRefreshing(false);
@@ -125,12 +132,12 @@ public class DrawerTradeActivity extends BaseActivity implements IDrawerTradeVie
     }
 
     @Override
-    public void confirmSuccess(String msg) {
+    public void onSuccess(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void confirmFail(String msg) {
+    public void onFail(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 }

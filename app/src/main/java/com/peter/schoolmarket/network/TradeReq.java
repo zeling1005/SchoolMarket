@@ -74,6 +74,9 @@ public interface TradeReq {
             @Field("tradeId") int tradeId
     );
 
+    /**
+     * 确认收货
+     */
     @POST(RetrofitConf.confirm_trade)
     @FormUrlEncoded
     Observable<Result<String>> confirmTrade(
@@ -81,6 +84,11 @@ public interface TradeReq {
             @Field("tradeId") int tradeId
     );
 
+    /**
+     * 确认收款
+     * @param userId 卖家用户id
+     * @param tradeId 商品id
+     */
     @POST(RetrofitConf.confirm_money)
     @FormUrlEncoded
     Observable<Result<String>> confirmMoney(
@@ -88,9 +96,23 @@ public interface TradeReq {
             @Field("tradeId") int tradeId
     );
 
+    /**
+     * 取消订单
+     * @param tradeId 商品id
+     */
     @POST(RetrofitConf.cancel_order)
     @FormUrlEncoded
     Observable<Result<String>> cancelOrder(
+            @Field("tradeId") int tradeId
+    );
+
+    /**
+     * 商品下架
+     * @param tradeId 商品id
+     */
+    @POST(RetrofitConf.cancel_trade)
+    @FormUrlEncoded
+    Observable<Result<String>> cancelTrade(
             @Field("tradeId") int tradeId
     );
 }
