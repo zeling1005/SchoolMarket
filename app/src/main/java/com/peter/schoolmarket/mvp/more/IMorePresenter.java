@@ -9,4 +9,5 @@ import io.realm.Realm;
 public interface IMorePresenter {
     void refresh(Realm realm);
     void init(Realm realm);
+    void loadNextPage();
 }

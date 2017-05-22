@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import com.peter.schoolmarket.mvp.trade.detail.TradeDetailActivity;
 import com.peter.schoolmarket.network.RetrofitConf;
 import com.peter.schoolmarket.util.ResultInterceptor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,7 +32,10 @@ class TradeTagDetailPresenter implements ITradeTagDetailPresenter, ITradeTagDeta
     private ITradeTagDetailView view;
     private ITradeTagDetailModel model;
     private String tagName;
-    private static int page = 1;
+    private int page = 1;
+    private boolean isLoadNextPage = false;
+    private RecyclerCommonAdapter<?> adapter;
+    private List<Trade> data = new ArrayList<>();
 
     TradeTagDetailPresenter(Context context, ITradeTagDetailView view) {
         this.context = context;
@@ -40,18 +45,23 @@ class TradeTagDetailPresenter implements ITradeTagDetailPresenter, ITradeTagDeta
 
     @Override
     public void init(String tagName) {
+        initList(data);
         this.tagName = tagName;
+        isLoadNextPage = false;
+        page = 1;
         getTradeListByTag();
     }
 
     @Override
     public void refresh() {
-        model.tradesDataReq(this, tagName, 1);
+        page = 1;
+        isLoadNextPage = false;
+        model.tradesDataReq(this, tagName, page);
     }
 
     private void getTradeListByTag() {
         view.showProgress();
-        model.tradesDataReq(this, tagName, 1);
+        model.tradesDataReq(this, tagName, page);
     }
 
     @Override
@@ -61,8 +71,17 @@ class TradeTagDetailPresenter implements ITradeTagDetailPresenter, ITradeTagDeta
         if (!ResultInterceptor.instance.resultDataHandler(result)){
             return;
         }
+        if (isLoadNextPage && result.getData().size() <= data.size()) {
+            Toast.makeText(context, "没有更多内容啦", Toast.LENGTH_SHORT).show();
 
-        RecyclerCommonAdapter<?> adapter=new RecyclerCommonAdapter<Trade>(context,result.getData(), R.layout.trade_tag_detail_item) {
+        }
+        data.clear();
+        data.addAll(result.getData());
+        adapter.notifyDataSetChanged();
+    }
+
+    private void initList(final List<Trade> data) {
+        adapter =new RecyclerCommonAdapter<Trade>(context,data, R.layout.trade_tag_detail_item) {
             @Override
             public void convert(RecyclerViewHolder viewHolder, Trade item) {
                 viewHolder.setFrescoImg(R.id.trade_tag_detail_img, Uri.parse(AppConf.BASE_URL +
@@ -76,7 +95,7 @@ class TradeTagDetailPresenter implements ITradeTagDetailPresenter, ITradeTagDeta
         adapter.setClickListener(new RecyclerCommonAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Trade item=result.getData().get(position);
+                Trade item=data.get(position);
 
                 //跳转到商品详情页面
                 //Toast.makeText(context, "jumpTradeDetail", Toast.LENGTH_SHORT).show();
@@ -88,5 +107,34 @@ class TradeTagDetailPresenter implements ITradeTagDetailPresenter, ITradeTagDeta
 
             }
         });
+    }
+
+    @Override
+    public void loadNextPage() {
+        isLoadNextPage = true;
+        view.showProgress();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (data.size() == page * AppConf.size) {
+                    page++;
+                }
+                model.tradesDataReq(TradeTagDetailPresenter.this, tagName, page);
+            }
+        }, 500);
+        /*if (data.size() < (page * AppConf.size)) {
+            if (page != 1) {
+                Toast.makeText(context, "没有更多内容啦", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            view.showProgress();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    page++;
+                    model.tradesDataReq(TradeTagDetailPresenter.this, tagName, page);
+                }
+            }, 500);
+        }*/
     }
 }

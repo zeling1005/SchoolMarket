@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Toast;
 
@@ -40,8 +41,12 @@ public class FindPresenter implements IFindPresenter, IGainListener {
     private IFindModel model;
     private IFindView view;
     private Context context;
-    private static int page = 1;
+    private int page = 1;
+    private boolean isLoadNextPage = false;
     private Realm realm;
+    //private int total = 0;
+    private List<Trade> data = new ArrayList<>();
+    private RecyclerCommonAdapter<?> adapter;
 
     public FindPresenter(Context context,IFindView view) {
         this.context = context;
@@ -51,16 +56,22 @@ public class FindPresenter implements IFindPresenter, IGainListener {
 
     @Override
     public void initView(Realm realm) {
+        initList(data);
+
         this.realm = realm;
         RealmQuery<Trade> query =  realm.where(Trade.class);
         RealmResults<Trade> results = query.findAll();
-        List<Trade> data =  realm.copyFromRealm(results);
+        data.addAll(realm.copyFromRealm(results));
 
         if (data.size()>0){
-            initList(data);
+            //initList(data);
+            adapter.notifyDataSetChanged();
+            //total = data.size();
         }else {
             //这里可以添加一个加载窗口
             view.showProgress();
+            page = 1;
+            isLoadNextPage = false;
             model.tradesDataReq(this, page);
         }
     }
@@ -68,11 +79,13 @@ public class FindPresenter implements IFindPresenter, IGainListener {
     @Override
     public void refreshView() {
         //进行网络请求，查看是否更新数据
+        page = 1;
+        isLoadNextPage = false;
         model.tradesDataReq(this, page);
     }
 
     public void initList(final List<Trade> trades) {
-        RecyclerCommonAdapter<?> adapter=new RecyclerCommonAdapter<Trade>(context,trades, R.layout.find_item) {
+        adapter=new RecyclerCommonAdapter<Trade>(context,trades, R.layout.find_item) {
             @Override
             public void convert(RecyclerViewHolder holder, Trade item) {
                 //Dog dog = mRealm.where(Dog.class).equalTo("id", id).findFirst();
@@ -113,8 +126,15 @@ public class FindPresenter implements IFindPresenter, IGainListener {
         if (!ResultInterceptor.instance.resultDataHandler(result)){//判断是否Result数据为空
             return;
         }
-        final List<Trade> tradeList = result.getData();
-        initList(tradeList);
+        if (isLoadNextPage && result.getData().size() <= data.size()) {
+            Toast.makeText(context, "没有更多内容啦", Toast.LENGTH_SHORT).show();
+        }
+        data.clear();
+        data.addAll(result.getData());
+        adapter.notifyDataSetChanged();
+        //final List<Trade> tradeList = result.getData();
+        //total = data.size();
+        //initList(tradeList);
         final RealmResults<Trade> results = realm.where(Trade.class).findAll();
         realm.executeTransaction(new Realm.Transaction() {//清空数据
             @Override
@@ -126,8 +146,37 @@ public class FindPresenter implements IFindPresenter, IGainListener {
         realm.executeTransaction(new Realm.Transaction() {//重新加载数据
             @Override
             public void execute(Realm realm) {
-                realm.copyToRealm(tradeList);
+                realm.copyToRealm(data);
             }
         });
+    }
+
+    @Override
+    public void loadNextPage() {
+        isLoadNextPage = true;
+        view.showProgress();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (data.size() == page * AppConf.size) {
+                    page++;
+                }
+                model.tradesDataReq(FindPresenter.this, page);
+            }
+        }, 500);
+        /*if (data.size() < (page * AppConf.size)) {
+            if (page != 1) {
+                Toast.makeText(context, "没有更多内容啦", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            view.showProgress();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    page++;
+                    model.tradesDataReq(FindPresenter.this, page);
+                }
+            }, 500);
+        }*/
     }
 }

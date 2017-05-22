@@ -79,6 +79,7 @@ public class NoticeAddActivity extends BaseActivity implements INoticeAddView {
     @Override
     public void noticeAddSuccess() {
         Toast.makeText(this, "发布成功", Toast.LENGTH_SHORT).show();
+
         finish();
     }
 

@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -75,6 +76,27 @@ public class DrawerTradeActivity extends BaseActivity implements IDrawerTradeVie
         recyclerView.setLayoutManager(new LinearLayoutManager(DrawerTradeActivity.this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemNormalDecoration(this, DividerItemNormalDecoration.VERTICAL_LIST));
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (RecyclerView.SCROLL_STATE_IDLE == newState) {
+                    if (recyclerView.computeVerticalScrollOffset() > 0 &&
+                            recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset()
+                                    >= recyclerView.computeVerticalScrollRange()) {
+                        presenter.loadNextPage();
+                    }
+                }
+            }
+
+            /*@Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (!recyclerView.canScrollVertically(1)) {
+                    presenter.loadNextPage();
+                }
+            }*/
+        });
     }
 
     private int getTypeId(String text) {

@@ -75,6 +75,19 @@ public class TradeTagDetailActivity extends BaseActivity implements ITradeTagDet
         recyclerView.setLayoutManager(new LinearLayoutManager(TradeTagDetailActivity.this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemNormalDecoration(this, DividerItemNormalDecoration.VERTICAL_LIST));
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (RecyclerView.SCROLL_STATE_IDLE == newState) {
+                    if (recyclerView.computeVerticalScrollOffset() > 0 &&
+                            recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset()
+                                    >= recyclerView.computeVerticalScrollRange()) {
+                        presenter.loadNextPage();
+                    }
+                }
+            }
+        });
         presenter.init(tagName);
     }
 

@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -49,10 +50,6 @@ public class MoreFragment extends BaseFragment implements IMoreView {
         refreshLayout.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_red_light,
                 android.R.color.holo_orange_light, android.R.color.holo_green_light);
         recyclerView = (RecyclerView) view.findViewById(R.id.more_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItemNormalDecoration(getActivity(),
-                DividerItemNormalDecoration.VERTICAL_LIST));
         noticePlus = (FloatingActionButton) view.findViewById(R.id.more_plus);
         progress = new MaterialDialog.Builder(getActivity())
                 .content("正在加载...")
@@ -70,6 +67,24 @@ public class MoreFragment extends BaseFragment implements IMoreView {
                 presenter.refresh(realm);
             }
         });
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new DividerItemNormalDecoration(getActivity(),
+                DividerItemNormalDecoration.VERTICAL_LIST));
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (RecyclerView.SCROLL_STATE_IDLE == newState) {
+                    if (recyclerView.computeVerticalScrollOffset() > 0 &&
+                            recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset()
+                                    >= recyclerView.computeVerticalScrollRange()) {
+                        presenter.loadNextPage();
+                    }
+                }
+            }
+        });
+        //recyclerView.dispatchTouchEvent(new MotionEvent())
         noticePlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -9,4 +9,5 @@ import com.miguelcatalan.materialsearchview.MaterialSearchView;
 public interface ITradeTagDetailPresenter {
     void init(String tagName);
     void refresh();
+    void loadNextPage();
 }

@@ -1,8 +1,6 @@
 package com.peter.schoolmarket.mvp.find;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,8 +13,6 @@ import com.peter.schoolmarket.adapter.recycler.RecyclerCommonAdapter;
 import com.peter.schoolmarket.di.components.DaggerFindFragmentComponent;
 import com.peter.schoolmarket.di.modules.FindFragmentModule;
 import com.peter.schoolmarket.mvp.base.BaseFragment;
-import com.peter.schoolmarket.mvp.main.MainActivity;
-import com.peter.schoolmarket.mvp.splash.SplashActivity;
 
 import javax.inject.Inject;
 
@@ -50,7 +46,7 @@ public class FindFragment extends BaseFragment implements IFindView {
         realm=Realm.getDefaultInstance();
 
         progress = new MaterialDialog.Builder(view.getContext())
-                .content("正在加载...")
+                .content("加载中...")
                 .progress(true, 0)
                 .progressIndeterminateStyle(false)//是否水平放置
                 .title("请稍等")
@@ -64,6 +60,32 @@ public class FindFragment extends BaseFragment implements IFindView {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            /*@Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                *//*if (!recyclerView.canScrollVertically(1)) {
+                    presenter.loadNextPage();
+                }*//*
+                if (recyclerView.computeVerticalScrollOffset() > 0 &&
+                        recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset()
+                                >= recyclerView.computeVerticalScrollRange()) {
+                    presenter.loadNextPage();
+                }
+            }*/
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (RecyclerView.SCROLL_STATE_IDLE == newState) {
+                    if (recyclerView.computeVerticalScrollOffset() > 0 &&
+                            recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset()
+                                    >= recyclerView.computeVerticalScrollRange()) {
+                        presenter.loadNextPage();
+                    }
+                }
+            }
+        });
 
         refreshLayout.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_red_light,
                 android.R.color.holo_orange_light, android.R.color.holo_green_light);

@@ -7,4 +7,5 @@ package com.peter.schoolmarket.mvp.main.trade;
 public interface IDrawerTradePresenter {
     void init(int typeId);
     void refresh();
+    void loadNextPage();
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import com.peter.schoolmarket.network.RetrofitConf;
 import com.peter.schoolmarket.util.ResultInterceptor;
 import com.peter.schoolmarket.util.TimeUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
@@ -33,8 +35,11 @@ public class MorePresenter implements IMorePresenter, IMoreListener {
     private IMoreView view;
     private Context context;
     private IMoreModel model;
-    private static int page = 1;
+    private int page = 1;
+    private boolean isLoadNextPage = false;
     private Realm realm;
+    RecyclerCommonAdapter<?> adapter;
+    List<Notice> data = new ArrayList<>();
 
     public MorePresenter(Context context,IMoreView view) {
         this.context = context;
@@ -46,26 +51,32 @@ public class MorePresenter implements IMorePresenter, IMoreListener {
     @Override
     public void refresh(Realm realm) {
         //本来就有刷新出现
+        isLoadNextPage = false;
+        page = 1;
         model.noticeDataReq(this, page, realm);
     }
 
     @Override
     public void init(Realm realm) {
+        initList(data);
         this.realm = realm;
         RealmQuery<Notice> query =  realm.where(Notice.class);
         RealmResults<Notice> results = query.findAll();
-        List<Notice> data =  realm.copyFromRealm(results);
+        data.addAll(realm.copyFromRealm(results));
         if (data.size()>0){
-            initList(data);
+            //initList(data);
+            adapter.notifyDataSetChanged();
         } else {
             //这里可以添加一个加载窗口
             view.showProgress();
+            isLoadNextPage = false;
+            page = 1;
             model.noticeDataReq(this, page, realm);
         }
     }
 
     private void initList(final List<Notice> notices) {
-        RecyclerCommonAdapter<?> adapter=new RecyclerCommonAdapter<Notice>(context,notices, R.layout.more_item) {
+        adapter=new RecyclerCommonAdapter<Notice>(context,notices, R.layout.more_item) {
             @Override
             public void convert(RecyclerViewHolder holder, Notice item) {
                 User user = realm.where(User.class).equalTo("id",item.getAuthorId()).findFirst();
@@ -102,8 +113,14 @@ public class MorePresenter implements IMorePresenter, IMoreListener {
         if (!ResultInterceptor.instance.resultDataHandler(result)){//判断是否Result数据为空
             return;
         }
-        final List<Notice> noticeList = result.getData();
-        initList(noticeList);
+        if (isLoadNextPage && result.getData().size() <= data.size()) {
+            Toast.makeText(context, "没有更多内容啦", Toast.LENGTH_SHORT).show();
+        }
+        data.clear();
+        data.addAll(result.getData());
+        adapter.notifyDataSetChanged();
+        /*final List<Notice> noticeList = result.getData();
+        initList(noticeList);*/
         final RealmResults<Notice> results = realm.where(Notice.class).findAll();
         realm.executeTransaction(new Realm.Transaction() {//清空数据
             @Override
@@ -115,8 +132,37 @@ public class MorePresenter implements IMorePresenter, IMoreListener {
         realm.executeTransaction(new Realm.Transaction() {//重新加载数据
             @Override
             public void execute(Realm realm) {
-                realm.copyToRealm(noticeList);
+                realm.copyToRealm(data);
             }
         });
+    }
+
+    @Override
+    public void loadNextPage() {
+        isLoadNextPage = true;
+        view.showProgress();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (data.size() == page * AppConf.size) {
+                    page++;
+                }
+                model.noticeDataReq(MorePresenter.this, page, realm);
+            }
+        }, 500);
+        /*if (data.size() < (page * AppConf.size)) {
+            if (page != 1) {
+                Toast.makeText(context, "没有更多内容啦", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            view.showProgress();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    page++;
+                    model.noticeDataReq(MorePresenter.this, page, realm);
+                }
+            }, 500);
+        }*/
     }
 }

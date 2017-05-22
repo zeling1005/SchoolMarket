@@ -18,7 +18,7 @@ public class BroadUtils extends BroadcastReceiver {
         //表明发送端就是发送的是CONNECTIVITY_ACTION这个动作
         if (ConnectivityManager.CONNECTIVITY_ACTION.equals(action)) {
             if (isNetConnected(context)) {
-                Toast.makeText(context, "连接上网络了", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "连接上网络了", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(context, "无网络连接", Toast.LENGTH_SHORT).show();
             }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import com.peter.schoolmarket.mvp.trade.detail.TradeDetailActivity;
 import com.peter.schoolmarket.network.RetrofitConf;
 import com.peter.schoolmarket.util.ResultInterceptor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,8 +32,11 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
     private IDrawerTradeView view;
     private IDrawerTradeModel model;
     private int typeId = -1;
-    private static int page = 1;
+    private int page = 1;
     private int myId;
+    private boolean isLoadNextPage = false;
+    RecyclerCommonAdapter<?> adapter;
+    List<Trade> data = new ArrayList<>();
 
     DrawerTradePresenter(Context context, IDrawerTradeView view) {
         this.context = context;
@@ -41,15 +46,35 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
 
     @Override
     public void init(int typeId) {
+        switch (typeId) {
+            case 0:
+                initBuyingAdapter(data);
+                break;
+            case 1:
+                initBoughtAdapter(data);
+                break;
+            case 2:
+                initSellingAdapter(data);
+                break;
+            case 3:
+                initSoldAdapter(data);
+                break;
+            default:
+                break;
+        }
         this.typeId = typeId;
         User user = LoginInfoExecutor.getUser(context);
         myId = user.getId();
         view.showProgress();
+        isLoadNextPage = false;
+        page = 1;
         model.drawerTradeDataReq(this, typeId, page, myId);
     }
 
     @Override
     public void refresh() {
+        isLoadNextPage = false;
+        page = 1;
         model.drawerTradeDataReq(this, typeId, page, myId);
     }
 
@@ -60,7 +85,7 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
         if (!ResultInterceptor.instance.resultDataHandler(result)){
             return;
         }
-        switch (typeId) {
+        /*switch (typeId) {
             case 0:
                 initBuyingAdapter(result);
                 break;
@@ -75,7 +100,14 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
                 break;
             default:
                 break;
+        }*/
+        if (isLoadNextPage && result.getData().size() <= data.size()) {
+            Toast.makeText(context, "没有更多内容啦", Toast.LENGTH_SHORT).show();
+
         }
+        data.clear();
+        data.addAll(result.getData());
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -116,8 +148,8 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
         }
     }
 
-    private void initBuyingAdapter(final Result<List<Trade>> result) {
-        RecyclerCommonAdapter<?> adapter=new RecyclerCommonAdapter<Trade>(context,result.getData(), R.layout.drawer_trade_buying_item) {
+    private void initBuyingAdapter(List<Trade> data) {
+        adapter=new RecyclerCommonAdapter<Trade>(context,data, R.layout.drawer_trade_buying_item) {
             @Override
             public void convert(RecyclerViewHolder viewHolder, final Trade item) {
                 viewHolder.setFrescoImg(R.id.buying_item_img, Uri.parse(AppConf.BASE_URL +
@@ -190,8 +222,8 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
         };
         view.loadDataSuccess(adapter);
     }
-    private void initBoughtAdapter(final Result<List<Trade>> result) {
-        RecyclerCommonAdapter<?> adapter=new RecyclerCommonAdapter<Trade>(context,result.getData(), R.layout.drawer_trade_bought_item) {
+    private void initBoughtAdapter(final List<Trade> data) {
+        adapter=new RecyclerCommonAdapter<Trade>(context, data, R.layout.drawer_trade_bought_item) {
             @Override
             public void convert(RecyclerViewHolder viewHolder, Trade item) {
                 viewHolder.setFrescoImg(R.id.bought_item_img, Uri.parse(AppConf.BASE_URL +
@@ -205,7 +237,7 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
         adapter.setClickListener(new RecyclerCommonAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Trade item=result.getData().get(position);
+                Trade item=data.get(position);
 
                 //跳转到商品详情页面
                 //Toast.makeText(context, "jumpTradeDetail", Toast.LENGTH_SHORT).show();
@@ -218,8 +250,8 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
             }
         });
     }
-    private void initSellingAdapter(final Result<List<Trade>> result) {
-        RecyclerCommonAdapter<?> adapter=new RecyclerCommonAdapter<Trade>(context,result.getData(), R.layout.drawer_trade_selling_item) {
+    private void initSellingAdapter(List<Trade> data) {
+        adapter=new RecyclerCommonAdapter<Trade>(context, data, R.layout.drawer_trade_selling_item) {
             @Override
             public void convert(RecyclerViewHolder viewHolder, final Trade item) {
                 viewHolder.setFrescoImg(R.id.selling_item_img, Uri.parse(AppConf.BASE_URL +
@@ -250,8 +282,8 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
         };
         view.loadDataSuccess(adapter);
     }
-    private void initSoldAdapter(final Result<List<Trade>> result) {
-        RecyclerCommonAdapter<?> adapter=new RecyclerCommonAdapter<Trade>(context,result.getData(), R.layout.drawer_trade_sold_item) {
+    private void initSoldAdapter(final List<Trade> data) {
+        adapter=new RecyclerCommonAdapter<Trade>(context, data, R.layout.drawer_trade_sold_item) {
             @Override
             public void convert(RecyclerViewHolder viewHolder, Trade item) {
                 viewHolder.setFrescoImg(R.id.sold_item_img, Uri.parse(AppConf.BASE_URL +
@@ -265,7 +297,7 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
         adapter.setClickListener(new RecyclerCommonAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Trade item=result.getData().get(position);
+                Trade item=data.get(position);
 
                 //跳转到商品详情页面
                 //Toast.makeText(context, "jumpTradeDetail", Toast.LENGTH_SHORT).show();
@@ -277,5 +309,34 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
                 context.startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void loadNextPage() {
+        isLoadNextPage = true;
+        view.showProgress();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (data.size() == page * AppConf.size) {
+                    page++;
+                }
+                model.drawerTradeDataReq(DrawerTradePresenter.this, typeId, page, myId);
+            }
+        }, 500);
+        /*if (data.size() < (page * AppConf.size)) {
+            if (page != 1) {
+                Toast.makeText(context, "没有更多内容啦", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            view.showProgress();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    page++;
+                    model.drawerTradeDataReq(DrawerTradePresenter.this, typeId, page, myId);
+                }
+            }, 500);
+        }*/
     }
 }
