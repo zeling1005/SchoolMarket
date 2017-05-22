@@ -6,6 +6,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.peter.schoolmarket.R;
@@ -96,6 +97,10 @@ public class FindFragment extends BaseFragment implements IFindView {
             }
         });
         presenter.initView(realm);
+    }
+
+    public void setSarchText(String text) {
+        Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
     }
 
     @Override

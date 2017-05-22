@@ -42,6 +42,7 @@ public class MainActivity extends BaseActivity implements IMainView{
     DrawerLayout drawer;
     Toolbar toolbar;
     NavigationView navigationView;
+    //MaterialSearchView searchView;
     View headerLayout;
     private Realm realm;
 
@@ -59,6 +60,7 @@ public class MainActivity extends BaseActivity implements IMainView{
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         headerLayout= navigationView.inflateHeaderView(R.layout.main_nav_header);
+        //searchView = (MaterialSearchView) findViewById(R.id.search_view);
         realm=Realm.getDefaultInstance();
         //PollingUtils.startPollingService(this, 5, MsgService.class, MsgService.ACTION);
     }
@@ -88,6 +90,14 @@ public class MainActivity extends BaseActivity implements IMainView{
 
     /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.search_item, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        searchView.setMenuItem(item);
+        return true;
+    }*/
+
+    /*@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_search_item, menu);
         MenuItem item = menu.findItem(R.id.action_search);
         searchView.setMenuItem(item);
@@ -107,6 +117,8 @@ public class MainActivity extends BaseActivity implements IMainView{
     {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+        /*} else if (searchView.isSearchOpen()) {
+            searchView.closeSearch();*/
         } else {
             super.onBackPressed();
         }

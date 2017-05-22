@@ -32,6 +32,8 @@ dependencies {
         transitive = true;
     }
 
+    compile 'com.miguelcatalan:materialsearchview:1.4.0'
+
     //图片选择器
     compile 'cn.finalteam.rxgalleryfinal:library:0.0.3'
     compile 'com.android.support:recyclerview-v7:24.2.0'
@@ -74,13 +76,11 @@ dependencies {
 
     //3. 添加realm库
     compile 'io.realm:realm-android-library:1.2.0'
-
-    compile 'com.miguelcatalan:materialsearchview:1.4.0'
+    
     compile 'com.ashokvarma.android:bottom-navigation-bar:1.4.1'
     //------------------组件-----------------------------------
     compile 'com.github.shem8:material-login:2.1.1'
     //------------------组件-----------------------------------
-    compile 'com.miguelcatalan:materialsearchview:1.0.1'
     compile 'com.android.support:appcompat-v7:24.2.0'
     compile 'com.android.support:design:24.2.0'
     testCompile 'junit:junit:4.12'

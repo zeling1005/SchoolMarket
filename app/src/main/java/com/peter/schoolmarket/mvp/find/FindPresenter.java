@@ -61,10 +61,18 @@ public class FindPresenter implements IFindPresenter, IGainListener {
         this.realm = realm;
         RealmQuery<Trade> query =  realm.where(Trade.class);
         RealmResults<Trade> results = query.findAll();
-        data.addAll(realm.copyFromRealm(results));
+        List<Trade> list = realm.copyFromRealm(results);
+        //data.addAll(realm.copyFromRealm(results));
 
         if (data.size()>0){
             //initList(data);
+            if (data.size() > 8) {
+                for (int i = 0; i < AppConf.size; i++) {
+                    data.add(list.get(i));
+                }
+            } else {
+                data.addAll(list);
+            }
             adapter.notifyDataSetChanged();
             //total = data.size();
         }else {

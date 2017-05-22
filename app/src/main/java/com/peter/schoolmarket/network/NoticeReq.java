@@ -7,6 +7,8 @@ import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -35,4 +37,24 @@ public interface NoticeReq {
     @POST(RetrofitConf.create_notice)
     Observable<Result<String>> addNotice(
             @Part("notice") RequestBody notice);
+
+    /**
+     *
+     */
+    @POST(RetrofitConf.get_my_notices)
+    @FormUrlEncoded
+    Observable<Result<List<Notice>>> getMyNotices(
+            @Field("userId") int userId,
+            @Field("page") int page,
+            @Field("size") int size
+    );
+
+    /**
+     *
+     */
+    @POST(RetrofitConf.delete_notice)
+    @FormUrlEncoded
+    Observable<Result<String>> deleteNotice(
+            @Field("noticeId") int noticeId
+    );
 }

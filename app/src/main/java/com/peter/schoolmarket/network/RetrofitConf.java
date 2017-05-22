@@ -20,6 +20,8 @@ public interface RetrofitConf {
     //----------------------------notice----------------------------
     String get_notices_data = "SchoolMarketServer/GetNotices";//获取notice 数据
     String create_notice = "SchoolMarketServer/AddNotice"; //添加notice
+    String get_my_notices = "SchoolMarketServer/GetMyNotices";
+    String delete_notice = "SchoolMarketServer/DeleteNotice";
 
 
     //----------------------------商品相关----------------------------

@@ -41,6 +41,7 @@
     <string name="nav_about">关于闲货</string>
     <string name="nav_exit">退出</string>
     <string name="nav_other">其它</string>
+    <string name="nav_notice">公告管理</string>
 
     <!--main activity-->
     <string name="main_title">发现</string>

@@ -94,6 +94,10 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
+        <activity android:name=".mvp.more.notice.my.NoticeMyActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
         <!-- 注册广播 -->
         <receiver android:name=".util.BroadUtils">
             <intent-filter>

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.peter.schoolmarket.R;
 import com.peter.schoolmarket.application.AppConf;
 import com.peter.schoolmarket.data.dto.Result;
@@ -23,8 +24,10 @@ import com.peter.schoolmarket.mvp.login.LoginActivity;
 import com.peter.schoolmarket.mvp.main.about.AboutActivity;
 import com.peter.schoolmarket.mvp.main.trade.DrawerTradeActivity;
 import com.peter.schoolmarket.mvp.more.MoreFragment;
+import com.peter.schoolmarket.mvp.more.notice.my.NoticeMyActivity;
 import com.peter.schoolmarket.mvp.msg.MsgFragment;
 import com.peter.schoolmarket.mvp.sort.TradeSortFragment;
+import com.peter.schoolmarket.mvp.test.TestActivity;
 import com.peter.schoolmarket.mvp.test.TestFragment;
 import com.peter.schoolmarket.network.RetrofitConf;
 import com.peter.schoolmarket.util.ResultInterceptor;
@@ -51,6 +54,7 @@ class MainPresenter implements IMainPresenter, IMainListener {
     private MsgFragment msgFragment;
     private TradeSortFragment tradeSortFragment;
     private IMainView view;
+    //private MaterialSearchView searchView;
     //private Realm realmDefault;
 
     MainPresenter(AppCompatActivity context, IMainView view) {
@@ -68,7 +72,47 @@ class MainPresenter implements IMainPresenter, IMainListener {
         initHeader(header);
         initBottomMenu();
         initUsers(realm);
+        //this.searchView = searchView;
+        //initFragment();
     }
+
+    /*private void initSearchView() {
+        searchView.setVoiceSearch(false);
+        searchView.setSuggestions(context.getResources().getStringArray(R.array.query_suggestions));
+        searchView.setCursorDrawable(R.drawable.search_cursor);
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //Do some magic
+                Toast.makeText(context, "" + query, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Do some magic
+                return false;
+            }
+        });
+        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+                //Do some magic
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                //Do some magic
+            }
+        });
+    }*/
+
+    /*private void initFragment() {
+        findFragment = new FindFragment();
+        moreFragment = new MoreFragment();
+        msgFragment = new MsgFragment();
+        tradeSortFragment = new TradeSortFragment();
+    }*/
 
     private void initUsers(Realm realm) {
         model.getUsers(this, realm);
@@ -108,6 +152,11 @@ class MainPresenter implements IMainPresenter, IMainListener {
                 break;
             case R.id.nav_sold:
                 type = "已卖";
+                break;
+            case R.id.nav_notice:
+                Intent noticeIntent = new Intent(context, NoticeMyActivity.class);
+                //noticeIntent.putExtra("textString","公告管理");
+                context.startActivity(noticeIntent);
                 break;
             case R.id.nav_share:
                 Intent textIntent = new Intent(Intent.ACTION_SEND);
@@ -162,10 +211,16 @@ class MainPresenter implements IMainPresenter, IMainListener {
                 switch (position) {
                     case 0:
                         toolbarTitle.setText("首页");
+                        /*if (searchView.getVisibility() == View.GONE) {
+                            searchView.setVisibility(View.VISIBLE);
+                        }*/
                         showFragment(0);
                         //此处设置点击后的事件，设置标题栏和fragment
                         break;
                     case 1:
+                        /*if (searchView.getVisibility() != View.GONE) {
+                            searchView.setVisibility(View.GONE);
+                        }*/
                         toolbarTitle.setText("闲货");
                         showFragment(1);
                         break;
@@ -196,6 +251,8 @@ class MainPresenter implements IMainPresenter, IMainListener {
         hideAllFragment(ft);
         switch (position) {
             case 0 : if (findFragment != null) {
+                //findFragment.isHidden();
+                //findFragment.isVisible();
                 ft.show(findFragment);
             } else {
                 findFragment = new FindFragment();

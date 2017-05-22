@@ -20,13 +20,17 @@
             android:id="@+id/nav_sold"
             android:icon="@drawable/main_sold"
             android:title="@string/nav_sold" />
+        <item
+            android:id="@+id/nav_notice"
+            android:icon="@drawable/main_notice"
+            android:title="@string/nav_notice" />
         <!--<item
             android:id="@+id/nav_like"
             android:icon="@drawable/main_like"
             android:title="@string/nav_like" />-->
         <!--<item
             android:id="@+id/nav_message"
-            android:icon="@drawable/main_message"
+            android:icon="@drawable/main_notice"
             android:title="@string/nav_msg" />-->
     </group>
 

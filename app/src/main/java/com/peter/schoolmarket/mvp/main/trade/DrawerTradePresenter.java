@@ -38,8 +38,8 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
     private int page = 1;
     private int myId;
     private boolean isLoadNextPage = false;
-    RecyclerCommonAdapter<?> adapter;
-    List<Trade> data = new ArrayList<>();
+    private RecyclerCommonAdapter<?> adapter;
+    private List<Trade> data = new ArrayList<>();
 
     DrawerTradePresenter(Context context, IDrawerTradeView view) {
         this.context = context;
@@ -121,6 +121,8 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
                 //loginRegisterView.loginSuccess();
                 view.onSuccess(result.getData());
                 view.showRefresh();
+                isLoadNextPage = false;
+                page = 1;
                 model.drawerTradeDataReq(this, typeId, page, myId);
                 break;
             case 99://网络异常或者系统错误
@@ -140,6 +142,8 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
                 //loginRegisterView.loginSuccess();
                 view.onSuccess(result.getData());
                 view.showRefresh();
+                isLoadNextPage = false;
+                page = 1;
                 model.drawerTradeDataReq(this, typeId, page, myId);
                 break;
             case 99://网络异常或者系统错误

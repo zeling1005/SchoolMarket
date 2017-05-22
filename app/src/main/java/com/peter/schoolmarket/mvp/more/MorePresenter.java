@@ -62,9 +62,17 @@ public class MorePresenter implements IMorePresenter, IMoreListener {
         this.realm = realm;
         RealmQuery<Notice> query =  realm.where(Notice.class);
         RealmResults<Notice> results = query.findAll();
-        data.addAll(realm.copyFromRealm(results));
+        List<Notice> list = realm.copyFromRealm(results);
+        //data.addAll(realm.copyFromRealm(results));
         if (data.size()>0){
             //initList(data);
+            if (data.size() > 8) {
+                for (int i = 0; i < AppConf.size; i++) {
+                    data.add(list.get(i));
+                }
+            } else {
+                data.addAll(list);
+            }
             adapter.notifyDataSetChanged();
         } else {
             //这里可以添加一个加载窗口

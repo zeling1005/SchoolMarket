@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorNormalBackground">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary">
+
+            <!--<ImageView
+                android:id="@+id/test_toolbar_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/circle_pic_selector"
+                android:scaleType="center"
+                android:layout_gravity="start"
+                android:src="@drawable/ic_arrow_left"
+                />-->
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/notice_my_toolbar_back"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_gravity="start|center"
+                android:background="@drawable/circle_pic_selector"
+                fresco:roundAsCircle="true"
+                fresco:placeholderImage="@drawable/ic_arrow_left"
+                fresco:placeholderImageScaleType="fitCenter"/>
+
+            <TextView
+                android:id="@+id/notice_my_toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="公告管理"
+                android:maxLines="1"
+                android:textColor="@color/md_black_1000"
+                android:textSize="@dimen/font_size_title"/>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/notice_my_content"/>
+
+</LinearLayout>
