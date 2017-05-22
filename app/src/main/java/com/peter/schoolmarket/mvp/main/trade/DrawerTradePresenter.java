@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.peter.schoolmarket.R;
 import com.peter.schoolmarket.adapter.recycler.RecyclerCommonAdapter;
 import com.peter.schoolmarket.adapter.recycler.RecyclerViewHolder;
@@ -178,8 +181,19 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
                         viewHolder.setOnClickListener(R.id.buying_item_confirm, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                view.showProgress();
-                                model.confirmReceiveMoney(DrawerTradePresenter.this, myId, item.getId());
+                                new MaterialDialog.Builder(context)
+                                        .title("确认收款？")
+                                        .content("请保证线下交易完成后再进行此项操作！")
+                                        .positiveText("确认")
+                                        .negativeText("取消")
+                                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                            @Override
+                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                view.showProgress();
+                                                model.confirmReceiveMoney(DrawerTradePresenter.this, myId, item.getId());
+                                            }
+                                        })
+                                        .show();
                                 //Toast.makeText(context, "确认收款", Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -187,8 +201,19 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
                             @Override
                             public void onClick(View v) {
                                 //Toast.makeText(context, "cancel", Toast.LENGTH_SHORT).show();
-                                view.showProgress();
-                                model.cancelOrder(DrawerTradePresenter.this, item.getId());
+                                new MaterialDialog.Builder(context)
+                                        .title("取消订单？")
+                                        .content("最好跟订单另一方沟通后再取消订单！")
+                                        .positiveText("取消订单")
+                                        .negativeText("不取消了")
+                                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                            @Override
+                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                view.showProgress();
+                                                model.cancelOrder(DrawerTradePresenter.this, item.getId());
+                                            }
+                                        })
+                                        .show();
                             }
                         });
                     }
@@ -202,9 +227,19 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
                         viewHolder.setOnClickListener(R.id.buying_item_confirm, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                view.showProgress();
-                                model.confirmReceiveTrade(DrawerTradePresenter.this, myId, item.getId());
-
+                                new MaterialDialog.Builder(context)
+                                        .title("确认收货？")
+                                        .content("请保证线下交易完成后再进行此项操作！")
+                                        .positiveText("确认")
+                                        .negativeText("取消")
+                                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                            @Override
+                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                view.showProgress();
+                                                model.confirmReceiveTrade(DrawerTradePresenter.this, myId, item.getId());
+                                            }
+                                        })
+                                        .show();
                                 //Toast.makeText(context, "确认收货", Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -212,8 +247,19 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
                             @Override
                             public void onClick(View v) {
                                 //Toast.makeText(context, "cancel", Toast.LENGTH_SHORT).show();
-                                view.showProgress();
-                                model.cancelOrder(DrawerTradePresenter.this, item.getId());
+                                new MaterialDialog.Builder(context)
+                                        .title("取消订单？")
+                                        .content("最好跟订单另一方沟通后再取消订单！")
+                                        .positiveText("取消订单")
+                                        .negativeText("不取消了")
+                                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                            @Override
+                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                view.showProgress();
+                                                model.cancelOrder(DrawerTradePresenter.this, item.getId());
+                                            }
+                                        })
+                                        .show();
                             }
                         });
                     }
@@ -274,8 +320,19 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
                     @Override
                     public void onClick(View v) {
                         //商品下架
-                        view.showProgress();
-                        model.cancelTradeReq(DrawerTradePresenter.this, item.getId());
+                        new MaterialDialog.Builder(context)
+                                .title("商品下架？")
+                                .content("商品下架后无法恢复，建议再考虑考虑！")
+                                .positiveText("下架")
+                                .negativeText("再想想")
+                                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                        view.showProgress();
+                                        model.cancelTradeReq(DrawerTradePresenter.this, item.getId());
+                                    }
+                                })
+                                .show();
                     }
                 });
             }
