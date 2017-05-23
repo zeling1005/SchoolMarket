@@ -115,4 +115,17 @@ public interface TradeReq {
     Observable<Result<String>> cancelTrade(
             @Field("tradeId") int tradeId
     );
+
+    @POST(RetrofitConf.get_search_trades)
+    @FormUrlEncoded
+    Observable<Result<List<Trade>>> getSearchTrades(
+            @Field("query") String query
+    );
+
+    @POST(RetrofitConf.get_tag_search_trades)
+    @FormUrlEncoded
+    Observable<Result<List<Trade>>> getTagSearchTrades(
+            @Field("query") String query,
+            @Field("tagName")  String tagName
+    );
 }

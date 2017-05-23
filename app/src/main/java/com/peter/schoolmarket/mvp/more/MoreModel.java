@@ -52,4 +52,32 @@ public class MoreModel implements IMoreModel {
                     }
                 });
     }
+
+    @Override
+    public void searchDataReq(final IMoreListener listener, String query) {
+        final Result<List<Notice>> result = new Result<List<Notice>>().result(NetReturn.SERVER_ERROR);
+        ReqExecutor
+                .INSTANCE()
+                .noticeReq()
+                .getSearchNotices(query)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Result<List<Notice>>>() {
+                    @Override
+                    public void onCompleted() {
+                        listener.onSearchReqComplete(result);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        listener.onSearchReqComplete(result);
+                    }
+                    @Override
+                    public void onNext(Result<List<Notice>> listResult) {
+                        result.setCode(listResult.getCode());
+                        result.setMsg(listResult.getMsg());
+                        result.setData(listResult.getData());
+                    }
+                });
+    }
 }

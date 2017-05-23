@@ -8,4 +8,5 @@ import io.realm.Realm;
 
 public interface IMoreModel {
     void noticeDataReq(final IMoreListener listener,final int page,final Realm realm);
+    void searchDataReq(final IMoreListener listener,final String query);
 }

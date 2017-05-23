@@ -2,10 +2,6 @@ package com.peter.schoolmarket.mvp.find;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,8 +19,6 @@ import com.peter.schoolmarket.mvp.trade.detail.TradeDetailActivity;
 import com.peter.schoolmarket.network.RetrofitConf;
 import com.peter.schoolmarket.util.ResultInterceptor;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +51,7 @@ public class FindPresenter implements IFindPresenter, IGainListener {
     @Override
     public void initView(Realm realm) {
         initList(data);
+        view.setSearchFlag(false);
 
         this.realm = realm;
         RealmQuery<Trade> query =  realm.where(Trade.class);
@@ -86,13 +81,14 @@ public class FindPresenter implements IFindPresenter, IGainListener {
 
     @Override
     public void refreshView() {
+        view.setSearchFlag(false);
         //进行网络请求，查看是否更新数据
         page = 1;
         isLoadNextPage = false;
         model.tradesDataReq(this, page);
     }
 
-    public void initList(final List<Trade> trades) {
+    private void initList(final List<Trade> trades) {
         adapter=new RecyclerCommonAdapter<Trade>(context,trades, R.layout.find_item) {
             @Override
             public void convert(RecyclerViewHolder holder, Trade item) {
@@ -172,19 +168,41 @@ public class FindPresenter implements IFindPresenter, IGainListener {
                 model.tradesDataReq(FindPresenter.this, page);
             }
         }, 500);
-        /*if (data.size() < (page * AppConf.size)) {
-            if (page != 1) {
-                Toast.makeText(context, "没有更多内容啦", Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            view.showProgress();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    page++;
-                    model.tradesDataReq(FindPresenter.this, page);
+    }
+
+    @Override
+    public void loadSearchPage(String query) {
+        view.showProgress();
+        page = 1;
+        isLoadNextPage = false;
+        model.searchDataReq(this, query);
+    }
+
+    @Override
+    public void onSearchReqComplete(Result<List<Trade>> result) {
+        view.hideProgress();
+        switch (result.getCode()) {
+            case 100 :
+                if (result.getData() != null) {
+                    data.clear();
+                    data.addAll(result.getData());
+                    adapter.notifyDataSetChanged();
+                } else {
+                    view.onSuccess("没有搜索到相关信息");
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            view.showRefresh();
+                            refreshView();
+                        }
+                    }, 500);
                 }
-            }, 500);
-        }*/
+                break;
+            case 99 :
+                view.onFail(result.getMsg());
+                break;
+            default:
+                break;
+        }
     }
 }

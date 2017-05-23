@@ -14,4 +14,9 @@ public interface ITradeTagDetailView {
     void hideRefresh();
     void showProgress();
     void hideProgress();
+
+    void showRefresh();
+    void onSuccess(String msg);
+    void onFail(String msg);
+    void setSearchFlag(boolean flag);
 }

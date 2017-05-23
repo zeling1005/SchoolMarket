@@ -31,14 +31,13 @@
                     android:textSize="@dimen/font_size_title"
                     android:maxLines="1" />
 
-                <!--<SearchView
+                <android.support.v7.widget.SearchView
+                    android:id="@+id/main_search"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/black"
-                    android:layout_gravity="end">
+                    android:layout_gravity="end" />
 
-                </SearchView>
-                <android.support.v7.widget.SearchView
+                <!--<android.support.v7.widget.SearchView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/black">

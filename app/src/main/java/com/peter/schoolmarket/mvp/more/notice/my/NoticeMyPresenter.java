@@ -163,9 +163,7 @@ class NoticeMyPresenter implements INoticeMyPresenter, INoticeMyListener {
                 //loginRegisterView.loginSuccess();
                 view.onSuccess(result.getData());
                 view.showRefresh();
-                isLoadNextPage = false;
-                page = 1;
-                model.myNoticeReq(this, myId, page);
+                refresh();
                 break;
             case 99://网络异常或者系统错误
                 //loginRegisterView.loginFailed(result.getMsg());

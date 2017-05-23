@@ -14,4 +14,5 @@ import io.realm.Realm;
 public interface IMainPresenter {
     void initMain(View header, Realm realm);//初始化
     void sideJump(int id);//侧边栏点击跳转
+    void searchSubmit(String query);
 }

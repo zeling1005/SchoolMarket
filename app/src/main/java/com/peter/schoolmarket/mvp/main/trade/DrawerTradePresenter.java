@@ -121,9 +121,7 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
                 //loginRegisterView.loginSuccess();
                 view.onSuccess(result.getData());
                 view.showRefresh();
-                isLoadNextPage = false;
-                page = 1;
-                model.drawerTradeDataReq(this, typeId, page, myId);
+                refresh();
                 break;
             case 99://网络异常或者系统错误
                 //loginRegisterView.loginFailed(result.getMsg());
@@ -142,9 +140,7 @@ class DrawerTradePresenter implements IDrawerTradePresenter, IDrawerTradeListene
                 //loginRegisterView.loginSuccess();
                 view.onSuccess(result.getData());
                 view.showRefresh();
-                isLoadNextPage = false;
-                page = 1;
-                model.drawerTradeDataReq(this, typeId, page, myId);
+                refresh();
                 break;
             case 99://网络异常或者系统错误
                 //loginRegisterView.loginFailed(result.getMsg());

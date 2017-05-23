@@ -50,6 +50,7 @@ public class MorePresenter implements IMorePresenter, IMoreListener {
 
     @Override
     public void refresh(Realm realm) {
+        view.setSearchFlag(false);
         //本来就有刷新出现
         isLoadNextPage = false;
         page = 1;
@@ -58,6 +59,7 @@ public class MorePresenter implements IMorePresenter, IMoreListener {
 
     @Override
     public void init(Realm realm) {
+        view.setSearchFlag(false);
         initList(data);
         this.realm = realm;
         RealmQuery<Notice> query =  realm.where(Notice.class);
@@ -172,5 +174,41 @@ public class MorePresenter implements IMorePresenter, IMoreListener {
                 }
             }, 500);
         }*/
+    }
+
+    @Override
+    public void loadSearchPage(String query) {
+        view.showProgress();
+        page = 1;
+        isLoadNextPage = false;
+        model.searchDataReq(this, query);
+    }
+
+    @Override
+    public void onSearchReqComplete(Result<List<Notice>> result) {
+        view.hideProgress();
+        switch (result.getCode()) {
+            case 100 :
+                if (result.getData() != null) {
+                    data.clear();
+                    data.addAll(result.getData());
+                    adapter.notifyDataSetChanged();
+                } else {
+                    view.onSuccess("没有搜索到相关信息");
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            view.showRefresh();
+                            refresh(realm);
+                        }
+                    }, 500);
+                }
+                break;
+            case 99 :
+                view.onFail(result.getMsg());
+                break;
+            default:
+                break;
+        }
     }
 }

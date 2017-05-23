@@ -31,6 +31,7 @@ public class MoreFragment extends BaseFragment implements IMoreView {
     private FloatingActionButton noticePlus;
     private MaterialDialog progress;
     private Realm realm;
+    private boolean searchFlag = false;
 
     @Override
     protected int getLayoutResId() {
@@ -79,7 +80,11 @@ public class MoreFragment extends BaseFragment implements IMoreView {
                     if (recyclerView.computeVerticalScrollOffset() > 0 &&
                             recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset()
                                     >= recyclerView.computeVerticalScrollRange()) {
-                        presenter.loadNextPage();
+                        if (!searchFlag) {
+                            presenter.loadNextPage();
+                        } else {
+                            onSuccess("再怎么上拉也是没有数据啦");
+                        }
                     }
                 }
             }
@@ -94,6 +99,12 @@ public class MoreFragment extends BaseFragment implements IMoreView {
                 getActivity().startActivity(intent);
             }
         });
+    }
+
+    public void setSarchText(String text) {
+        //Toast.makeText(getActivity(), "more:" + text, Toast.LENGTH_SHORT).show();
+        searchFlag = true;
+        presenter.loadSearchPage(text);
     }
 
     @Override
@@ -126,5 +137,32 @@ public class MoreFragment extends BaseFragment implements IMoreView {
     public void onDestroy() {
         super.onDestroy();
         realm.close();
+    }
+
+    @Override
+    public void onSuccess(String msg) {
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFail(String msg) {
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showRefresh() {
+        if (!refreshLayout.isRefreshing()) {
+            refreshLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    refreshLayout.setRefreshing(true);
+                }
+            });
+        }
+    }
+
+    @Override
+    public void setSearchFlag(boolean searchFlag) {
+        this.searchFlag = searchFlag;
     }
 }

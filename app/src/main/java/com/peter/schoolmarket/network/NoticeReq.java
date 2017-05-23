@@ -57,4 +57,10 @@ public interface NoticeReq {
     Observable<Result<String>> deleteNotice(
             @Field("noticeId") int noticeId
     );
+
+    @POST(RetrofitConf.get_search_notices)
+    @FormUrlEncoded
+    Observable<Result<List<Notice>>> getSearchNotices(
+            @Field("query") String query
+    );
 }

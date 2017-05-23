@@ -135,7 +135,12 @@ public class DrawerTradeActivity extends BaseActivity implements IDrawerTradeVie
     @Override
     public void showRefresh() {
         if (!refreshLayout.isRefreshing()) {
-            refreshLayout.setRefreshing(true);
+            refreshLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    refreshLayout.setRefreshing(true);
+                }
+            });
         }
     }
 

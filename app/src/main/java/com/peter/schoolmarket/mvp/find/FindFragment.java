@@ -31,6 +31,7 @@ public class FindFragment extends BaseFragment implements IFindView {
     SwipeRefreshLayout refreshLayout;
     MaterialDialog progress;
     private Realm realm;
+    private boolean searchFlag = false;
 
 
     @Override
@@ -82,7 +83,11 @@ public class FindFragment extends BaseFragment implements IFindView {
                     if (recyclerView.computeVerticalScrollOffset() > 0 &&
                             recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset()
                                     >= recyclerView.computeVerticalScrollRange()) {
-                        presenter.loadNextPage();
+                        if (!searchFlag) {
+                            presenter.loadNextPage();
+                        } else {
+                            onSuccess("再怎么上拉也是没有数据啦");
+                        }
                     }
                 }
             }
@@ -100,7 +105,9 @@ public class FindFragment extends BaseFragment implements IFindView {
     }
 
     public void setSarchText(String text) {
-        Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "find:" + text, Toast.LENGTH_SHORT).show();
+        searchFlag = true;
+        presenter.loadSearchPage(text);
     }
 
     @Override
@@ -136,4 +143,30 @@ public class FindFragment extends BaseFragment implements IFindView {
         realm.close();
     }
 
+    @Override
+    public void onSuccess(String msg) {
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFail(String msg) {
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showRefresh() {
+        if (!refreshLayout.isRefreshing()) {
+            refreshLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    refreshLayout.setRefreshing(true);
+                }
+            });
+        }
+    }
+
+    @Override
+    public void setSearchFlag(boolean searchFlag) {
+        this.searchFlag = searchFlag;
+    }
 }

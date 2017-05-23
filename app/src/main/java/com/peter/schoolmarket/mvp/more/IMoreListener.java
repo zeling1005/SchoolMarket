@@ -13,4 +13,5 @@ import io.realm.Realm;
 
 public interface IMoreListener {
     void onReqComplete(Result<List<Notice>> result, Realm realm);//从服务器中得到数据后的操作
+    void onSearchReqComplete(Result<List<Notice>> result);//从服务器中得到数据后的操作
 }

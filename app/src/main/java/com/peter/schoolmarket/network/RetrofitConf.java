@@ -22,6 +22,7 @@ public interface RetrofitConf {
     String create_notice = "SchoolMarketServer/AddNotice"; //添加notice
     String get_my_notices = "SchoolMarketServer/GetMyNotices";
     String delete_notice = "SchoolMarketServer/DeleteNotice";
+    String get_search_notices = "SchoolMarketServer/GetSearchNotices";//取得搜索数据
 
 
     //----------------------------商品相关----------------------------
@@ -34,5 +35,7 @@ public interface RetrofitConf {
     String confirm_money = "SchoolMarketServer/ConfirmMoney";//确认收款
     String cancel_order = "SchoolMarketServer/CancelOrder";//取消订单
     String cancel_trade = "SchoolMarketServer/CancelTrade";//商品下架
+    String get_search_trades = "SchoolMarketServer/GetSearchTrades";//取得搜索数据
+    String get_tag_search_trades = "SchoolMarketServer/GetTagSearchTrades";
 
 }

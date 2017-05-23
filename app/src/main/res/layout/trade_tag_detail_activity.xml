@@ -43,6 +43,12 @@
                 android:textColor="@color/md_black_1000"
                 android:textSize="@dimen/font_size_title"/>
 
+            <android.support.v7.widget.SearchView
+                android:id="@+id/trade_tag_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"/>
+
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>

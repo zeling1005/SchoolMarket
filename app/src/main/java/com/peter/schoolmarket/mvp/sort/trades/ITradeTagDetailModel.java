@@ -6,4 +6,5 @@ package com.peter.schoolmarket.mvp.sort.trades;
 
 public interface ITradeTagDetailModel {
     void tradesDataReq(final ITradeTagDetailListener listener, final String tagName, final int page);
+    void searchDataReq(final ITradeTagDetailListener listener, final String query, final String tagName);
 }

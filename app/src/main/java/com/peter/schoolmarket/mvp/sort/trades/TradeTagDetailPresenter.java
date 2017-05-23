@@ -45,6 +45,7 @@ class TradeTagDetailPresenter implements ITradeTagDetailPresenter, ITradeTagDeta
 
     @Override
     public void init(String tagName) {
+        view.setSearchFlag(false);
         initList(data);
         this.tagName = tagName;
         isLoadNextPage = false;
@@ -54,6 +55,7 @@ class TradeTagDetailPresenter implements ITradeTagDetailPresenter, ITradeTagDeta
 
     @Override
     public void refresh() {
+        view.setSearchFlag(false);
         page = 1;
         isLoadNextPage = false;
         model.tradesDataReq(this, tagName, page);
@@ -136,5 +138,41 @@ class TradeTagDetailPresenter implements ITradeTagDetailPresenter, ITradeTagDeta
                 }
             }, 500);
         }*/
+    }
+
+    @Override
+    public void loadSearchPage(String query) {
+        view.showProgress();
+        page = 1;
+        isLoadNextPage = false;
+        model.searchDataReq(this, query, tagName);
+    }
+
+    @Override
+    public void onSearchReqComplete(Result<List<Trade>> result) {
+        view.hideProgress();
+        switch (result.getCode()) {
+            case 100 :
+                if (result.getData() != null) {
+                    data.clear();
+                    data.addAll(result.getData());
+                    adapter.notifyDataSetChanged();
+                } else {
+                    view.onSuccess("没有搜索到相关信息");
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            view.showRefresh();
+                            refresh();
+                        }
+                    }, 500);
+                }
+                break;
+            case 99 :
+                view.onFail(result.getMsg());
+                break;
+            default:
+                break;
+        }
     }
 }

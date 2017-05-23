@@ -13,4 +13,6 @@ public interface IFindPresenter {
     void refreshView();
 
     void loadNextPage();
+
+    void loadSearchPage(String query);
 }

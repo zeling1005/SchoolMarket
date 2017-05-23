@@ -49,4 +49,32 @@ public class TradeTagDetailModel implements ITradeTagDetailModel {
                     }
                 });
     }
+
+    @Override
+    public void searchDataReq(final ITradeTagDetailListener listener, String query, final String tagName) {
+        final Result<List<Trade>> result = new Result<List<Trade>>().result(NetReturn.SERVER_ERROR);
+        ReqExecutor
+                .INSTANCE()
+                .tradeReq()
+                .getTagSearchTrades(query, tagName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Result<List<Trade>>>() {
+                    @Override
+                    public void onCompleted() {
+                        listener.onSearchReqComplete(result);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        listener.onSearchReqComplete(result);
+                    }
+                    @Override
+                    public void onNext(Result<List<Trade>> listResult) {
+                        result.setCode(listResult.getCode());
+                        result.setMsg(listResult.getMsg());
+                        result.setData(listResult.getData());
+                    }
+                });
+    }
 }

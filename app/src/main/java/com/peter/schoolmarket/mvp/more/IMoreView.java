@@ -11,4 +11,8 @@ public interface IMoreView {
     void hideRefresh();//隐藏下拉刷新
     void showProgress();
     void hideProgress();
+    void showRefresh();
+    void onSuccess(String msg);
+    void onFail(String msg);
+    void setSearchFlag(boolean flag);
 }

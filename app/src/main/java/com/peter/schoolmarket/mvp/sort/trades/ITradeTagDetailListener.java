@@ -11,4 +11,5 @@ import java.util.List;
 
 public interface ITradeTagDetailListener {
     void onComplete(Result<List<Trade>> result);
+    void onSearchReqComplete(Result<List<Trade>> result);//从服务器中得到数据后的操作
 }

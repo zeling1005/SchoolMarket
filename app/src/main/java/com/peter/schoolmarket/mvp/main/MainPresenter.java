@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,6 +55,7 @@ class MainPresenter implements IMainPresenter, IMainListener {
     private MsgFragment msgFragment;
     private TradeSortFragment tradeSortFragment;
     private IMainView view;
+    SearchView mSearchView;
     //private MaterialSearchView searchView;
     //private Realm realmDefault;
 
@@ -129,7 +131,7 @@ class MainPresenter implements IMainPresenter, IMainListener {
         avatarUrl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "修改资料", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "修改资料", Toast.LENGTH_SHORT).show();
             }
         });
         username.setText(user.getUsername());
@@ -221,6 +223,7 @@ class MainPresenter implements IMainPresenter, IMainListener {
                         /*if (searchView.getVisibility() != View.GONE) {
                             searchView.setVisibility(View.GONE);
                         }*/
+                        view.hideSearch();
                         toolbarTitle.setText("闲货");
                         showFragment(1);
                         break;
@@ -250,28 +253,34 @@ class MainPresenter implements IMainPresenter, IMainListener {
         FragmentTransaction ft = fm.beginTransaction();
         hideAllFragment(ft);
         switch (position) {
-            case 0 : if (findFragment != null) {
-                //findFragment.isHidden();
-                //findFragment.isVisible();
-                ft.show(findFragment);
-            } else {
-                findFragment = new FindFragment();
-                ft.add(R.id.frame_layout, findFragment);
-            }
+            case 0:
+                view.showSearch();
+                if (findFragment != null) {
+                    //findFragment.isHidden();
+                    //findFragment.isVisible();
+                    ft.show(findFragment);
+                } else {
+                    findFragment = new FindFragment();
+                    ft.add(R.id.frame_layout, findFragment);
+                }
                 break;
-            case 1 : if (tradeSortFragment != null) {
-                ft.show(tradeSortFragment);
-            } else {
-                tradeSortFragment = new TradeSortFragment();
-                ft.add(R.id.frame_layout, tradeSortFragment);
-            }
+            case 1:
+                view.hideSearch();
+                if (tradeSortFragment != null) {
+                    ft.show(tradeSortFragment);
+                } else {
+                    tradeSortFragment = new TradeSortFragment();
+                    ft.add(R.id.frame_layout, tradeSortFragment);
+                }
                 break;
-            case 2 : if (msgFragment != null) {
-                ft.show(msgFragment);
-            } else {
-                msgFragment = new MsgFragment();
-                ft.add(R.id.frame_layout, msgFragment);
-            }
+            case 2:
+                view.hideSearch();
+                if (msgFragment != null) {
+                    ft.show(msgFragment);
+                } else {
+                    msgFragment = new MsgFragment();
+                    ft.add(R.id.frame_layout, msgFragment);
+                }
             /*if (testFragment != null) {
                 ft.show(testFragment);
             } else {
@@ -282,12 +291,14 @@ class MainPresenter implements IMainPresenter, IMainListener {
                 ft.add(R.id.frame_layout, testFragment);
             }*/
                 break;
-            case 3 : if (moreFragment != null) {
-                ft.show(moreFragment);
-            } else {
-                moreFragment = new MoreFragment();
-                ft.add(R.id.frame_layout, moreFragment);
-            }
+            case 3:
+                view.showSearch();
+                if (moreFragment != null) {
+                    ft.show(moreFragment);
+                } else {
+                    moreFragment = new MoreFragment();
+                    ft.add(R.id.frame_layout, moreFragment);
+                }
                 break;
             default:
                 break;
@@ -337,5 +348,15 @@ class MainPresenter implements IMainPresenter, IMainListener {
                 realm.copyToRealm(userList);
             }
         });
+    }
+
+    @Override
+    public void searchSubmit(String query) {
+        if (findFragment != null && findFragment.isVisible()) {
+            findFragment.setSarchText(query);
+        }
+        if (moreFragment != null && moreFragment.isVisible()) {
+            moreFragment.setSarchText(query);
+        }
     }
 }

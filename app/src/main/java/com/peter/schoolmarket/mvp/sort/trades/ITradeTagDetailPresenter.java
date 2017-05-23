@@ -10,4 +10,5 @@ public interface ITradeTagDetailPresenter {
     void init(String tagName);
     void refresh();
     void loadNextPage();
+    void loadSearchPage(String query);
 }

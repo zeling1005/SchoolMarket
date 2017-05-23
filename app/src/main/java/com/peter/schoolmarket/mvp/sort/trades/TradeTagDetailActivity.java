@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,7 +32,9 @@ public class TradeTagDetailActivity extends BaseActivity implements ITradeTagDet
     SwipeRefreshLayout refreshLayout;
     MaterialDialog progress;
     TextView title;
+    private SearchView mSearchView;
     private String tagName;
+    private boolean searchFlag = false;
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
@@ -46,6 +49,7 @@ public class TradeTagDetailActivity extends BaseActivity implements ITradeTagDet
         presenter = new TradeTagDetailPresenter(this, this);
         back = (SimpleDraweeView) findViewById(R.id.trade_tag_back);
         title = (TextView) findViewById(R.id.trade_tag_title);
+        mSearchView = (SearchView) findViewById(R.id.trade_tag_search);
 
         title.setText(tagName);
 
@@ -83,12 +87,61 @@ public class TradeTagDetailActivity extends BaseActivity implements ITradeTagDet
                     if (recyclerView.computeVerticalScrollOffset() > 0 &&
                             recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset()
                                     >= recyclerView.computeVerticalScrollRange()) {
-                        presenter.loadNextPage();
+                        if (!searchFlag) {
+                            presenter.loadNextPage();
+                        } else {
+                            onSuccess("再怎么上拉也是没有数据啦");
+                        }
                     }
                 }
             }
         });
+        setSearchView();
         presenter.init(tagName);
+    }
+
+    private void setSearchView() {
+        mSearchView.setIconifiedByDefault(true);
+        final int closeImgId = getResources().getIdentifier("search_close_btn", "id", getPackageName());
+        ImageView closeImg = (ImageView) mSearchView.findViewById(closeImgId);
+        if (closeImg != null) {
+            closeImg.setImageResource(R.drawable.ic_search_cancel);
+        }
+        final int editViewId = getResources().getIdentifier("search_src_text", "id", getPackageName());
+        SearchView.SearchAutoComplete mEdit = (SearchView.SearchAutoComplete) mSearchView.findViewById(editViewId);
+        if (mEdit != null) {
+            mEdit.setHintTextColor(getResources().getColor(R.color.text_color));
+            mEdit.setTextColor(getResources().getColor(R.color.black));
+            mEdit.setHint("Search...");
+        }
+        final int searchImgId = getResources().getIdentifier("search_button", "id", getPackageName());
+        ImageView searchImg = (ImageView) mSearchView.findViewById(searchImgId);
+        if (searchImg != null) {
+            searchImg.setImageResource(R.drawable.ic_search);
+        }
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //Toast.makeText(MainActivity.this, "shoushuo",Toast.LENGTH_SHORT).show();
+                setSarchText(query);
+                /*if (!mSearchView.isIconified()) {
+                    mSearchView.setIconified(true);
+                }*/
+                mSearchView.onActionViewCollapsed();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+    }
+
+    private void setSarchText(String text) {
+        //Toast.makeText(getActivity(), "more:" + text, Toast.LENGTH_SHORT).show();
+        searchFlag = true;
+        presenter.loadSearchPage(text);
     }
 
     @Override
@@ -119,6 +172,44 @@ public class TradeTagDetailActivity extends BaseActivity implements ITradeTagDet
     public void hideProgress() {
         if (progress.isShowing()) {
             progress.dismiss();
+        }
+    }
+
+    @Override
+    public void onSuccess(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFail(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showRefresh() {
+        if (!refreshLayout.isRefreshing()) {
+            refreshLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    refreshLayout.setRefreshing(true);
+                }
+            });
+        }
+    }
+
+    @Override
+    public void setSearchFlag(boolean searchFlag) {
+        this.searchFlag = searchFlag;
+    }
+
+    public void onBackPressed()
+    {
+        if (!mSearchView.isIconified()) {
+            //Toast.makeText(MainActivity.this, "search shoushuo",Toast.LENGTH_SHORT).show();
+            mSearchView.setIconified(true);
+        } else {
+            //Toast.makeText(MainActivity.this, "shoushuo",Toast.LENGTH_SHORT).show();
+            super.onBackPressed();
         }
     }
 }
